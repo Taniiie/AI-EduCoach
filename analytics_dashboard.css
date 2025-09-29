@@ -1,0 +1,58 @@
+/* Analytics Dashboard - Page-specific styles */
+/* Use Poppins strongly for this page */
+body {
+    font-family: "Poppins", var(--font-sans)
+    }
+/* Keep main layout tidy with sidebar */
+@media (min-width: 992px) {
+    .sidebar-mgmt {
+        position: sticky;
+        top: 0
+        }
+    }
+/* Chart loaders */
+.chart-loader {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: var(--radius-2)
+    }
+/* KPI metric cards tweaks */
+.metric-card [data-field="value"] {
+    min-height: 36px
+    }
+.metric-card .badge {
+    font-weight: 600
+    }
+/* Compact view spacing */
+body.compact-view .card, body.compact-view .metric-card {
+    padding: var(--space-3)
+    }
+body.compact-view .card-header {
+    padding: 8px 12px
+    }
+body.compact-view .card-body {
+    padding: 12px
+    }
+/* Table sorting visual cue */
+#recentSessionsTable th.sortable {
+    user-select: none
+    }
+#recentSessionsTable tbody tr:hover {
+    background: rgba(0, 0, 0, 0.02)
+    }
+/* Emotion legend layout */
+#emotionLegend .status-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%
+    }
+/* Inputs alignment in filter bar on small screens */
+@media (max-width: 575.98px) {
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start
+        }
+    }

@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   AI EduCoach - Chat Interface
+  </title>
+  <!-- Google Font: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Font Awesome 6 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
+  <!-- SweetAlert2 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.7/dist/sweetalert2.min.css" rel="stylesheet"/>
+  <!-- Global Theme CSS -->
+  <link href="style.css" rel="stylesheet"/>
+  <!-- Page-specific CSS -->
+  <link href="chat_interface.css" rel="stylesheet"/>
+ </head>
+ <body>
+  <!-- Header (Sticky Top) -->
+  <nav class="student-header navbar navbar-expand bg-white border-bottom px-3 sticky-top">
+   <button aria-controls="sidebarOffcanvas" class="btn btn-outline-primary d-lg-none me-2" data-bs-target="#sidebarOffcanvas" data-bs-toggle="offcanvas" type="button">
+    <i class="fas fa-bars">
+    </i>
+   </button>
+   <a class="navbar-brand d-flex align-items-center" href="./chat_interface.html">
+    <img alt="Logo" class="me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/edulogo/48/48'" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a9ff223010074de481ab95/logos/logo_19036e58-01c8-4935-a1be-e31305353e97.png"/>
+    <span class="fw-bold">
+     AI EduCoach
+    </span>
+   </a>
+   <form class="ms-3 flex-grow-1 d-none d-md-flex" role="search">
+    <div class="input-group">
+     <span class="input-group-text bg-white">
+      <i class="fas fa-search text-muted">
+      </i>
+     </span>
+     <input class="form-control" id="globalSearch" placeholder="Search topics (e.g., Algebra, Chemistry)" type="search"/>
+    </div>
+   </form>
+   <ul class="navbar-nav ms-auto align-items-center">
+    <!-- Navigate dropdown for quick links -->
+    <li class="nav-item dropdown me-2">
+     <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">
+      Navigate
+     </a>
+     <ul class="dropdown-menu dropdown-menu-end">
+      <li>
+       <a class="dropdown-item" href="./chat_interface.html">
+        <i class="fas fa-comments me-2">
+        </i>
+        Chat Interface
+       </a>
+      </li>
+      <li>
+       <a class="dropdown-item" href="./login_page.html">
+        <i class="fas fa-right-to-bracket me-2">
+        </i>
+        Login
+       </a>
+      </li>
+      <li>
+       <a class="dropdown-item" href="./admin_dashboard.html">
+        <i class="fas fa-gauge-high me-2">
+        </i>
+        Admin Dashboard
+       </a>
+      </li>
+      <li>
+       <a class="dropdown-item" href="./content_editor.html">
+        <i class="fas fa-pen-to-square me-2">
+        </i>
+        Content Editor
+       </a>
+      </li>
+      <li>
+       <a class="dropdown-item" href="./review_queue.html">
+        <i class="fas fa-list-check me-2">
+        </i>
+        Review Queue
+       </a>
+      </li>
+      <li>
+       <a class="dropdown-item" href="./monitoring_dashboard.html">
+        <i class="fas fa-heart-pulse me-2">
+        </i>
+        Monitoring Dashboard
+       </a>
+      </li>
+      <li>
+       <a class="dropdown-item" href="./analytics_dashboard.html">
+        <i class="fas fa-chart-line me-2">
+        </i>
+        Analytics Dashboard
+       </a>
+      </li>
+      <li>
+       <a class="dropdown-item" href="./log_viewer.html">
+        <i class="fas fa-scroll me-2">
+        </i>
+        Log Viewer
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li class="nav-item me-2 position-relative">
+     <a class="nav-link" href="#" id="notificationsBtn" title="Notifications">
+      <i class="fas fa-bell">
+      </i>
+     </a>
+    </li>
+    <li class="nav-item me-2">
+     <a class="nav-link" href="#" id="messagesBtn" title="Messages">
+      <i class="fas fa-envelope">
+      </i>
+     </a>
+    </li>
+    <li class="nav-item dropdown">
+     <a aria-expanded="false" class="nav-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" href="#" role="button">
+      <i class="fas fa-user-circle fa-lg me-2">
+      </i>
+      Guest Student
+     </a>
+     <ul class="dropdown-menu dropdown-menu-end">
+      <li>
+       <a class="dropdown-item" href="./chat_interface.html?new=1">
+        <i class="fas fa-plus-circle me-2">
+        </i>
+        New Session
+       </a>
+      </li>
+      <li>
+       <a class="dropdown-item" href="./chat_interface.html#insights">
+        <i class="fas fa-chart-column me-2">
+        </i>
+        Insights
+       </a>
+      </li>
+      <li>
+       <a class="dropdown-item" href="./login_page.html">
+        <i class="fas fa-right-to-bracket me-2">
+        </i>
+        Switch Account
+       </a>
+      </li>
+      <li>
+       <hr class="dropdown-divider"/>
+      </li>
+      <li>
+       <a class="dropdown-item text-danger" href="#" id="endSessionBtn">
+        <i class="fas fa-power-off me-2">
+        </i>
+        End Session
+       </a>
+      </li>
+     </ul>
+    </li>
+   </ul>
+  </nav>
+  <div class="container-fluid">
+   <div class="row flex-nowrap">
+    <!-- Sidebar (left) visible on lg+ -->
+    <div class="col-auto d-none d-lg-block p-0 border-end">
+     <!-- Student Sidebar (Chat Interface) -->
+     <aside class="sidebar-student d-flex flex-column p-3">
+      <div class="brand d-flex align-items-center mb-3">
+       <img alt="AI EduCoach logo" class="me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/brand/36/36'" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a9ff223010074de481ab95/logos/logo_19036e58-01c8-4935-a1be-e31305353e97.png"/>
+       <span class="fw-bold">
+        AI EduCoach
+       </span>
+      </div>
+      <div class="profile d-flex align-items-center p-2 mb-3">
+       <i class="fas fa-user-circle fa-2x me-2">
+       </i>
+       <div>
+        <div class="fw-semibold">
+         Guest Student
+        </div>
+        <small class="text-white-50">
+         Student
+        </small>
+       </div>
+      </div>
+      <nav class="nav nav-pills flex-column gap-1">
+       <a class="nav-link active" href="./chat_interface.html">
+        <i class="fas fa-comments me-2">
+        </i>
+        Chat Tutor
+       </a>
+       <a class="nav-link" href="./chat_interface.html?new=1">
+        <i class="fas fa-plus-circle me-2">
+        </i>
+        Start New Session
+       </a>
+       <a aria-controls="subjectsMenu" aria-expanded="false" class="nav-link" data-bs-toggle="collapse" href="#subjectsMenu" role="button">
+        <i class="fas fa-book-open me-2">
+        </i>
+        Subjects
+        <i class="fas fa-chevron-down float-end mt-1">
+        </i>
+       </a>
+       <div class="collapse show" id="subjectsMenu">
+        <div class="submenu nav flex-column ms-2">
+         <a class="nav-link" href="./chat_interface.html?subject=math">
+          <i class="fas fa-calculator me-2">
+          </i>
+          Math
+         </a>
+         <a class="nav-link" href="./chat_interface.html?subject=science">
+          <i class="fas fa-flask me-2">
+          </i>
+          Science
+         </a>
+        </div>
+       </div>
+       <div class="mt-3 small text-uppercase text-white-50">
+        Quick actions
+       </div>
+       <a class="nav-link" href="./chat_interface.html?mode=quiz">
+        <i class="fas fa-hourglass-start me-2">
+        </i>
+        Start Timed Quiz
+       </a>
+       <a class="nav-link" href="./chat_interface.html?action=break">
+        <i class="fas fa-mug-hot me-2">
+        </i>
+        Take a Short Break
+       </a>
+       <hr class="border-light"/>
+       <a class="nav-link" href="./chat_interface.html#help">
+        <i class="fas fa-lightbulb me-2">
+        </i>
+        Help &amp; Tips
+       </a>
+       <a class="nav-link" href="./chat_interface.html#privacy">
+        <i class="fas fa-shield-alt me-2">
+        </i>
+        Privacy
+       </a>
+       <a class="nav-link" href="./chat_interface.html#about">
+        <i class="fas fa-info-circle me-2">
+        </i>
+        About
+       </a>
+      </nav>
+     </aside>
+    </div>
+    <!-- Main Chat Column -->
+    <div class="col px-0">
+     <main class="chat-shell d-flex flex-column">
+      <!-- Toolbar / Breadcrumbs / Quick Status -->
+      <div class="page-header px-3 pt-3 pb-2 border-bottom bg-surface">
+       <div class="d-flex align-items-center justify-content-between w-100">
+        <div class="d-flex align-items-center gap-2">
+         <nav aria-label="breadcrumb">
+          <ol class="breadcrumb mb-0">
+           <li class="breadcrumb-item">
+            <a href="./chat_interface.html">
+             Home
+            </a>
+           </li>
+           <li aria-current="page" class="breadcrumb-item active">
+            Chat Tutor
+           </li>
+          </ol>
+         </nav>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+         <span class="badge-soft info">
+          <i class="fa-solid fa-signal mr-1">
+          </i>
+          Connected
+         </span>
+         <button class="btn btn-light" id="openInsights">
+          <i class="fa-solid fa-chart-line me-2">
+          </i>
+          Insights
+         </button>
+         <button class="btn btn-outline-primary" id="clearChat">
+          <i class="fa-solid fa-broom me-2">
+          </i>
+          Clear
+         </button>
+        </div>
+       </div>
+      </div>
+      <!-- Message Area -->
+      <section class="message-area flex-grow-1 overflow-auto p-3" id="messageArea">
+       <div class="message-list" id="messageList">
+        <!-- Sample messages -->
+        <div class="message-row incoming">
+         <div class="message-bubble">
+          <div class="message-text">
+           Hi! I’m your AI EduCoach. Ask me anything about Math or Science. Try: “Explain the quadratic formula.”
+          </div>
+          <div class="message-metadata mt-1">
+           AI Tutor •
+           <span class="timestamp">
+            09:00
+           </span>
+          </div>
+         </div>
+        </div>
+        <div class="message-row outgoing">
+         <div class="message-bubble">
+          <div class="message-text">
+           What’s the derivative of x^2? Also, can you show it in LaTeX?
+          </div>
+          <div class="message-metadata mt-1">
+           You •
+           <span class="timestamp">
+            09:01
+           </span>
+          </div>
+         </div>
+        </div>
+        <div class="message-row incoming">
+         <div class="message-bubble">
+          <div class="message-text math-content">
+           Sure! The derivative of x^2 is 2x. In LaTeX: \(\frac{d}{dx}x^2 = 2x\).
+          </div>
+          <div class="message-metadata mt-1">
+           AI Tutor •
+           <span class="timestamp">
+            09:01
+           </span>
+          </div>
+         </div>
+        </div>
+        <div class="message-row outgoing">
+         <div class="message-bubble">
+          <div class="message-text">
+           Can you help me factor x^2 - 5x + 6?
+          </div>
+          <div class="message-metadata mt-1">
+           You •
+           <span class="timestamp">
+            09:02
+           </span>
+          </div>
+         </div>
+        </div>
+        <div class="message-row incoming">
+         <div class="message-bubble">
+          <div class="message-text math-content">
+           Absolutely. We look for two numbers that multiply to 6 and add to −5: −2 and −3.
+                    So, \(x^2 - 5x + 6 = (x - 2)(x - 3)\).
+          </div>
+          <div class="message-metadata mt-1">
+           AI Tutor •
+           <span class="timestamp">
+            09:02
+           </span>
+          </div>
+         </div>
+        </div>
+        <!-- Adaptive response example with feedback prompt -->
+        <div class="message-row incoming" data-message-id="m-adp-1">
+         <div class="message-bubble">
+          <div class="message-text">
+           I sense this topic might be a bit challenging. Would you like a step-by-step practice problem next, or a quick refresher summary?
+          </div>
+          <div class="message-metadata mt-1">
+           AI Tutor •
+           <span class="timestamp">
+            09:03
+           </span>
+          </div>
+          <div class="feedback-prompt mt-2" data-target-message="m-adp-1">
+           <span class="me-2">
+            Was this helpful?
+           </span>
+           <button class="btn btn-sm btn-success me-1 feedback-yes">
+            <i class="fa-solid fa-thumbs-up">
+            </i>
+           </button>
+           <button class="btn btn-sm btn-danger feedback-no">
+            <i class="fa-solid fa-thumbs-down">
+            </i>
+           </button>
+          </div>
+         </div>
+        </div>
+        <!-- Typing indicator placeholder -->
+        <div class="message-row incoming d-none" id="typingRow">
+         <div class="message-bubble">
+          <div aria-label="AI is typing" aria-live="polite" class="typing-indicator">
+           <span>
+           </span>
+           <span>
+           </span>
+           <span>
+           </span>
+          </div>
+          <div class="message-metadata mt-1">
+           AI Tutor • typing…
+          </div>
+         </div>
+        </div>
+       </div>
+      </section>
+      <!-- Recent Sessions (collapsible tools) -->
+      <section class="px-3 pb-2">
+       <div class="card">
+        <div class="card-header">
+         <div class="d-flex align-items-center gap-2">
+          <i class="fa-solid fa-clock-rotate-left text-primary">
+          </i>
+          <span class="widget-title">
+           Recent Sessions
+          </span>
+         </div>
+         <div class="d-flex align-items-center gap-2">
+          <input class="form-control form-control-sm" id="sessionSearch" placeholder="Search sessions" type="text"/>
+          <select class="form-select form-select-sm" id="subjectFilter" style="min-width:140px">
+           <option value="">
+            All Subjects
+           </option>
+           <option value="Math">
+            Math
+           </option>
+           <option value="Science">
+            Science
+           </option>
+          </select>
+         </div>
+        </div>
+        <div class="card-body p-0">
+         <div class="table-responsive">
+          <table class="table table-theme mb-0" id="sessionsTable">
+           <thead>
+            <tr>
+             <th class="sortable" data-sort="id">
+              Session ID
+              <i class="fa-solid fa-sort ms-1">
+              </i>
+             </th>
+             <th class="sortable" data-sort="subject">
+              Subject
+              <i class="fa-solid fa-sort ms-1">
+              </i>
+             </th>
+             <th class="sortable text-end" data-sort="messages">
+              Messages
+              <i class="fa-solid fa-sort ms-1">
+              </i>
+             </th>
+             <th class="sortable text-end" data-sort="duration">
+              Duration (min)
+              <i class="fa-solid fa-sort ms-1">
+              </i>
+             </th>
+             <th class="sortable" data-sort="last">
+              Last Active
+              <i class="fa-solid fa-sort ms-1">
+              </i>
+             </th>
+             <th class="text-end">
+              Actions
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <!-- Rows injected by JS -->
+           </tbody>
+          </table>
+         </div>
+        </div>
+        <div class="card-footer d-flex align-items-center justify-content-between">
+         <div class="text-muted small" id="paginationInfo">
+          Showing 1–6 of 8
+         </div>
+         <nav>
+          <ul class="pagination pagination-sm mb-0" id="paginationControls">
+           <li class="page-item">
+            <a class="page-link" data-page="prev" href="#">
+             Prev
+            </a>
+           </li>
+           <li class="page-item active">
+            <a class="page-link" data-page="1" href="#">
+             1
+            </a>
+           </li>
+           <li class="page-item">
+            <a class="page-link" data-page="2" href="#">
+             2
+            </a>
+           </li>
+           <li class="page-item">
+            <a class="page-link" data-page="next" href="#">
+             Next
+            </a>
+           </li>
+          </ul>
+         </nav>
+        </div>
+       </div>
+      </section>
+      <!-- Message Input (sticky within main area) -->
+      <section class="message-input-bar p-2 border-top bg-white">
+       <form autocomplete="off" class="d-flex align-items-end gap-2" id="messageForm">
+        <button class="btn btn-light btn-icon" id="attachBtn" title="Attach file" type="button">
+         <i class="fa-solid fa-paperclip">
+         </i>
+        </button>
+        <div class="flex-grow-1">
+         <label class="visually-hidden" for="messageInput">
+          Type your message
+         </label>
+         <textarea aria-label="Type your message" class="form-control message-text-input" id="messageInput" placeholder="Type your message... Press Enter to send, Shift+Enter for a new line" rows="1"></textarea>
+         <div class="form-text">
+          Be respectful. No personal info. Messages may be logged for quality.
+         </div>
+        </div>
+        <button class="btn btn-primary submit-button" disabled="" id="sendBtn" type="submit">
+         <i class="fa-solid fa-paper-plane me-1">
+         </i>
+         Send
+        </button>
+       </form>
+      </section>
+     </main>
+     <!-- Footer -->
+     <footer class="bg-light border-top py-2 px-3 d-flex align-items-center justify-content-between small">
+      <div class="d-flex align-items-center">
+       <img alt="logo" class="me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/brandfoot/36/18'" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a9ff223010074de481ab95/logos/logo_19036e58-01c8-4935-a1be-e31305353e97.png" style="height:18px"/>
+       <span class="text-muted">
+        © 2025 AI EduCoach
+       </span>
+      </div>
+      <div class="d-flex gap-3">
+       <a class="link-secondary text-decoration-none" href="./chat_interface.html#terms">
+        Terms
+       </a>
+       <a class="link-secondary text-decoration-none" href="./chat_interface.html#privacy">
+        Privacy
+       </a>
+       <a class="link-secondary text-decoration-none" href="./chat_interface.html#contact">
+        Contact
+       </a>
+      </div>
+     </footer>
+    </div>
+   </div>
+  </div>
+  <!-- Offcanvas Sidebar (mobile) -->
+  <div aria-labelledby="sidebarOffcanvasLabel" class="offcanvas offcanvas-start" id="sidebarOffcanvas" tabindex="-1">
+   <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="sidebarOffcanvasLabel">
+     AI EduCoach
+    </h5>
+    <button aria-label="Close" class="btn-close" data-bs-dismiss="offcanvas" type="button">
+    </button>
+   </div>
+   <div class="offcanvas-body p-0">
+    <!-- Replicate the same sidebar content for mobile -->
+    <aside class="sidebar-student d-flex flex-column p-3" style="min-height:unset;">
+     <div class="brand d-flex align-items-center mb-3">
+      <img alt="AI EduCoach logo" class="me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/brand/36/36'" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a9ff223010074de481ab95/logos/logo_19036e58-01c8-4935-a1be-e31305353e97.png"/>
+      <span class="fw-bold">
+       AI EduCoach
+      </span>
+     </div>
+     <div class="profile d-flex align-items-center p-2 mb-3">
+      <i class="fas fa-user-circle fa-2x me-2">
+      </i>
+      <div>
+       <div class="fw-semibold">
+        Guest Student
+       </div>
+       <small class="text-white-50">
+        Student
+       </small>
+      </div>
+     </div>
+     <nav class="nav nav-pills flex-column gap-1">
+      <a class="nav-link active" href="./chat_interface.html">
+       <i class="fas fa-comments me-2">
+       </i>
+       Chat Tutor
+      </a>
+      <a class="nav-link" href="./chat_interface.html?new=1">
+       <i class="fas fa-plus-circle me-2">
+       </i>
+       Start New Session
+      </a>
+      <a aria-controls="subjectsMenuMobile" aria-expanded="false" class="nav-link" data-bs-toggle="collapse" href="#subjectsMenuMobile" role="button">
+       <i class="fas fa-book-open me-2">
+       </i>
+       Subjects
+       <i class="fas fa-chevron-down float-end mt-1">
+       </i>
+      </a>
+      <div class="collapse show" id="subjectsMenuMobile">
+       <div class="submenu nav flex-column ms-2">
+        <a class="nav-link" href="./chat_interface.html?subject=math">
+         <i class="fas fa-calculator me-2">
+         </i>
+         Math
+        </a>
+        <a class="nav-link" href="./chat_interface.html?subject=science">
+         <i class="fas fa-flask me-2">
+         </i>
+         Science
+        </a>
+       </div>
+      </div>
+      <div class="mt-3 small text-uppercase text-white-50">
+       Quick actions
+      </div>
+      <a class="nav-link" href="./chat_interface.html?mode=quiz">
+       <i class="fas fa-hourglass-start me-2">
+       </i>
+       Start Timed Quiz
+      </a>
+      <a class="nav-link" href="./chat_interface.html?action=break">
+       <i class="fas fa-mug-hot me-2">
+       </i>
+       Take a Short Break
+      </a>
+      <hr class="border-light"/>
+      <a class="nav-link" href="./chat_interface.html#help">
+       <i class="fas fa-lightbulb me-2">
+       </i>
+       Help &amp; Tips
+      </a>
+      <a class="nav-link" href="./chat_interface.html#privacy">
+       <i class="fas fa-shield-alt me-2">
+       </i>
+       Privacy
+      </a>
+      <a class="nav-link" href="./chat_interface.html#about">
+       <i class="fas fa-info-circle me-2">
+       </i>
+       About
+      </a>
+     </nav>
+    </aside>
+   </div>
+  </div>
+  <!-- Toasts (system feedback) -->
+  <div class="position-fixed top-0 end-0 p-3" style="z-index: 1080">
+   <div aria-atomic="true" aria-live="assertive" class="toast align-items-center text-bg-primary border-0" id="appToast" role="alert">
+    <div class="d-flex">
+     <div class="toast-body">
+      <i class="fa-solid fa-plug-circle-check me-2">
+      </i>
+      Connected to AI Tutor
+     </div>
+     <button aria-label="Close" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" type="button">
+     </button>
+    </div>
+   </div>
+  </div>
+  <!-- Insights Modal with Chart.js -->
+  <div aria-hidden="true" aria-labelledby="insightsModalLabel" class="modal fade" id="insightsModal" tabindex="-1">
+   <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+     <div class="modal-header">
+      <h5 class="modal-title" id="insightsModalLabel">
+       <i class="fa-solid fa-chart-line me-2 text-info">
+       </i>
+       Study Insights
+      </h5>
+      <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button">
+      </button>
+     </div>
+     <div class="modal-body">
+      <div class="row g-3">
+       <div class="col-12">
+        <div class="card">
+         <div class="card-header">
+          <span class="widget-title">
+           Study Time (Last 7 Days)
+          </span>
+         </div>
+         <div class="card-body">
+          <canvas height="120" id="studyTimeChart">
+          </canvas>
+         </div>
+        </div>
+       </div>
+       <div class="col-12">
+        <div class="alert alert-info mb-0">
+         <i class="fa-solid fa-lightbulb me-2">
+         </i>
+         Tip: Consistency matters! Aim for at least 20–30 minutes daily.
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="modal-footer">
+      <button class="btn btn-secondary" data-bs-dismiss="modal">
+       Close
+      </button>
+     </div>
+    </div>
+   </div>
+  </div>
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.7/dist/sweetalert2.all.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js">
+  </script>
+  <!-- MathJax for LaTeX rendering -->
+  <script>
+   window.MathJax = {
+    tex: {
+        inlineMath: [
+            ['\\(', '\\)'],
+            ['$', '$']
+        ]
+    },
+    svg: {
+        fontCache: 'global'
+    }
+};
+  </script>
+  <script async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+  <script>
+   // Page state
+let isSending = false;
+
+// Bootstrap toast on connect
+document.addEventListener('DOMContentLoaded', () => {
+    const toastEl = document.getElementById('appToast');
+    if (toastEl) new bootstrap.Toast(toastEl, {
+        delay: 2500
+    }).show();
+});
+
+// End Session confirmation
+document.getElementById('endSessionBtn')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    Swal.fire({
+        title: 'End session?',
+        text: 'Your current chat will be cleared. You can start a new session anytime.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, end it',
+        cancelButtonText: 'Cancel'
+    }).then((res) => {
+        if (res.isConfirmed) {
+            // Simulate end session
+            window.location.href = './chat_interface.html?new=1';
+        }
+    });
+});
+
+const messageForm = document.getElementById('messageForm');
+const messageInput = document.getElementById('messageInput');
+const sendBtn = document.getElementById('sendBtn');
+const messageArea = document.getElementById('messageArea');
+const messageList = document.getElementById('messageList');
+const typingRow = document.getElementById('typingRow');
+
+// Enable/disable send button
+const updateSendState = () => {
+    const hasText = messageInput.value.trim().length > 0;
+    sendBtn.disabled = !hasText || isSending;
+};
+
+messageInput.addEventListener('input', updateSendState);
+
+// Enter to send, Shift+Enter for newline
+messageInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        if (!sendBtn.disabled) messageForm.requestSubmit();
+    }
+});
+
+// Auto-resize textarea rows (1 to 6 lines)
+function autoResizeTextarea(el) {
+    el.style.height = 'auto';
+    el.style.height = Math.min(el.scrollHeight, 6 * 24) + 'px';
+}
+messageInput.addEventListener('input', (e) => autoResizeTextarea(e.target));
+
+// Append message helper
+function appendMessage({
+    text,
+    sender = 'you',
+    timestamp = new Date(),
+    adaptive = false
+}) {
+    const row = document.createElement('div');
+    row.className = 'message-row ' + (sender === 'you' ? 'outgoing' : 'incoming');
+    const bubble = document.createElement('div');
+    bubble.className = 'message-bubble';
+
+    const body = document.createElement('div');
+    body.className = 'message-text' + (sender === 'ai' ? ' math-content' : '');
+    body.textContent = text; // keep plain text; MathJax will parse LaTeX markers
+
+    const meta = document.createElement('div');
+    meta.className = 'message-metadata mt-1';
+    meta.innerHTML = (sender === 'you' ? 'You' : 'AI Tutor') + ' • <span class="timestamp">' + formatTime(timestamp) + '</span>';
+
+    bubble.appendChild(body);
+    bubble.appendChild(meta);
+
+    if (sender === 'ai' && adaptive) {
+        const feedback = document.createElement('div');
+        feedback.className = 'feedback-prompt mt-2';
+        feedback.innerHTML = `
+          <span class="me-2">Was this helpful?</span>
+          <button class="btn btn-sm btn-success me-1 feedback-yes"><i class="fa-solid fa-thumbs-up"></i></button>
+          <button class="btn btn-sm btn-danger feedback-no"><i class="fa-solid fa-thumbs-down"></i></button>`;
+        bubble.appendChild(feedback);
+    }
+
+    row.appendChild(bubble);
+    messageList.appendChild(row);
+    scrollMessagesToBottom();
+    // Re-render math
+    if (window.MathJax && window.MathJax.typeset) MathJax.typeset([bubble]);
+}
+
+function scrollMessagesToBottom() {
+    messageArea.scrollTo({
+        top: messageArea.scrollHeight,
+        behavior: 'smooth'
+    });
+}
+
+function formatTime(date) {
+    const d = new Date(date);
+    return d.toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+}
+
+function setSending(state) {
+    isSending = state;
+    messageInput.disabled = state;
+    updateSendState();
+    if (state) {
+        typingRow?.classList.remove('d-none');
+        scrollMessagesToBottom();
+    } else {
+        typingRow?.classList.add('d-none');
+    }
+}
+
+// Handle feedback prompt clicks (event delegation)
+messageList.addEventListener('click', (e) => {
+    const yesBtn = e.target.closest('.feedback-yes');
+    const noBtn = e.target.closest('.feedback-no');
+    if (yesBtn || noBtn) {
+        const prompt = e.target.closest('.feedback-prompt');
+        const helpful = !!yesBtn;
+        prompt.querySelectorAll('button').forEach(b => b.disabled = true);
+        // Simulate feedback API
+        setTimeout(() => {
+            Swal.fire({
+                icon: 'success',
+                title: 'Thanks!',
+                text: helpful ? 'Glad it helped.' : 'We will improve future responses.',
+                timer: 1800,
+                showConfirmButton: false
+            });
+            prompt.innerHTML = `<span class="text-muted small"><i class="fa-solid fa-circle-check text-success me-1"></i>Feedback recorded</span>`;
+        }, 600);
+    }
+});
+
+// Message form submit
+messageForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (isSending) return;
+    const text = messageInput.value.trim();
+    if (!text) return;
+
+    appendMessage({
+        text,
+        sender: 'you',
+        timestamp: new Date()
+    });
+    messageInput.value = '';
+    autoResizeTextarea(messageInput);
+    updateSendState();
+
+    // Simulate sending to backend
+    setSending(true);
+    setTimeout(() => {
+        // Simulated AI reply with LaTeX possibility and adaptive flag randomly
+        const adaptive = Math.random() > 0.5;
+        const reply = adaptive ?
+            "Let's practice: Solve \\(2x + 3 = 11\\). What is x?" :
+            "Great question! Recall: \\int x^n dx = \\frac{x^{n+1}}{n+1} + C, for n \\neq -1.";
+        appendMessage({
+            text: reply,
+            sender: 'ai',
+            timestamp: new Date(),
+            adaptive
+        });
+        setSending(false);
+    }, 1200);
+});
+
+// Clear chat
+document.getElementById('clearChat')?.addEventListener('click', () => {
+    Swal.fire({
+        title: 'Clear chat?',
+        text: 'This will remove all messages from the current view.',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Clear',
+        confirmButtonColor: '#d33'
+    }).then(res => {
+        if (res.isConfirmed) {
+            messageList.innerHTML = '';
+            appendMessage({
+                text: 'Chat cleared. How can I help you now?',
+                sender: 'ai',
+                timestamp: new Date()
+            });
+        }
+    });
+});
+
+// Insights Modal and Chart.js
+const insightsModal = new bootstrap.Modal('#insightsModal');
+document.getElementById('openInsights')?.addEventListener('click', () => insightsModal.show());
+let studyChart = null;
+document.getElementById('insightsModal').addEventListener('shown.bs.modal', () => {
+    if (studyChart) return; // create once
+    const ctx = document.getElementById('studyTimeChart');
+    studyChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            datasets: [{
+                label: 'Minutes',
+                data: [20, 35, 18, 40, 25, 50, 30],
+                borderColor: getComputedStyle(document.documentElement).getPropertyValue('--color-info')?.trim() || '#0099D2',
+                backgroundColor: 'rgba(0,153,210,0.12)',
+                tension: 0.3,
+                fill: true,
+                pointRadius: 3
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    enabled: true
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+});
+
+// Recent Sessions table mock data
+const sessions = [{
+    id: 'S-1008',
+    subject: 'Math',
+    messages: 18,
+    duration: 24,
+    last: '2025-08-23 09:00'
+}, {
+    id: 'S-1007',
+    subject: 'Science',
+    messages: 12,
+    duration: 15,
+    last: '2025-08-22 16:12'
+}, {
+    id: 'S-1006',
+    subject: 'Math',
+    messages: 25,
+    duration: 33,
+    last: '2025-08-22 11:45'
+}, {
+    id: 'S-1005',
+    subject: 'Math',
+    messages: 9,
+    duration: 10,
+    last: '2025-08-21 18:01'
+}, {
+    id: 'S-1004',
+    subject: 'Science',
+    messages: 14,
+    duration: 21,
+    last: '2025-08-21 09:34'
+}, {
+    id: 'S-1003',
+    subject: 'Math',
+    messages: 30,
+    duration: 45,
+    last: '2025-08-20 20:05'
+}, {
+    id: 'S-1002',
+    subject: 'Science',
+    messages: 8,
+    duration: 9,
+    last: '2025-08-20 08:22'
+}, {
+    id: 'S-1001',
+    subject: 'Math',
+    messages: 17,
+    duration: 20,
+    last: '2025-08-19 14:10'
+}];
+let sortKey = 'last';
+let sortAsc = false;
+let currentPage = 1;
+const pageSize = 6;
+
+function formatDateTime(dt) {
+    const d = new Date(dt.replace(' ', 'T'));
+    const date = d.toLocaleDateString();
+    const time = d.toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+    return `${date} ${time}`;
+}
+
+function renderSessions() {
+    const tbody = document.querySelector('#sessionsTable tbody');
+    const search = document.getElementById('sessionSearch').value.trim().toLowerCase();
+    const subject = document.getElementById('subjectFilter').value;
+
+    let data = sessions.filter(s =>
+        (!subject || s.subject === subject) &&
+        (s.id.toLowerCase().includes(search) || s.subject.toLowerCase().includes(search))
+    );
+
+    data.sort((a, b) => {
+        let va = a[sortKey],
+            vb = b[sortKey];
+        if (sortKey === 'last') {
+            va = new Date(a.last);
+            vb = new Date(b.last);
+        }
+        if (typeof va === 'string') va = va.toString();
+        if (typeof vb === 'string') vb = vb.toString();
+        if (va < vb) return sortAsc ? -1 : 1;
+        if (va > vb) return sortAsc ? 1 : -1;
+        return 0;
+    });
+
+    const total = data.length;
+    const pages = Math.max(1, Math.ceil(total / pageSize));
+    if (currentPage > pages) currentPage = pages;
+    const start = (currentPage - 1) * pageSize;
+    const pageData = data.slice(start, start + pageSize);
+
+    tbody.innerHTML = pageData.map(s => `
+        <tr>
+          <td>${s.id}</td>
+          <td>${s.subject}</td>
+          <td class="text-end">${s.messages}</td>
+          <td class="text-end">${s.duration}</td>
+          <td>${formatDateTime(s.last)}</td>
+          <td class="text-end">
+            <div class="btn-group btn-group-sm" role="group">
+              <a href="./chat_interface.html?resume=${encodeURIComponent(s.id)}" class="btn btn-light"><i class="fa-solid fa-rotate-left me-1"></i>Resume</a>
+              <button class="btn btn-info text-white" onclick="Swal.fire('Viewing', 'Open transcript for ${s.id}', 'info')"><i class="fa-solid fa-eye me-1"></i>View</button>
+            </div>
+          </td>
+        </tr>`).join('');
+
+    document.getElementById('paginationInfo').textContent = `Showing ${Math.min(total ? start + 1 : 0, total)}–${Math.min(start + pageSize, total)} of ${total}`;
+
+    // pagination active state
+    const pager = document.getElementById('paginationControls');
+    pager.querySelectorAll('.page-item').forEach(li => li.classList.remove('active', 'disabled'));
+    const prev = pager.querySelector('[data-page="prev"]').parentElement;
+    const next = pager.querySelector('[data-page="next"]').parentElement;
+    if (currentPage === 1) prev.classList.add('disabled');
+    if (currentPage === pages) next.classList.add('disabled');
+    pager.querySelectorAll('[data-page]')
+        .forEach(a => {
+            if (a.dataset.page === String(currentPage)) a.parentElement.classList.add('active');
+        });
+}
+
+// Sorting
+document.querySelectorAll('#sessionsTable thead th.sortable').forEach(th => {
+    th.style.cursor = 'pointer';
+    th.addEventListener('click', () => {
+        const key = th.dataset.sort;
+        if (sortKey === key) sortAsc = !sortAsc;
+        else {
+            sortKey = key;
+            sortAsc = true;
+        }
+        currentPage = 1;
+        renderSessions();
+    });
+});
+
+// Filters
+document.getElementById('sessionSearch').addEventListener('input', () => {
+    currentPage = 1;
+    renderSessions();
+});
+document.getElementById('subjectFilter').addEventListener('change', () => {
+    currentPage = 1;
+    renderSessions();
+});
+
+// Pagination
+document.getElementById('paginationControls').addEventListener('click', (e) => {
+    const a = e.target.closest('a[data-page]');
+    if (!a) return;
+    e.preventDefault();
+    const info = document.getElementById('paginationInfo').textContent;
+    const totalMatch = info.match(/of\s(\d+)/);
+    const total = totalMatch ? parseInt(totalMatch[1], 10) : sessions.length;
+    const pages = Math.max(1, Math.ceil(total / pageSize));
+    const p = a.dataset.page;
+    if (p === 'prev' && currentPage > 1) currentPage--;
+    else if (p === 'next' && currentPage < pages) currentPage++;
+    else if (!isNaN(parseInt(p))) currentPage = parseInt(p);
+    renderSessions();
+});
+
+// Initialize table
+renderSessions();
+  </script>
+  <!-- Inline component styles (from common components) moved to page CSS in chat_interface.css -->
+ </body>
+</html>

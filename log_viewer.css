@@ -1,0 +1,95 @@
+/* log_viewer.css - Page-specific styles for Log Viewer */
+:root {
+    --primary: #007BFF;
+    --secondary: #FF9800
+    }
+/* Use brand typography */
+body.log-viewer-page {
+    font-family: "Poppins", var(--font-sans)
+    }
+/* Management & Analysis Sidebar styles (kept consistent across pages using this component) */
+.sidebar-mgmt {
+    background: var(--primary);
+    color: #fff;
+    min-height: 100vh;
+    width: 280px
+    }
+.sidebar-mgmt .brand img {
+    height: 36px
+    }
+.sidebar-mgmt .nav-link {
+    color: #fff;
+    border-radius: 0.375rem
+    }
+.sidebar-mgmt .nav-link:hover {
+    background: rgba(255, 255, 255, 0.12)
+    }
+.sidebar-mgmt .nav-link.active {
+    background: var(--secondary);
+    color: #fff
+    }
+.sidebar-mgmt .profile {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 0.5rem
+    }
+/* Header accents */
+.mgmt-header .navbar-brand img {
+    height: 28px
+    }
+.btn-secondary-accent {
+    background: var(--secondary);
+    border-color: var(--secondary);
+    color: #fff
+    }
+.btn-secondary-accent:hover {
+    filter: brightness(0.95)
+    }
+/* Filters */
+.filter-card {
+    z-index: 1
+    }
+.table-row-click {
+    cursor: pointer
+    }
+.table-row-click:hover {
+    background: rgba(0, 0, 0, 0.02)
+    }
+/* Emotion chips mapping to theme colors */
+.badge-soft.emotion-confusion {
+    background: var(--warning-soft);
+    color: #5a3f00
+    }
+.badge-soft.emotion-frustration {
+    background: var(--error-soft);
+    color: #7a0f12
+    }
+.badge-soft.emotion-boredom {
+    background: var(--neutral-soft);
+    color: var(--text)
+    }
+.badge-soft.emotion-engagement {
+    background: var(--success-soft);
+    color: #0d5c3d
+    }
+.badge-soft.emotion-anxiety {
+    background: var(--info-soft);
+    color: #005b7a
+    }
+/* Conversation view spacing */
+#conversationView .message-row {
+    margin-bottom: 8px
+    }
+#conversationView .message-row .message-bubble {
+    max-width: 100%
+    }
+/* Chart card canvas height */
+#logsByDateChart {
+    width: 100% !important;
+    height: 240px !important
+    }
+/* Responsive adjustments */
+@media (max-width: 991.98px) {
+    .sidebar-mgmt {
+        display: none
+        }
+    }

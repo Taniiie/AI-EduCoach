@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Monitoring Dashboard - AI EduCoach
+  </title>
+  <!-- Poppins Brand Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Font Awesome 6 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
+  <!-- Site Theme -->
+  <link href="style.css" rel="stylesheet"/>
+  <!-- Page-specific CSS -->
+  <link href="monitoring_dashboard.css" rel="stylesheet"/>
+ </head>
+ <body class="view-grid">
+  <!-- Engineering & Monitoring Header -->
+  <style>
+   .eng-header .navbar-brand img { height:28px; }
+  </style>
+  <nav class="eng-header navbar navbar-expand bg-white border-bottom px-3 sticky-top">
+   <button aria-controls="sidebarOffcanvas" class="btn btn-outline-primary d-lg-none me-2" data-bs-target="#sidebarOffcanvas" data-bs-toggle="offcanvas" type="button">
+    <i class="fas fa-bars">
+    </i>
+   </button>
+   <a class="navbar-brand d-flex align-items-center" href="./monitoring_dashboard.html">
+    <img alt="Logo" class="me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/educoach/56/28';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a9ff223010074de481ab95/logos/logo_19036e58-01c8-4935-a1be-e31305353e97.png"/>
+    <span class="fw-bold">
+     Monitoring
+    </span>
+   </a>
+   <form class="ms-3 d-none d-md-flex flex-grow-1" role="search">
+    <div class="input-group">
+     <span class="input-group-text bg-white">
+      <i class="fas fa-search text-muted">
+      </i>
+     </span>
+     <input class="form-control" placeholder="Search logs, alerts, sessions..." type="search"/>
+    </div>
+   </form>
+   <div class="ms-auto d-flex align-items-center gap-2">
+    <div class="dropdown">
+     <button aria-expanded="false" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" type="button">
+      <i class="fas fa-database me-1">
+      </i>
+      Prod
+     </button>
+     <ul class="dropdown-menu dropdown-menu-end">
+      <li>
+       <a class="dropdown-item" data-env="prod" href="#">
+        Production
+       </a>
+      </li>
+      <li>
+       <a class="dropdown-item" data-env="staging" href="#">
+        Staging
+       </a>
+      </li>
+      <li>
+       <a class="dropdown-item" data-env="dev" href="#">
+        Development
+       </a>
+      </li>
+     </ul>
+    </div>
+    <a class="btn btn-link text-secondary" href="#alerts" title="Alerts">
+     <i class="fas fa-bell">
+     </i>
+    </a>
+    <div class="dropdown">
+     <a aria-expanded="false" class="btn btn-light dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" href="#" role="button">
+      <i class="fas fa-user-cog me-2">
+      </i>
+      Sam Jones
+     </a>
+     <ul class="dropdown-menu dropdown-menu-end">
+      <li>
+       <a class="dropdown-item" href="./admin_dashboard.html">
+        <i class="fas fa-id-badge me-2">
+        </i>
+        Profile
+       </a>
+      </li>
+      <li>
+       <a class="dropdown-item" href="./analytics_dashboard.html">
+        <i class="fas fa-sliders me-2">
+        </i>
+        Settings
+       </a>
+      </li>
+      <li>
+       <hr class="dropdown-divider"/>
+      </li>
+      <li>
+       <a class="dropdown-item text-danger" href="./login_page.html">
+        <i class="fas fa-sign-out-alt me-2">
+        </i>
+        Logout
+       </a>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </nav>
+  <!-- Mobile Offcanvas Sidebar -->
+  <div aria-labelledby="sidebarOffcanvasLabel" class="offcanvas offcanvas-start" id="sidebarOffcanvas" tabindex="-1">
+   <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="sidebarOffcanvasLabel">
+     AI EduCoach
+    </h5>
+    <button aria-label="Close" class="btn-close" data-bs-dismiss="offcanvas" type="button">
+    </button>
+   </div>
+   <div class="offcanvas-body p-0">
+    <aside class="sidebar-eng d-flex flex-column p-3">
+     <div class="brand d-flex align-items-center mb-3">
+      <img alt="logo" class="me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/logo/72/36';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a9ff223010074de481ab95/logos/logo_19036e58-01c8-4935-a1be-e31305353e97.png"/>
+      <span class="fw-bold">
+       AI EduCoach
+      </span>
+     </div>
+     <div class="profile d-flex align-items-center p-2 mb-3">
+      <i class="fas fa-user-cog fa-2x me-2">
+      </i>
+      <div>
+       <div class="fw-semibold">
+        Sam Jones
+       </div>
+       <small class="text-white-50">
+        Lead Engineer
+       </small>
+      </div>
+     </div>
+     <nav class="nav nav-pills flex-column gap-1">
+      <a class="nav-link" href="./monitoring_dashboard.html">
+       <i class="fas fa-chart-area me-2">
+       </i>
+       Monitoring
+      </a>
+      <a class="nav-link" href="./monitoring_dashboard.html#model">
+       <i class="fas fa-brain me-2">
+       </i>
+       Model Performance
+      </a>
+      <a class="nav-link" href="./monitoring_dashboard.html#alerts">
+       <i class="fas fa-bell me-2">
+       </i>
+       Alerts
+      </a>
+      <a class="nav-link" href="./log_viewer.html">
+       <i class="fas fa-file-alt me-2">
+       </i>
+       Log Viewer
+      </a>
+      <a class="nav-link" href="./content_editor.html">
+       <i class="fas fa-book me-2">
+       </i>
+       API Docs
+      </a>
+      <hr class="border-light"/>
+      <a class="nav-link" href="./admin_dashboard.html">
+       <i class="fas fa-cog me-2">
+       </i>
+       Settings
+      </a>
+      <a class="nav-link" href="./review_queue.html">
+       <i class="fas fa-circle-question me-2">
+       </i>
+       Help
+      </a>
+     </nav>
+    </aside>
+   </div>
+  </div>
+  <div class="d-flex min-vh-100">
+   <!-- Left Sidebar for lg+ -->
+   <aside class="sidebar-eng d-none d-lg-flex flex-column p-3">
+    <div class="brand d-flex align-items-center mb-3">
+     <img alt="logo" class="me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/logo/72/36';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a9ff223010074de481ab95/logos/logo_19036e58-01c8-4935-a1be-e31305353e97.png"/>
+     <span class="fw-bold">
+      AI EduCoach
+     </span>
+    </div>
+    <div class="profile d-flex align-items-center p-2 mb-3">
+     <i class="fas fa-user-cog fa-2x me-2">
+     </i>
+     <div>
+      <div class="fw-semibold">
+       Sam Jones
+      </div>
+      <small class="text-white-50">
+       Lead Engineer
+      </small>
+     </div>
+    </div>
+    <nav class="nav nav-pills flex-column gap-1">
+     <a class="nav-link active" href="./monitoring_dashboard.html">
+      <i class="fas fa-chart-area me-2">
+      </i>
+      Monitoring
+     </a>
+     <a class="nav-link" href="./monitoring_dashboard.html#model">
+      <i class="fas fa-brain me-2">
+      </i>
+      Model Performance
+     </a>
+     <a class="nav-link" href="./monitoring_dashboard.html#alerts">
+      <i class="fas fa-bell me-2">
+      </i>
+      Alerts
+     </a>
+     <a class="nav-link" href="./log_viewer.html">
+      <i class="fas fa-file-alt me-2">
+      </i>
+      Log Viewer
+     </a>
+     <a class="nav-link" href="./content_editor.html">
+      <i class="fas fa-book me-2">
+      </i>
+      API Docs
+     </a>
+     <hr class="border-light"/>
+     <a class="nav-link" href="./admin_dashboard.html">
+      <i class="fas fa-cog me-2">
+      </i>
+      Settings
+     </a>
+     <a class="nav-link" href="./review_queue.html">
+      <i class="fas fa-circle-question me-2">
+      </i>
+      Help
+     </a>
+    </nav>
+   </aside>
+   <!-- Main Content Area -->
+   <main class="flex-grow-1 bg-transparent">
+    <div class="container-fluid py-3 py-lg-4">
+     <!-- Dashboard Header -->
+     <header class="app-card card mb-3" id="dashboardHeader">
+      <div class="card-header">
+       <div class="d-flex align-items-center justify-content-between w-100 flex-wrap gap-2">
+        <div class="d-flex align-items-center gap-2">
+         <i class="fas fa-gauge-high text-primary">
+         </i>
+         <h2 class="page-title m-0">
+          Monitoring Dashboard
+         </h2>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+         <div class="dropdown" id="timeRangeDropdown">
+          <button aria-expanded="false" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" type="button">
+           <i class="fas fa-clock me-1">
+           </i>
+           <span id="activeTimeLabel">
+            Last 1 hour
+           </span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+           <li>
+            <a class="dropdown-item time-option active" data-range="1h" href="#">
+             Last 1 hour
+            </a>
+           </li>
+           <li>
+            <a class="dropdown-item time-option" data-range="6h" href="#">
+             Last 6 hours
+            </a>
+           </li>
+           <li>
+            <a class="dropdown-item time-option" data-range="24h" href="#">
+             Last 24 hours
+            </a>
+           </li>
+           <li>
+            <a class="dropdown-item time-option" data-range="7d" href="#">
+             Last 7 days
+            </a>
+           </li>
+           <li>
+            <hr class="dropdown-divider"/>
+           </li>
+           <li>
+            <a class="dropdown-item time-option" data-range="custom" href="#">
+             Custom…
+            </a>
+           </li>
+          </ul>
+         </div>
+         <button class="btn btn-primary" id="refreshBtn">
+          <i class="fas fa-rotate me-1">
+          </i>
+          Refresh
+         </button>
+        </div>
+       </div>
+      </div>
+      <div class="card-body d-flex align-items-center justify-content-between flex-wrap gap-2">
+       <div class="text-muted small">
+        Targets:
+        <span class="me-2">
+         <i class="fas fa-arrow-up-right-from-square text-success">
+         </i>
+         Uptime ≥ 99.5%
+        </span>
+        <span class="me-2">
+         <i class="fas fa-rocket text-info">
+         </i>
+         p95 Latency &lt; 3s
+        </span>
+        <span>
+         <i class="fas fa-brain text-warning">
+         </i>
+         Model Accuracy ≥ 80%
+        </span>
+       </div>
+       <div class="text-muted small">
+        Last refreshed:
+        <span id="lastRefreshed">
+         —
+        </span>
+       </div>
+      </div>
+     </header>
+     <!-- System Health Summary -->
+     <section aria-label="System Health Summary" class="mb-3">
+      <div class="row g-3">
+       <!-- Uptime Card -->
+       <div class="col-12 col-sm-6 col-xl-3">
+        <div class="metric-card h-100">
+         <div class="d-flex align-items-center justify-content-between">
+          <div class="metric-title">
+           Uptime
+          </div>
+          <span class="badge-soft success" id="uptimeStatus">
+           Target 99.5%
+          </span>
+         </div>
+         <div class="d-flex align-items-baseline gap-2">
+          <div class="metric-value" id="uptimeValue">
+           99.92%
+          </div>
+         </div>
+         <div class="text-muted small">
+          Rolling over
+          <span id="uptimeRangeLabel">
+           1h
+          </span>
+         </div>
+        </div>
+       </div>
+       <!-- API Latency Card -->
+       <div class="col-12 col-sm-6 col-xl-3">
+        <div class="metric-card h-100">
+         <div class="d-flex align-items-center justify-content-between">
+          <div class="metric-title">
+           API Latency
+          </div>
+          <span class="badge-soft success" id="latencyStatus">
+           p95 &lt; 3000ms
+          </span>
+         </div>
+         <div class="d-flex align-items-center gap-4 flex-wrap">
+          <div>
+           <div class="small text-muted">
+            Average
+           </div>
+           <div class="fs-4 fw-bold" id="avgLatency">
+            820ms
+           </div>
+          </div>
+          <div>
+           <div class="small text-muted">
+            p95
+           </div>
+           <div class="fs-4 fw-bold" id="p95Latency">
+            2350ms
+           </div>
+          </div>
+         </div>
+         <div class="text-muted small">
+          Sub-3s target
+         </div>
+        </div>
+       </div>
+       <!-- API Error Rate Card -->
+       <div class="col-12 col-sm-6 col-xl-3">
+        <div class="metric-card h-100">
+         <div class="d-flex align-items-center justify-content-between">
+          <div class="metric-title">
+           API Error Rate
+          </div>
+          <span class="badge-soft success" id="errorStatus">
+           &lt; 1%
+          </span>
+         </div>
+         <div class="d-flex align-items-baseline gap-2">
+          <div class="metric-value" id="errorRate">
+           0.42%
+          </div>
+         </div>
+         <div class="text-muted small">
+          Across all services
+         </div>
+        </div>
+       </div>
+       <!-- Request Throughput Card -->
+       <div class="col-12 col-sm-6 col-xl-3">
+        <div class="metric-card h-100">
+         <div class="d-flex align-items-center justify-content-between">
+          <div class="metric-title">
+           Requests / min
+          </div>
+          <span class="badge-soft info">
+           Live
+          </span>
+         </div>
+         <div class="d-flex align-items-baseline gap-2">
+          <div class="metric-value" id="rpmValue">
+           1,284
+          </div>
+         </div>
+         <div class="text-muted small">
+          Peak
+          <span id="rpmPeak">
+           1,932
+          </span>
+          in range
+         </div>
+        </div>
+       </div>
+      </div>
+     </section>
+     <div class="row g-3">
+      <!-- Main Charts -->
+      <div class="col-12 col-xl-8 col-xxl-9">
+       <section aria-label="Model Performance Monitor" class="mb-3" id="model">
+        <div class="d-flex align-items-center justify-content-between mb-2">
+         <h3 class="m-0">
+          Model Performance
+         </h3>
+         <div class="view-switcher d-none d-md-inline-flex">
+          <div class="option active">
+           <i class="fa-solid fa-chart-line me-1">
+           </i>
+           Charts
+          </div>
+          <div class="option">
+           <i class="fa-solid fa-table me-1">
+           </i>
+           Data
+          </div>
+         </div>
+        </div>
+        <div class="row g-3">
+         <!-- Accuracy Trend -->
+         <div class="col-12 col-md-6">
+          <div class="card h-100">
+           <div class="card-header">
+            <div class="widget-title">
+             Accuracy Trend
+            </div>
+            <span class="badge-soft warning">
+             Target 80%
+            </span>
+           </div>
+           <div class="card-body">
+            <div class="skeleton mb-2" style="height:16px">
+            </div>
+            <canvas aria-label="Model accuracy over time" height="220" id="accuracyChart" role="img">
+            </canvas>
+           </div>
+          </div>
+         </div>
+         <!-- Emotion Distribution -->
+         <div class="col-12 col-md-6">
+          <div class="card h-100">
+           <div class="card-header">
+            <div class="widget-title">
+             Emotion Distribution
+            </div>
+            <span class="badge-soft info">
+             Current window
+            </span>
+           </div>
+           <div class="card-body">
+            <div class="skeleton mb-2" style="height:16px">
+            </div>
+            <canvas aria-label="Emotion distribution" height="220" id="emotionChart" role="img">
+            </canvas>
+           </div>
+          </div>
+         </div>
+         <!-- Inference Latency Trend -->
+         <div class="col-12 col-md-6">
+          <div class="card h-100">
+           <div class="card-header">
+            <div class="widget-title">
+             Inference Latency (p95)
+            </div>
+            <span class="badge-soft primary">
+             Target 3s
+            </span>
+           </div>
+           <div class="card-body">
+            <canvas aria-label="Model latency over time" height="220" id="modelLatencyChart" role="img">
+            </canvas>
+           </div>
+          </div>
+         </div>
+         <!-- Prediction Volume -->
+         <div class="col-12 col-md-6">
+          <div class="card h-100">
+           <div class="card-header">
+            <div class="widget-title">
+             Prediction Volume
+            </div>
+            <span class="badge-soft neutral">
+             Per interval
+            </span>
+           </div>
+           <div class="card-body">
+            <canvas aria-label="Prediction volume over time" height="220" id="predictionVolumeChart" role="img">
+            </canvas>
+           </div>
+          </div>
+         </div>
+        </div>
+       </section>
+       <!-- Recent API Requests Table -->
+       <section aria-label="Recent API Requests" class="mb-3">
+        <div class="card">
+         <div class="card-header">
+          <div class="d-flex align-items-center gap-2">
+           <i class="fa-solid fa-table-list text-primary">
+           </i>
+           <div class="widget-title">
+            Recent API Requests
+           </div>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+           <div class="input-group input-group-sm">
+            <span class="input-group-text bg-white">
+             <i class="fa-solid fa-filter">
+             </i>
+            </span>
+            <input class="form-control" id="endpointFilter" placeholder="Filter by endpoint (e.g., /predict)" type="text"/>
+           </div>
+           <select class="form-select form-select-sm" id="statusFilter" style="max-width:160px">
+            <option value="all">
+             All Statuses
+            </option>
+            <option value="200">
+             200 OK
+            </option>
+            <option value="4xx">
+             4xx Client Errors
+            </option>
+            <option value="5xx">
+             5xx Server Errors
+            </option>
+           </select>
+           <select class="form-select form-select-sm" id="sortRequests" style="max-width:160px">
+            <option value="time_desc">
+             Newest
+            </option>
+            <option value="time_asc">
+             Oldest
+            </option>
+            <option value="latency_desc">
+             Latency High → Low
+            </option>
+            <option value="latency_asc">
+             Latency Low → High
+            </option>
+           </select>
+          </div>
+         </div>
+         <div class="card-body p-0">
+          <div class="table-responsive">
+           <table class="table table-theme m-0" id="requestsTable">
+            <thead>
+             <tr>
+              <th>
+               Timestamp
+              </th>
+              <th>
+               Endpoint
+              </th>
+              <th>
+               User
+              </th>
+              <th>
+               Region
+              </th>
+              <th class="text-end">
+               Latency
+              </th>
+              <th>
+               Status
+              </th>
+              <th>
+               Action
+              </th>
+             </tr>
+            </thead>
+            <tbody>
+             <!-- Rows injected by JS -->
+            </tbody>
+           </table>
+          </div>
+         </div>
+         <div class="card-footer d-flex align-items-center justify-content-between">
+          <div class="small text-muted" id="requestsSummary">
+           Showing 1–6 of 48
+          </div>
+          <div class="d-flex align-items-center gap-2">
+           <button class="btn btn-light btn-sm" disabled="" id="prevPage">
+            <i class="fa-solid fa-chevron-left">
+            </i>
+           </button>
+           <span class="small" id="pageIndicator">
+            1 / 8
+           </span>
+           <button class="btn btn-light btn-sm" id="nextPage">
+            <i class="fa-solid fa-chevron-right">
+            </i>
+           </button>
+          </div>
+         </div>
+        </div>
+       </section>
+      </div>
+      <!-- Alerts Panel -->
+      <div class="col-12 col-xl-4 col-xxl-3" id="alerts">
+       <section class="card h-100">
+        <div class="card-header">
+         <div class="d-flex align-items-center gap-2">
+          <i class="fa-solid fa-triangle-exclamation text-warning">
+          </i>
+          <div class="widget-title">
+           Alerts
+          </div>
+         </div>
+         <div class="d-flex align-items-center gap-2">
+          <div aria-label="Severity filter" class="btn-group btn-group-sm" role="group">
+           <button class="btn btn-light active" data-sev="all">
+            All
+           </button>
+           <button class="btn btn-light" data-sev="critical">
+            Critical
+           </button>
+           <button class="btn btn-light" data-sev="warning">
+            Warning
+           </button>
+           <button class="btn btn-light" data-sev="info">
+            Info
+           </button>
+          </div>
+          <select class="form-select form-select-sm" id="alertSort" style="max-width:140px">
+           <option value="time_desc">
+            Newest
+           </option>
+           <option value="time_asc">
+            Oldest
+           </option>
+           <option value="sev_desc">
+            Severity High → Low
+           </option>
+          </select>
+         </div>
+        </div>
+        <div class="card-body p-0">
+         <ul class="list-group list-group-flush" id="alertsList">
+          <!-- Alerts injected by JS -->
+         </ul>
+        </div>
+        <div class="card-footer d-flex align-items-center justify-content-between small">
+         <div class="text-muted" id="alertsPageInfo">
+          Showing 1–8 of 24
+         </div>
+         <a class="btn btn-link btn-sm" href="./log_viewer.html">
+          <i class="fa-solid fa-arrow-up-right-from-square">
+          </i>
+          Open Log Viewer
+         </a>
+        </div>
+       </section>
+      </div>
+     </div>
+    </div>
+    <!-- Bottom Info Bar (live status) -->
+    <div class="bottom-bar">
+     <span class="badge-soft success">
+      <i class="fa-solid fa-plug-circle-check">
+      </i>
+      Live
+     </span>
+     <div class="log-line">
+      APM: connected • Alerts: synced • Last update:
+      <span id="bottomLastUpdate">
+       —
+      </span>
+     </div>
+    </div>
+    <!-- Footer -->
+    <footer class="bg-light border-top py-2 px-3 d-flex align-items-center justify-content-between small">
+     <div class="d-flex align-items-center">
+      <img alt="logo" class="me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/logo/36/18';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a9ff223010074de481ab95/logos/logo_19036e58-01c8-4935-a1be-e31305353e97.png" style="height:18px"/>
+      <span class="text-muted">
+       © 2025 AI EduCoach
+      </span>
+     </div>
+     <div class="d-flex gap-3">
+      <a class="link-secondary text-decoration-none" href="#alerts">
+       <i class="fas fa-bell-slash me-1">
+       </i>
+       Mute Alerts
+      </a>
+      <a class="link-secondary text-decoration-none" href="./monitoring_dashboard.html" id="footerRefresh">
+       <i class="fas fa-rotate me-1">
+       </i>
+       Refresh
+      </a>
+      <span class="text-muted">
+       |
+      </span>
+      <a class="link-secondary text-decoration-none" href="./content_editor.html">
+       Terms
+      </a>
+      <a class="link-secondary text-decoration-none" href="./content_editor.html">
+       Privacy
+      </a>
+     </div>
+    </footer>
+   </main>
+  </div>
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.all.min.js">
+  </script>
+  <!-- Chart.js + Zoom plugin -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.umd.min.js">
+  </script>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <script>
+   // Utility: format numbers
+const fmt = new Intl.NumberFormat('en-US');
+
+// State
+let activeRange = '1h';
+let lastRefreshed = null;
+
+const timeLabelsMap = {
+    '1h': 'Last 1 hour',
+    '6h': 'Last 6 hours',
+    '24h': 'Last 24 hours',
+    '7d': 'Last 7 days',
+    'custom': 'Custom'
+};
+
+// Elements
+const lastRefEl = document.getElementById('lastRefreshed');
+const bottomLastUpdate = document.getElementById('bottomLastUpdate');
+const activeTimeLabel = document.getElementById('activeTimeLabel');
+const uptimeValue = document.getElementById('uptimeValue');
+const uptimeStatus = document.getElementById('uptimeStatus');
+const uptimeRangeLabel = document.getElementById('uptimeRangeLabel');
+const avgLatencyEl = document.getElementById('avgLatency');
+const p95LatencyEl = document.getElementById('p95Latency');
+const latencyStatus = document.getElementById('latencyStatus');
+const errorRateEl = document.getElementById('errorRate');
+const errorStatus = document.getElementById('errorStatus');
+const rpmValue = document.getElementById('rpmValue');
+const rpmPeak = document.getElementById('rpmPeak');
+
+// Time Range Handler
+document.querySelectorAll('.time-option').forEach(el => {
+    el.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.querySelectorAll('.time-option').forEach(o => o.classList.remove('active'));
+        el.classList.add('active');
+        activeRange = el.dataset.range;
+        activeTimeLabel.textContent = timeLabelsMap[activeRange];
+        uptimeRangeLabel.textContent = activeRange;
+        refreshAll(true);
+    });
+});
+
+// Refresh button
+document.getElementById('refreshBtn').addEventListener('click', () => refreshAll());
+document.getElementById('footerRefresh').addEventListener('click', (e) => {
+    e.preventDefault();
+    refreshAll();
+});
+
+// Charts setup
+let accuracyChart, emotionChart, modelLatencyChart, predictionVolumeChart;
+
+const getVar = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+const palette = {
+    primary: getVar('--color-primary') || '#007BFF',
+    info: getVar('--color-info') || '#0099D2',
+    success: getVar('--color-success') || '#00774E',
+    warning: getVar('--color-warning') || '#FFA500',
+    error: getVar('--color-error') || '#CD2026',
+    neutral: getVar('--text-muted') || '#596273'
+};
+
+function genTimeSeries(count, start = new Date(), stepMin = 1) {
+    const labels = [],
+        values = [];
+    let base = 0.82 + (Math.random() * 0.08 - 0.04); // base around 0.82
+    const tsStart = new Date(start.getTime() - count * stepMin * 60000);
+    for (let i = 0; i < count; i++) {
+        const t = new Date(tsStart.getTime() + i * stepMin * 60000);
+        labels.push(t);
+        // small random walk
+        base += (Math.random() - 0.5) * 0.02;
+        base = Math.max(0.6, Math.min(0.95, base));
+        values.push(parseFloat(base.toFixed(3)));
+    }
+    return {
+        labels,
+        values
+    };
+}
+
+function genLatencySeries(count, start = new Date(), stepMin = 1) {
+    const labels = [],
+        values = [];
+    let base = 2200 + (Math.random() * 1000 - 500);
+    const tsStart = new Date(start.getTime() - count * stepMin * 60000);
+    for (let i = 0; i < count; i++) {
+        const t = new Date(tsStart.getTime() + i * stepMin * 60000);
+        labels.push(t);
+        base += (Math.random() - 0.5) * 200;
+        base = Math.max(900, Math.min(5000, base));
+        values.push(Math.round(base));
+    }
+    return {
+        labels,
+        values
+    };
+}
+
+function genPredictionVolume(count, start = new Date(), stepMin = 1) {
+    const labels = [],
+        values = [];
+    let base = 900 + Math.random() * 500;
+    const tsStart = new Date(start.getTime() - count * stepMin * 60000);
+    for (let i = 0; i < count; i++) {
+        const t = new Date(tsStart.getTime() + i * stepMin * 60000);
+        labels.push(t);
+        base += (Math.random() - 0.5) * 120;
+        base = Math.max(150, Math.min(2300, base));
+        values.push(Math.round(base));
+    }
+    return {
+        labels,
+        values
+    };
+}
+
+function genEmotionDist() {
+    const emotions = ['Confusion', 'Frustration', 'Engagement', 'Neutral', 'Joy'];
+    const vals = emotions.map(() => Math.round(50 + Math.random() * 250));
+    return {
+        emotions,
+        vals
+    };
+}
+
+function renderCharts() {
+    const timeCount = activeRange === '1h' ? 60 : activeRange === '6h' ? 72 : activeRange === '24h' ? 96 : 84;
+    const step = activeRange === '1h' ? 1 : activeRange === '6h' ? 5 : activeRange === '24h' ? 15 : 120;
+    const accData = genTimeSeries(timeCount, new Date(), step);
+    const latData = genLatencySeries(timeCount, new Date(), step);
+    const volData = genPredictionVolume(timeCount, new Date(), step);
+    const emo = genEmotionDist();
+
+    const timeFmt = (v) => new Date(v).toLocaleString(undefined, {
+        hour: '2-digit',
+        minute: '2-digit',
+        month: activeRange === '7d' ? 'short' : undefined,
+        day: activeRange === '7d' ? '2-digit' : undefined
+    });
+
+    // Accuracy chart
+    const accCtx = document.getElementById('accuracyChart').getContext('2d');
+    accuracyChart && accuracyChart.destroy();
+    accuracyChart = new Chart(accCtx, {
+        type: 'line',
+        data: {
+            labels: accData.labels,
+            datasets: [{
+                label: 'Accuracy',
+                data: accData.values.map(v => v * 100),
+                borderWidth: 2,
+                fill: false,
+                segment: {
+                    borderColor: ctx => (ctx.p1.parsed.y >= 80 ? palette.success : palette.error)
+                },
+                pointRadius: 0,
+                tension: 0.25
+            }, {
+                label: 'Target 80%',
+                data: accData.labels.map(() => 80),
+                borderColor: palette.warning,
+                borderDash: [6, 6],
+                pointRadius: 0,
+                borderWidth: 1.5
+            }]
+        },
+        options: {
+            responsive: true,
+            interaction: {
+                mode: 'index',
+                intersect: false
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y.toFixed(1)}%`
+                    }
+                },
+                zoom: {
+                    zoom: {
+                        wheel: {
+                            enabled: true
+                        },
+                        pinch: {
+                            enabled: true
+                        },
+                        mode: 'x'
+                    },
+                    pan: {
+                        enabled: true,
+                        mode: 'x'
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    type: 'time',
+                    time: {
+                        unit: step >= 60 ? 'hour' : 'minute'
+                    },
+                    ticks: {
+                        maxTicksLimit: 6
+                    },
+                    adapters: {
+                        date: {}
+                    }
+                },
+                y: {
+                    min: 60,
+                    max: 100,
+                    ticks: {
+                        callback: v => v + '%'
+                    }
+                }
+            }
+        }
+    });
+
+    // Emotion chart
+    const emoCtx = document.getElementById('emotionChart').getContext('2d');
+    emotionChart && emotionChart.destroy();
+    emotionChart = new Chart(emoCtx, {
+        type: 'doughnut',
+        data: {
+            labels: emo.emotions,
+            datasets: [{
+                data: emo.vals,
+                backgroundColor: [palette.error, palette.warning, palette.success, palette.neutral, palette.info],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: (ctx) => `${ctx.label}: ${ctx.parsed} (${(ctx.parsed*100/ctx.dataset.data.reduce((a,b)=>a+b,0)).toFixed(1)}%)`
+                    }
+                }
+            },
+            cutout: '60%'
+        }
+    });
+
+    // Model latency p95 chart
+    const mlCtx = document.getElementById('modelLatencyChart').getContext('2d');
+    modelLatencyChart && modelLatencyChart.destroy();
+    modelLatencyChart = new Chart(mlCtx, {
+        type: 'line',
+        data: {
+            labels: latData.labels,
+            datasets: [{
+                label: 'p95 latency (ms)',
+                data: latData.values,
+                borderWidth: 2,
+                pointRadius: 0,
+                fill: false,
+                tension: 0.25,
+                segment: {
+                    borderColor: ctx => (ctx.p1.parsed.y < 3000 ? palette.success : ctx.p1.parsed.y < 4000 ? palette.warning : palette.error)
+                }
+            }, {
+                label: 'Target 3000ms',
+                data: latData.labels.map(() => 3000),
+                borderColor: palette.warning,
+                borderDash: [6, 6],
+                pointRadius: 0,
+                borderWidth: 1.5
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: (ctx) => `${ctx.dataset.label}: ${ctx.parsed.y} ms`
+                    }
+                },
+                zoom: {
+                    zoom: {
+                        wheel: {
+                            enabled: true
+                        },
+                        pinch: {
+                            enabled: true
+                        },
+                        mode: 'x'
+                    },
+                    pan: {
+                        enabled: true,
+                        mode: 'x'
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    type: 'time',
+                    time: {
+                        unit: step >= 60 ? 'hour' : 'minute'
+                    },
+                    ticks: {
+                        maxTicksLimit: 6
+                    }
+                },
+                y: {
+                    beginAtZero: false,
+                    ticks: {
+                        callback: v => v + ' ms'
+                    }
+                }
+            }
+        }
+    });
+
+    // Prediction volume chart
+    const pvCtx = document.getElementById('predictionVolumeChart').getContext('2d');
+    predictionVolumeChart && predictionVolumeChart.destroy();
+    predictionVolumeChart = new Chart(pvCtx, {
+        type: 'bar',
+        data: {
+            labels: volData.labels,
+            datasets: [{
+                label: 'Predictions',
+                data: volData.values,
+                backgroundColor: palette.primary,
+                borderWidth: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: (ctx) => `${ctx.parsed.y} predictions`
+                    }
+                },
+                zoom: {
+                    zoom: {
+                        wheel: {
+                            enabled: true
+                        },
+                        pinch: {
+                            enabled: true
+                        },
+                        mode: 'x'
+                    },
+                    pan: {
+                        enabled: true,
+                        mode: 'x'
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    type: 'time',
+                    time: {
+                        unit: step >= 60 ? 'hour' : 'minute'
+                    },
+                    ticks: {
+                        maxTicksLimit: 6
+                    }
+                },
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
+function updateSummary() {
+    // Uptime
+    const up = 99 + Math.random();
+    uptimeValue.textContent = up.toFixed(2) + '%';
+    const upStatus = up >= 99.5 ? 'success' : (up >= 99.0 ? 'warning' : 'error');
+    uptimeStatus.className = 'badge-soft ' + (upStatus === 'success' ? 'success' : upStatus === 'warning' ? 'warning' : 'error');
+    uptimeStatus.textContent = upStatus === 'success' ? 'On target' : upStatus === 'warning' ? 'Slightly low' : 'Below target';
+
+    // Latency
+    const avg = Math.round(600 + Math.random() * 900);
+    const p95 = Math.round(2200 + Math.random() * 2200);
+    avgLatencyEl.textContent = avg + 'ms';
+    p95LatencyEl.textContent = p95 + 'ms';
+    const latStatus = p95 < 3000 ? 'success' : (p95 < 4000 ? 'warning' : 'error');
+    latencyStatus.className = 'badge-soft ' + (latStatus === 'success' ? 'success' : latStatus === 'warning' ? 'warning' : 'error');
+    latencyStatus.textContent = latStatus === 'success' ? 'Good' : latStatus === 'warning' ? 'Watch' : 'High';
+
+    // Error Rate
+    const err = Math.random() * 6; // 0-6%
+    errorRateEl.textContent = err.toFixed(2) + '%';
+    const errStatus = err < 1 ? 'success' : (err < 5 ? 'warning' : 'error');
+    errorStatus.className = 'badge-soft ' + (errStatus === 'success' ? 'success' : errStatus === 'warning' ? 'warning' : 'error');
+    errorStatus.textContent = errStatus === 'success' ? 'Healthy' : errStatus === 'warning' ? 'Elevated' : 'Critical';
+
+    // Throughput
+    const rpm = Math.round(900 + Math.random() * 1400);
+    const peak = rpm + Math.round(Math.random() * 600);
+    rpmValue.textContent = fmt.format(rpm);
+    rpmPeak.textContent = fmt.format(peak);
+}
+
+// Alerts
+const severityRank = {
+    critical: 3,
+    warning: 2,
+    info: 1
+};
+let alerts = [];
+
+function seedAlerts() {
+    const now = Date.now();
+    alerts = [{
+        id: 1,
+        severity: 'critical',
+        message: 'Spike in API error rate detected (service: api-gateway)',
+        ts: now - 2 * 60 * 1000
+    }, {
+        id: 2,
+        severity: 'warning',
+        message: 'p95 latency exceeded 3s (service: inference)',
+        ts: now - 7 * 60 * 1000
+    }, {
+        id: 3,
+        severity: 'info',
+        message: 'Model accuracy dropped below 80% briefly',
+        ts: now - 15 * 60 * 1000
+    }, {
+        id: 4,
+        severity: 'warning',
+        message: 'Increased 4xx responses from /predict endpoint',
+        ts: now - 26 * 60 * 1000
+    }, {
+        id: 5,
+        severity: 'critical',
+        message: 'Node outage: us-east-1b (autoscaling triggered)',
+        ts: now - 42 * 60 * 1000
+    }, {
+        id: 6,
+        severity: 'info',
+        message: 'New model version v1.14 deployed to staging',
+        ts: now - 65 * 60 * 1000
+    }, {
+        id: 7,
+        severity: 'warning',
+        message: 'Queue depth rising in feature-extractor',
+        ts: now - 72 * 60 * 1000
+    }, {
+        id: 8,
+        severity: 'info',
+        message: 'APM agent upgraded on 3 instances',
+        ts: now - 93 * 60 * 1000
+    }, {
+        id: 9,
+        severity: 'critical',
+        message: 'DB connection pool exhausted (prod)',
+        ts: now - 110 * 60 * 1000
+    }, {
+        id: 10,
+        severity: 'warning',
+        message: 'Cache hit rate dropped to 78%',
+        ts: now - 145 * 60 * 1000
+    }, {
+        id: 11,
+        severity: 'info',
+        message: 'Log ingestion rate normalized',
+        ts: now - 170 * 60 * 1000
+    }, {
+        id: 12,
+        severity: 'warning',
+        message: 'Elevated timeouts on /feedback',
+        ts: now - 200 * 60 * 1000
+    }];
+}
+
+function renderAlerts() {
+    const container = document.getElementById('alertsList');
+    const activeBtn = document.querySelector('.btn-group [data-sev].active');
+    const sevFilter = activeBtn ? activeBtn.getAttribute('data-sev') : 'all';
+    const sort = document.getElementById('alertSort').value;
+    let items = alerts.slice();
+    if (sevFilter !== 'all') items = items.filter(a => a.severity === sevFilter);
+    if (sort === 'time_desc') items.sort((a, b) => b.ts - a.ts);
+    if (sort === 'time_asc') items.sort((a, b) => a.ts - b.ts);
+    if (sort === 'sev_desc') items.sort((a, b) => severityRank[b.severity] - severityRank[a.severity]);
+
+    const pageSize = 8;
+    const visible = items.slice(0, pageSize);
+    container.innerHTML = visible.map(a => {
+        const sevClass = a.severity === 'critical' ? 'border-start border-4 border-danger' : a.severity === 'warning' ? 'border-start border-4 border-warning' : 'border-start border-4 border-info';
+        const icon = a.severity === 'critical' ? 'fa-circle-exclamation text-danger' : a.severity === 'warning' ? 'fa-triangle-exclamation text-warning' : 'fa-circle-info text-info';
+        return `<li class="list-group-item ${sevClass} py-3">
+          <div class="d-flex align-items-start justify-content-between gap-2">
+            <div class="d-flex gap-2">
+              <i class="fa-solid ${icon} mt-1"></i>
+              <div>
+                <div class="fw-semibold">${a.message}</div>
+                <div class="small text-muted">${new Date(a.ts).toLocaleString()}</div>
+              </div>
+            </div>
+            <div class="btn-group btn-group-sm">
+              <button class="btn btn-light" data-alert-id="${a.id}" onclick="viewAlert(${a.id})"><i class="fa-regular fa-eye"></i></button>
+              <a class="btn btn-light" href="./log_viewer.html?alert=${a.id}&ts=${a.ts}" title="Open logs"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </div>
+          </div>
+        </li>`;
+    }).join('');
+
+    const info = document.getElementById('alertsPageInfo');
+    info.textContent = `Showing 1–${Math.min(pageSize, items.length)} of ${items.length}`;
+}
+
+window.viewAlert = function(id) {
+    const a = alerts.find(x => x.id === id);
+    if (!a) return;
+    Swal.fire({
+        title: a.severity.toUpperCase(),
+        html: `<p class="text-start">${a.message}</p><p class="text-start text-muted">${new Date(a.ts).toLocaleString()}</p>`,
+        icon: a.severity === 'critical' ? 'error' : a.severity === 'warning' ? 'warning' : 'info',
+        showCancelButton: true,
+        confirmButtonText: 'Open Log Viewer',
+        cancelButtonText: 'Close'
+    }).then(res => {
+        if (res.isConfirmed) {
+            window.location.href = `./log_viewer.html?alert=${a.id}&ts=${a.ts}`;
+        }
+    });
+}
+
+document.querySelectorAll('.btn-group [data-sev]').forEach(btn => {
+    btn.addEventListener('click', () => {
+        btn.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderAlerts();
+    });
+});
+document.getElementById('alertSort').addEventListener('change', renderAlerts);
+
+// Recent API Requests Table
+let allRequests = [];
+const statuses = [200, 201, 204, 400, 401, 403, 404, 408, 500, 502, 503];
+const endpoints = ['/predict', '/feedback', '/metrics', '/health', '/auth/login'];
+const regions = ['us-east-1', 'us-west-2', 'eu-west-1', 'ap-south-1'];
+
+function seedRequests() {
+    const now = Date.now();
+    allRequests = Array.from({
+        length: 48
+    }).map((_, i) => {
+        const ts = now - i * (2 + Math.random() * 7) * 60 * 1000;
+        const status = statuses[Math.floor(Math.random() * statuses.length)];
+        const latency = Math.round(100 + Math.random() * 4000);
+        const user = 'u' + Math.floor(1000 + Math.random() * 9000);
+        const ep = endpoints[Math.floor(Math.random() * endpoints.length)];
+        const reg = regions[Math.floor(Math.random() * regions.length)];
+        return {
+            ts,
+            status,
+            latency,
+            user,
+            endpoint: ep,
+            region: reg
+        };
+    });
+}
+
+let page = 1,
+    pageSize = 6;
+
+function renderRequests() {
+    const tbody = document.querySelector('#requestsTable tbody');
+    let rows = allRequests.slice();
+    // Filters
+    const epFilter = document.getElementById('endpointFilter').value.trim().toLowerCase();
+    const statusFilter = document.getElementById('statusFilter').value;
+    if (epFilter) rows = rows.filter(r => r.endpoint.toLowerCase().includes(epFilter));
+    if (statusFilter !== 'all') {
+        if (statusFilter === '4xx') rows = rows.filter(r => r.status >= 400 && r.status < 500);
+        else if (statusFilter === '5xx') rows = rows.filter(r => r.status >= 500);
+        else rows = rows.filter(r => String(r.status) === statusFilter);
+    }
+    // Sort
+    const sortVal = document.getElementById('sortRequests').value;
+    if (sortVal === 'time_desc') rows.sort((a, b) => b.ts - a.ts);
+    if (sortVal === 'time_asc') rows.sort((a, b) => a.ts - b.ts);
+    if (sortVal === 'latency_desc') rows.sort((a, b) => b.latency - a.latency);
+    if (sortVal === 'latency_asc') rows.sort((a, b) => a.latency - b.latency);
+    // Pagination
+    const total = rows.length;
+    const totalPages = Math.max(1, Math.ceil(total / pageSize));
+    if (page > totalPages) page = totalPages;
+    const start = (page - 1) * pageSize;
+    const end = Math.min(start + pageSize, total);
+    const visible = rows.slice(start, end);
+
+    tbody.innerHTML = visible.map(r => {
+        const badgeClass = r.status >= 500 ? 'danger' : r.status >= 400 ? 'warning' : 'success';
+        return `<tr>
+          <td>${new Date(r.ts).toLocaleString()}</td>
+          <td><code>${r.endpoint}</code></td>
+          <td>${r.user}</td>
+          <td>${r.region.toUpperCase()}</td>
+          <td class="text-end">${fmt.format(r.latency)} ms</td>
+          <td><span class="badge-soft ${badgeClass}">${r.status}</span></td>
+          <td>
+            <a class="btn btn-sm btn-light" href="./log_viewer.html?ts=${r.ts}&endpoint=${encodeURIComponent(r.endpoint)}" title="Open logs">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </td>
+        </tr>`;
+    }).join('');
+
+    document.getElementById('requestsSummary').textContent = `Showing ${total? start+1:0}–${end} of ${total}`;
+    document.getElementById('pageIndicator').textContent = `${page} / ${totalPages}`;
+    document.getElementById('prevPage').disabled = page <= 1;
+    document.getElementById('nextPage').disabled = page >= totalPages;
+}
+
+document.getElementById('endpointFilter').addEventListener('input', () => {
+    page = 1;
+    renderRequests();
+});
+document.getElementById('statusFilter').addEventListener('change', () => {
+    page = 1;
+    renderRequests();
+});
+document.getElementById('sortRequests').addEventListener('change', () => {
+    page = 1;
+    renderRequests();
+});
+document.getElementById('prevPage').addEventListener('click', () => {
+    if (page > 1) {
+        page--;
+        renderRequests();
+    }
+});
+document.getElementById('nextPage').addEventListener('click', () => {
+    page++;
+    renderRequests();
+});
+
+function setRefreshed() {
+    lastRefreshed = new Date();
+    const ts = lastRefreshed.toLocaleString();
+    lastRefEl.textContent = ts;
+    bottomLastUpdate.textContent = ts;
+}
+
+function refreshAll(silent) {
+    const btn = document.getElementById('refreshBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Refreshing';
+
+    // Simulate API delay
+    setTimeout(() => {
+        updateSummary();
+        renderCharts();
+        seedRequests();
+        renderRequests();
+        seedAlerts();
+        renderAlerts();
+        setRefreshed();
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-rotate me-1"></i>Refresh';
+        if (!silent) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Dashboard Updated',
+                timer: 1400,
+                showConfirmButton: false
+            });
+        }
+    }, 600);
+}
+
+// Auto-refresh every 30s
+setInterval(() => refreshAll(true), 30000);
+
+// Init
+document.addEventListener('DOMContentLoaded', () => {
+    seedAlerts();
+    seedRequests();
+    renderAlerts();
+    renderRequests();
+    updateSummary();
+    renderCharts();
+    setRefreshed();
+});
+  </script>
+ </body>
+</html>

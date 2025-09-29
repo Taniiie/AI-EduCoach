@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html class="h-100" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Log Viewer - AI EduCoach
+  </title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" rel="stylesheet"/>
+  <link href="style.css" rel="stylesheet"/>
+  <link href="log_viewer.css" rel="stylesheet"/>
+ </head>
+ <body class="log-viewer-page d-flex min-vh-100">
+  <!-- Mobile Offcanvas Sidebar Triggered from Header -->
+  <div aria-labelledby="sidebarOffcanvasLabel" class="offcanvas offcanvas-start" id="sidebarOffcanvas" tabindex="-1">
+   <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="sidebarOffcanvasLabel">
+     Navigation
+    </h5>
+    <button aria-label="Close" class="btn-close" data-bs-dismiss="offcanvas" type="button">
+    </button>
+   </div>
+   <div class="offcanvas-body p-0">
+    <!-- Cloned Management & Analysis Sidebar markup for mobile -->
+    <aside class="sidebar-mgmt d-flex flex-column p-3 w-100 h-100">
+     <div class="brand d-flex align-items-center mb-3">
+      <img alt="logo" class="me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/logo/120/36'" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a9ff223010074de481ab95/logos/logo_19036e58-01c8-4935-a1be-e31305353e97.png"/>
+      <span class="fw-bold">
+       AI EduCoach
+      </span>
+     </div>
+     <div class="profile d-flex align-items-center p-2 mb-3">
+      <i class="fas fa-user-tie fa-2x me-2">
+      </i>
+      <div>
+       <div class="fw-semibold">
+        Alex Morgan
+       </div>
+       <small class="text-white-50">
+        Product Manager
+       </small>
+      </div>
+     </div>
+     <nav class="nav nav-pills flex-column gap-1">
+      <a class="nav-link" href="./admin_dashboard.html">
+       <i class="fas fa-tachometer-alt me-2">
+       </i>
+       Dashboard
+      </a>
+      <a class="nav-link" href="./analytics_dashboard.html">
+       <i class="fas fa-chart-line me-2">
+       </i>
+       Analytics
+      </a>
+      <a class="nav-link" href="./log_viewer.html">
+       <i class="fas fa-file-alt me-2">
+       </i>
+       Log Viewer
+      </a>
+      <a aria-controls="reportsMenuMobile" aria-expanded="false" class="nav-link" data-bs-toggle="collapse" href="#reportsMenuMobile" role="button">
+       <i class="fas fa-file-export me-2">
+       </i>
+       Reports
+       <i class="fas fa-chevron-down float-end mt-1">
+       </i>
+      </a>
+      <div class="collapse" id="reportsMenuMobile">
+       <div class="nav flex-column ms-2">
+        <a class="nav-link" href="./analytics_dashboard.html?report=kpi">
+         <i class="fas fa-chart-pie me-2">
+         </i>
+         KPI Summary
+        </a>
+        <a class="nav-link" href="./analytics_dashboard.html?report=engagement">
+         <i class="fas fa-users me-2">
+         </i>
+         Engagement
+        </a>
+       </div>
+      </div>
+      <hr class="border-light"/>
+      <a class="nav-link" href="./settings.html">
+       <i class="fas fa-cog me-2">
+       </i>
+       Settings
+      </a>
+      <a class="nav-link" href="./help.html">
+       <i class="fas fa-circle-question me-2">
+       </i>
+       Help
+      </a>
+     </nav>
+    </aside>
+   </div>
+  </div>
+  <!-- Desktop Sidebar -->
+  <aside class="sidebar-mgmt d-none d-lg-flex flex-column p-3">
+   <div class="brand d-flex align-items-center mb-3">
+    <img alt="logo" class="me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/logo/120/36'" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a9ff223010074de481ab95/logos/logo_19036e58-01c8-4935-a1be-e31305353e97.png"/>
+    <span class="fw-bold">
+     AI EduCoach
+    </span>
+   </div>
+   <div class="profile d-flex align-items-center p-2 mb-3">
+    <i class="fas fa-user-tie fa-2x me-2">
+    </i>
+    <div>
+     <div class="fw-semibold">
+      Alex Morgan
+     </div>
+     <small class="text-white-50">
+      Product Manager
+     </small>
+    </div>
+   </div>
+   <nav class="nav nav-pills flex-column gap-1">
+    <a class="nav-link" href="./admin_dashboard.html">
+     <i class="fas fa-tachometer-alt me-2">
+     </i>
+     Dashboard
+    </a>
+    <a class="nav-link" href="./analytics_dashboard.html">
+     <i class="fas fa-chart-line me-2">
+     </i>
+     Analytics
+    </a>
+    <a class="nav-link active" href="./log_viewer.html">
+     <i class="fas fa-file-alt me-2">
+     </i>
+     Log Viewer
+    </a>
+    <a aria-controls="reportsMenu" aria-expanded="false" class="nav-link" data-bs-toggle="collapse" href="#reportsMenu" role="button">
+     <i class="fas fa-file-export me-2">
+     </i>
+     Reports
+     <i class="fas fa-chevron-down float-end mt-1">
+     </i>
+    </a>
+    <div class="collapse" id="reportsMenu">
+     <div class="nav flex-column ms-2">
+      <a class="nav-link" href="./analytics_dashboard.html?report=kpi">
+       <i class="fas fa-chart-pie me-2">
+       </i>
+       KPI Summary
+      </a>
+      <a class="nav-link" href="./analytics_dashboard.html?report=engagement">
+       <i class="fas fa-users me-2">
+       </i>
+       Engagement
+      </a>
+     </div>
+    </div>
+    <hr class="border-light"/>
+    <a class="nav-link" href="./settings.html">
+     <i class="fas fa-cog me-2">
+     </i>
+     Settings
+    </a>
+    <a class="nav-link" href="./help.html">
+     <i class="fas fa-circle-question me-2">
+     </i>
+     Help
+    </a>
+   </nav>
+  </aside>
+  <!-- Main Column: Header, Content, Footer -->
+  <div class="flex-grow-1 d-flex flex-column min-vh-100 bg-transparent">
+   <!-- Header -->
+   <nav class="mgmt-header navbar navbar-expand bg-white border-bottom px-3">
+    <button aria-controls="sidebarOffcanvas" class="btn btn-outline-primary d-lg-none me-2" data-bs-target="#sidebarOffcanvas" data-bs-toggle="offcanvas" type="button">
+     <i class="fas fa-bars">
+     </i>
+    </button>
+    <a class="navbar-brand d-flex align-items-center" href="./admin_dashboard.html">
+     <img alt="Logo" class="me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/logo/120/28'" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a9ff223010074de481ab95/logos/logo_19036e58-01c8-4935-a1be-e31305353e97.png"/>
+     <span class="fw-bold">
+      Admin &amp; Analytics
+     </span>
+    </a>
+    <form class="ms-3 flex-grow-1 d-none d-md-flex" onsubmit="event.preventDefault(); document.getElementById('applyFiltersBtn').click();" role="search">
+     <div class="input-group">
+      <span class="input-group-text bg-white">
+       <i class="fas fa-search text-muted">
+       </i>
+      </span>
+      <input class="form-control" id="globalSearchInput" placeholder="Search sessions, logs, metrics..." type="search"/>
+     </div>
+    </form>
+    <div class="ms-auto d-flex align-items-center gap-2">
+     <button aria-controls="filterOffcanvas" class="btn btn-outline-primary d-md-none" data-bs-target="#filterOffcanvas" data-bs-toggle="offcanvas" id="openFilterOffcanvasBtn" type="button">
+      <i class="fas fa-filter me-1">
+      </i>
+      Filters
+     </button>
+     <a class="btn btn-outline-secondary" href="./analytics_dashboard.html?export=csv">
+      <i class="fas fa-download me-1">
+      </i>
+      Export
+     </a>
+     <a class="btn btn-secondary-accent" href="./analytics_dashboard.html?create=report">
+      <i class="fas fa-plus me-1">
+      </i>
+      Create Report
+     </a>
+     <a class="btn btn-link text-secondary" href="./notifications.html" title="Notifications">
+      <i class="fas fa-bell">
+      </i>
+     </a>
+     <a class="btn btn-link text-secondary" href="./messages.html" title="Messages">
+      <i class="fas fa-envelope">
+      </i>
+     </a>
+     <div class="dropdown">
+      <a aria-expanded="false" class="btn btn-light dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" href="#" role="button">
+       <i class="fas fa-user-tie me-2">
+       </i>
+       Alex Morgan
+      </a>
+      <ul class="dropdown-menu dropdown-menu-end">
+       <li>
+        <a class="dropdown-item" href="./profile.html">
+         <i class="fas fa-id-badge me-2">
+         </i>
+         Profile
+        </a>
+       </li>
+       <li>
+        <a class="dropdown-item" href="./settings.html">
+         <i class="fas fa-sliders-h me-2">
+         </i>
+         Settings
+        </a>
+       </li>
+       <li>
+        <hr class="dropdown-divider"/>
+       </li>
+       <li>
+        <a class="dropdown-item text-danger" href="./login_page.html">
+         <i class="fas fa-sign-out-alt me-2">
+         </i>
+         Logout
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+   </nav>
+   <!-- Content Area -->
+   <main class="flex-grow-1 container-fluid py-3">
+    <div class="row g-3">
+     <!-- Filter Sidebar (LogFilterPanel) -->
+     <aside class="col-12 col-md-5 col-lg-4 col-xxl-3">
+      <div class="app-card card h-100 sticky-top filter-card" style="top: 16px;">
+       <div class="card-header">
+        <div class="d-flex align-items-center gap-2">
+         <i class="fas fa-filter text-primary">
+         </i>
+         <span class="widget-title">
+          Filters
+         </span>
+        </div>
+        <button class="btn btn-light btn-sm d-md-none" data-bs-target="#filterOffcanvas" data-bs-toggle="offcanvas" type="button">
+         Open
+        </button>
+       </div>
+       <div class="card-body">
+        <div class="mb-3">
+         <label class="form-label">
+          Date Range
+         </label>
+         <div class="row g-2 align-items-center">
+          <div class="col-6">
+           <div class="input-group">
+            <span class="input-group-text">
+             <i class="far fa-calendar">
+             </i>
+            </span>
+            <input aria-label="Start date" class="form-control" id="startDate" placeholder="Start" type="text"/>
+           </div>
+          </div>
+          <div class="col-6">
+           <div class="input-group">
+            <span class="input-group-text">
+             <i class="far fa-calendar">
+             </i>
+            </span>
+            <input aria-label="End date" class="form-control" id="endDate" placeholder="End" type="text"/>
+           </div>
+          </div>
+         </div>
+         <small class="form-text">
+          Select a start and end date.
+         </small>
+        </div>
+        <div class="mb-3">
+         <label class="form-label">
+          Emotions
+         </label>
+         <div class="row g-2">
+          <div class="col-12">
+           <div class="form-check">
+            <input class="form-check-input emotion-filter" id="emoConfusion" type="checkbox" value="Confusion"/>
+            <label class="form-check-label" for="emoConfusion">
+             Confusion
+            </label>
+           </div>
+           <div class="form-check">
+            <input class="form-check-input emotion-filter" id="emoFrustration" type="checkbox" value="Frustration/Stress"/>
+            <label class="form-check-label" for="emoFrustration">
+             Frustration/Stress
+            </label>
+           </div>
+           <div class="form-check">
+            <input class="form-check-input emotion-filter" id="emoBoredom" type="checkbox" value="Boredom"/>
+            <label class="form-check-label" for="emoBoredom">
+             Boredom
+            </label>
+           </div>
+           <div class="form-check">
+            <input class="form-check-input emotion-filter" id="emoEngagement" type="checkbox" value="Engagement/Excitement"/>
+            <label class="form-check-label" for="emoEngagement">
+             Engagement/Excitement
+            </label>
+           </div>
+           <div class="form-check">
+            <input class="form-check-input emotion-filter" id="emoAnxiety" type="checkbox" value="Anxiety"/>
+            <label class="form-check-label" for="emoAnxiety">
+             Anxiety
+            </label>
+           </div>
+          </div>
+         </div>
+         <small class="form-text">
+          Filter logs that include these detected emotions.
+         </small>
+        </div>
+        <div class="mb-3">
+         <label class="form-label" for="keywordInput">
+          Keyword Search
+         </label>
+         <div class="input-group">
+          <span class="input-group-text bg-white">
+           <i class="fas fa-magnifying-glass text-muted">
+           </i>
+          </span>
+          <input aria-label="Search keywords" class="form-control" id="keywordInput" placeholder="e.g., derivative, hint, retry" type="search"/>
+         </div>
+         <small class="form-text">
+          Press Enter to apply.
+         </small>
+        </div>
+        <div class="d-flex gap-2">
+         <button class="btn btn-primary flex-grow-1" id="applyFiltersBtn">
+          <i class="fas fa-filter me-1">
+          </i>
+          Apply Filters
+         </button>
+         <button class="btn btn-light" id="clearFiltersBtn">
+          <i class="fas fa-eraser">
+          </i>
+         </button>
+        </div>
+       </div>
+      </div>
+     </aside>
+     <!-- Offcanvas Filters for mobile -->
+     <div aria-labelledby="filterOffcanvasLabel" class="offcanvas offcanvas-end" id="filterOffcanvas" tabindex="-1">
+      <div class="offcanvas-header">
+       <h5 class="offcanvas-title" id="filterOffcanvasLabel">
+        Filters
+       </h5>
+       <button aria-label="Close" class="btn-close" data-bs-dismiss="offcanvas" type="button">
+       </button>
+      </div>
+      <div class="offcanvas-body">
+       <!-- Reuse filter form by cloning at runtime -->
+       <div id="filterFormClone">
+       </div>
+       <div class="mt-3 d-flex gap-2">
+        <button class="btn btn-primary w-100" data-bs-dismiss="offcanvas" id="applyFiltersBtnMobile">
+         <i class="fas fa-filter me-1">
+         </i>
+         Apply Filters
+        </button>
+        <button class="btn btn-light" id="clearFiltersBtnMobile">
+         <i class="fas fa-eraser">
+         </i>
+        </button>
+       </div>
+      </div>
+     </div>
+     <!-- Log Display Area -->
+     <section class="col-12 col-md-7 col-lg-8 col-xxl-9 d-flex flex-column gap-3">
+      <!-- Page Header Title -->
+      <div class="page-header">
+       <div class="d-flex align-items-center gap-2">
+        <h1 class="page-title mb-0">
+         Log Viewer
+        </h1>
+        <span class="badge-soft info" id="resultCountBadge">
+         Loading...
+        </span>
+       </div>
+       <div class="view-switcher d-none d-md-inline-flex">
+        <div class="option active" id="viewListOption">
+         <i class="fas fa-list me-1">
+         </i>
+         List
+        </div>
+        <div class="option" id="viewTableOption">
+         <i class="fas fa-table me-1">
+         </i>
+         Table
+        </div>
+       </div>
+      </div>
+      <!-- KPI Summary -->
+      <div class="grid auto-fit-lg">
+       <div class="metric-card">
+        <div class="metric-title">
+         Total Results
+        </div>
+        <div class="metric-value" id="totalResultsMetric">
+         0
+        </div>
+       </div>
+       <div class="metric-card">
+        <div class="metric-title">
+         Avg. Messages per Log
+        </div>
+        <div class="metric-value" id="avgMessagesMetric">
+         –
+        </div>
+       </div>
+       <div class="metric-card">
+        <div class="metric-title">
+         Most Common Emotion
+        </div>
+        <div class="metric-value" id="commonEmotionMetric">
+         –
+        </div>
+       </div>
+      </div>
+      <!-- Chart: Logs by Date -->
+      <div class="app-card card">
+       <div class="card-header">
+        <div class="d-flex align-items-center gap-2">
+         <i class="fas fa-chart-line text-info">
+         </i>
+         <span class="widget-title">
+          Logs by Date
+         </span>
+        </div>
+        <div>
+         <button class="btn btn-light btn-sm" id="refreshChartBtn">
+          <i class="fas fa-rotate">
+          </i>
+         </button>
+        </div>
+       </div>
+       <div class="card-body">
+        <canvas aria-label="Logs by date chart" height="120" id="logsByDateChart" role="img">
+        </canvas>
+       </div>
+      </div>
+      <!-- Log List -->
+      <div class="app-card card">
+       <div class="card-header">
+        <div class="d-flex align-items-center gap-2">
+         <i class="fas fa-messages text-primary">
+         </i>
+         <span class="widget-title">
+          Log Results
+         </span>
+         <small class="text-muted" id="paginationInfo">
+          Page 1 of 1
+         </small>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+         <select class="form-select form-select-sm w-auto" id="sortSelect">
+          <option value="date_desc">
+           Newest
+          </option>
+          <option value="date_asc">
+           Oldest
+          </option>
+          <option value="messages_desc">
+           Most Messages
+          </option>
+          <option value="messages_asc">
+           Fewest Messages
+          </option>
+         </select>
+         <select class="form-select form-select-sm w-auto" id="pageSizeSelect">
+          <option value="5">
+           5 / page
+          </option>
+          <option selected="" value="10">
+           10 / page
+          </option>
+          <option value="20">
+           20 / page
+          </option>
+         </select>
+         <button class="btn btn-light btn-sm" id="refreshBtn">
+          <i class="fas fa-rotate">
+          </i>
+         </button>
+        </div>
+       </div>
+       <div class="card-body p-0">
+        <div class="table-responsive">
+         <table class="table table-theme table-hover mb-0 align-middle" id="logsTable">
+          <thead>
+           <tr>
+            <th scope="col">
+             Session ID
+            </th>
+            <th scope="col">
+             Date/Time
+            </th>
+            <th scope="col">
+             Messages
+            </th>
+            <th scope="col">
+             Emotions
+            </th>
+            <th class="text-end" scope="col">
+             Action
+            </th>
+           </tr>
+          </thead>
+          <tbody id="logsTableBody">
+           <tr>
+            <td class="text-center p-4" colspan="5">
+             <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">
+               Loading...
+              </span>
+             </div>
+            </td>
+           </tr>
+          </tbody>
+         </table>
+        </div>
+       </div>
+       <div class="card-footer d-flex align-items-center justify-content-between">
+        <div class="text-muted small" id="showingInfo">
+         Showing 0–0 of 0
+        </div>
+        <nav aria-label="Log list pagination">
+         <ul class="pagination pagination-sm mb-0" id="paginationContainer">
+          <!-- Pagination buttons generated by JS -->
+         </ul>
+        </nav>
+       </div>
+      </div>
+      <!-- Conversation View -->
+      <div class="app-card card" id="conversationCard">
+       <div class="card-header">
+        <div class="d-flex align-items-center gap-2">
+         <i class="fas fa-comments text-success">
+         </i>
+         <span class="widget-title">
+          Conversation
+         </span>
+         <span class="badge-soft primary" id="selectedSessionBadge">
+          None Selected
+         </span>
+        </div>
+        <div class="d-flex gap-2">
+         <button class="btn btn-outline-primary btn-sm" id="exportJSONBtn">
+          <i class="fas fa-file-code me-1">
+          </i>
+          Export JSON
+         </button>
+         <button class="btn btn-outline-secondary btn-sm" id="exportTXTBtn">
+          <i class="fas fa-file-lines me-1">
+          </i>
+          Export TXT
+         </button>
+        </div>
+       </div>
+       <div class="card-body">
+        <div class="d-none text-center py-4" id="conversationLoading">
+         <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">
+           Loading...
+          </span>
+         </div>
+        </div>
+        <div class="empty-state d-none" id="conversationEmpty">
+         <i class="fas fa-inbox fa-2x text-muted">
+         </i>
+         <div class="empty-state-text">
+          Select a log to view its transcript.
+         </div>
+        </div>
+        <div class="message-list" id="conversationView">
+         <!-- Messages rendered here -->
+        </div>
+       </div>
+      </div>
+     </section>
+    </div>
+   </main>
+   <!-- Footer -->
+   <footer class="bg-light border-top py-2 px-3 d-flex align-items-center justify-content-between small">
+    <div class="d-flex align-items-center">
+     <img alt="logo" class="me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/logo/120/18'" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a9ff223010074de481ab95/logos/logo_19036e58-01c8-4935-a1be-e31305353e97.png" style="height:18px"/>
+     <span class="text-muted">
+      © 2025 AI EduCoach
+     </span>
+    </div>
+    <div class="d-flex gap-3">
+     <a class="link-secondary text-decoration-none" href="./admin_dashboard.html">
+      <i class="fas fa-tachometer-alt me-1">
+      </i>
+      Dashboard
+     </a>
+     <a class="link-secondary text-decoration-none" href="./analytics_dashboard.html">
+      <i class="fas fa-chart-line me-1">
+      </i>
+      Analytics
+     </a>
+     <a class="link-secondary text-decoration-none" href="./log_viewer.html">
+      <i class="fas fa-file-alt me-1">
+      </i>
+      Logs
+     </a>
+     <span class="text-muted">
+      |
+     </span>
+     <a class="link-secondary text-decoration-none" href="./terms.html">
+      Terms
+     </a>
+     <a class="link-secondary text-decoration-none" href="./privacy.html">
+      Privacy
+     </a>
+    </div>
+   </footer>
+  </div>
+  <!-- Toast Container -->
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1080">
+   <div aria-atomic="true" aria-live="polite" class="toast align-items-center text-bg-primary border-0" id="liveToast" role="alert">
+    <div class="d-flex">
+     <div class="toast-body" id="toastBody">
+      Action completed.
+     </div>
+     <button aria-label="Close" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" type="button">
+     </button>
+    </div>
+   </div>
+  </div>
+  <!-- JS Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.all.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.10/dayjs.min.js">
+  </script>
+  <script>
+   // Mock Data: Logs and conversations
+const mockLogs = [{
+    id: 'S-100184',
+    timestamp: '2025-01-22T14:16:00Z',
+    messageCount: 18,
+    emotions: ['Confusion', 'Anxiety'],
+    messages: [{
+        sender: 'user',
+        text: 'I do not get how the chain rule works here.',
+        timestamp: '2025-01-22T14:16:12Z',
+        emotion: 'Confusion'
+    }, {
+        sender: 'ai',
+        text: 'Let\'s break it down. What part seems unclear?',
+        timestamp: '2025-01-22T14:16:35Z'
+    }, {
+        sender: 'user',
+        text: 'When to multiply vs compose derivatives?',
+        timestamp: '2025-01-22T14:17:02Z',
+        emotion: 'Anxiety'
+    }, {
+        sender: 'ai',
+        text: 'For f(g(x)), derivative is f\'(g(x)) * g\'(x). Let\'s try an example.',
+        timestamp: '2025-01-22T14:17:24Z'
+    }]
+}, {
+    id: 'S-100185',
+    timestamp: '2025-01-21T10:05:00Z',
+    messageCount: 24,
+    emotions: ['Engagement/Excitement'],
+    messages: [{
+        sender: 'user',
+        text: 'This is fun! Can we try a harder problem?',
+        timestamp: '2025-01-21T10:05:12Z',
+        emotion: 'Engagement/Excitement'
+    }, {
+        sender: 'ai',
+        text: 'Absolutely. Here\'s a challenging integral...',
+        timestamp: '2025-01-21T10:05:44Z'
+    }]
+}, {
+    id: 'S-100186',
+    timestamp: '2025-01-19T18:42:00Z',
+    messageCount: 9,
+    emotions: ['Boredom'],
+    messages: [{
+        sender: 'user',
+        text: 'This feels repetitive.',
+        timestamp: '2025-01-19T18:42:31Z',
+        emotion: 'Boredom'
+    }, {
+        sender: 'ai',
+        text: 'Let\'s switch it up with an interactive quiz.',
+        timestamp: '2025-01-19T18:42:56Z'
+    }]
+}, {
+    id: 'S-100187',
+    timestamp: '2025-01-18T09:23:00Z',
+    messageCount: 31,
+    emotions: ['Frustration/Stress', 'Confusion'],
+    messages: [{
+        sender: 'user',
+        text: 'Still stuck after multiple tries.',
+        timestamp: '2025-01-18T09:23:13Z',
+        emotion: 'Frustration/Stress'
+    }, {
+        sender: 'ai',
+        text: 'No worries. Let\'s walk through step by step.',
+        timestamp: '2025-01-18T09:23:51Z'
+    }, {
+        sender: 'user',
+        text: 'The hint didn\'t help.',
+        timestamp: '2025-01-18T09:24:02Z',
+        emotion: 'Confusion'
+    }]
+}, {
+    id: 'S-100188',
+    timestamp: '2025-01-17T13:04:00Z',
+    messageCount: 12,
+    emotions: ['Anxiety'],
+    messages: [{
+        sender: 'user',
+        text: 'Exam tomorrow. Need a quick recap.',
+        timestamp: '2025-01-17T13:04:10Z',
+        emotion: 'Anxiety'
+    }, {
+        sender: 'ai',
+        text: 'Here\'s a summary of key formulas.',
+        timestamp: '2025-01-17T13:04:36Z'
+    }]
+}, {
+    id: 'S-100189',
+    timestamp: '2025-01-16T20:30:00Z',
+    messageCount: 16,
+    emotions: ['Engagement/Excitement', 'Confusion'],
+    messages: [{
+        sender: 'user',
+        text: 'I think I got it now!',
+        timestamp: '2025-01-16T20:30:18Z',
+        emotion: 'Engagement/Excitement'
+    }, {
+        sender: 'ai',
+        text: 'Great! Want to test with another example?',
+        timestamp: '2025-01-16T20:30:41Z'
+    }, {
+        sender: 'user',
+        text: 'But wait, how about implicit diff?',
+        timestamp: '2025-01-16T20:31:12Z',
+        emotion: 'Confusion'
+    }]
+}, {
+    id: 'S-100190',
+    timestamp: '2025-01-15T08:12:00Z',
+    messageCount: 7,
+    emotions: ['Boredom'],
+    messages: [{
+        sender: 'user',
+        text: 'Too easy.',
+        timestamp: '2025-01-15T08:12:19Z',
+        emotion: 'Boredom'
+    }, {
+        sender: 'ai',
+        text: 'Let\'s increase difficulty.',
+        timestamp: '2025-01-15T08:12:33Z'
+    }]
+}, {
+    id: 'S-100191',
+    timestamp: '2025-01-12T12:50:00Z',
+    messageCount: 22,
+    emotions: ['Frustration/Stress'],
+    messages: [{
+        sender: 'user',
+        text: 'I keep making the same mistake.',
+        timestamp: '2025-01-12T12:50:20Z',
+        emotion: 'Frustration/Stress'
+    }, {
+        sender: 'ai',
+        text: 'Let\'s identify the pattern and correct it.',
+        timestamp: '2025-01-12T12:50:45Z'
+    }]
+}];
+
+// State
+let filters = {
+    startDate: null,
+    endDate: null,
+    emotions: new Set(),
+    keyword: ''
+};
+let viewMode = 'table'; // table or list (UI switcher present)
+let sortBy = 'date_desc';
+let pageSize = 10;
+let currentPage = 1;
+let filteredLogs = [...mockLogs];
+let selectedLog = null;
+let chartInstance = null;
+
+// Utilities
+const formatDate = (iso) => dayjs(iso).format('YYYY-MM-DD HH:mm');
+const emotionClass = (emo) => {
+    switch (emo) {
+        case 'Confusion':
+            return 'emotion-confusion';
+        case 'Frustration/Stress':
+            return 'emotion-frustration';
+        case 'Boredom':
+            return 'emotion-boredom';
+        case 'Engagement/Excitement':
+            return 'emotion-engagement';
+        case 'Anxiety':
+            return 'emotion-anxiety';
+        default:
+            return 'badge-soft';
+    }
+};
+
+function showToast(message) {
+    const toastEl = document.getElementById('liveToast');
+    document.getElementById('toastBody').textContent = message;
+    const toast = new bootstrap.Toast(toastEl);
+    toast.show();
+}
+
+// Rendering
+function renderTable() {
+    const tbody = document.getElementById('logsTableBody');
+    tbody.innerHTML = '';
+
+    const startIndex = (currentPage - 1) * pageSize;
+    const pageItems = filteredLogs.slice(startIndex, startIndex + pageSize);
+
+    if (pageItems.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" class="text-center p-4 text-muted">No logs match your filters.</td></tr>`;
+    } else {
+        for (const log of pageItems) {
+            const emotionsHtml = log.emotions.map(e => `<span class="badge-soft ${emotionClass(e)} me-1" data-bs-toggle="tooltip" title="${e}">${e}</span>`).join('');
+            const tr = document.createElement('tr');
+            tr.className = 'table-row-click';
+            tr.innerHTML = `
+            <td><span class="fw-semibold">${log.id}</span></td>
+            <td>${formatDate(log.timestamp)}</td>
+            <td>${log.messageCount.toLocaleString()}</td>
+            <td>${emotionsHtml}</td>
+            <td class="text-end">
+              <button class="btn btn-sm btn-outline-primary" data-session="${log.id}"><i class="fas fa-eye"></i></button>
+            </td>`;
+            tr.addEventListener('click', (e) => {
+                if (e.target.closest('button')) {
+                    loadConversation(log.id);
+                } else {
+                    loadConversation(log.id);
+                }
+            });
+            tbody.appendChild(tr);
+        }
+    }
+
+    // Tooltips
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.map(el => new bootstrap.Tooltip(el));
+
+    // Pagination info
+    const total = filteredLogs.length;
+    const startItem = total === 0 ? 0 : startIndex + 1;
+    const endItem = Math.min(startIndex + pageSize, total);
+    document.getElementById('showingInfo').textContent = `Showing ${startItem}–${endItem} of ${total.toLocaleString()}`;
+
+    const totalPages = Math.max(1, Math.ceil(total / pageSize));
+    document.getElementById('paginationInfo').textContent = `Page ${currentPage} of ${totalPages}`;
+
+    renderPagination(totalPages);
+    document.getElementById('resultCountBadge').textContent = `${total} results`;
+    updateKpis();
+}
+
+function renderPagination(totalPages) {
+    const container = document.getElementById('paginationContainer');
+    container.innerHTML = '';
+
+    const prevLi = document.createElement('li');
+    prevLi.className = 'page-item' + (currentPage === 1 ? ' disabled' : '');
+    prevLi.innerHTML = `<a class="page-link" href="#" tabindex="-1">Previous</a>`;
+    prevLi.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (currentPage > 1) {
+            currentPage--;
+            renderTable();
+        }
+    });
+    container.appendChild(prevLi);
+
+    const total = Math.max(1, totalPages);
+    for (let i = 1; i <= total; i++) {
+        const li = document.createElement('li');
+        li.className = 'page-item' + (i === currentPage ? ' active' : '');
+        li.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+        li.addEventListener('click', (e) => {
+            e.preventDefault();
+            currentPage = i;
+            renderTable();
+        });
+        container.appendChild(li);
+    }
+
+    const nextLi = document.createElement('li');
+    nextLi.className = 'page-item' + (currentPage === totalPages ? ' disabled' : '');
+    nextLi.innerHTML = `<a class="page-link" href="#">Next</a>`;
+    nextLi.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (currentPage < totalPages) {
+            currentPage++;
+            renderTable();
+        }
+    });
+    container.appendChild(nextLi);
+}
+
+function renderConversation(log) {
+    const badge = document.getElementById('selectedSessionBadge');
+    badge.textContent = log ? log.id : 'None Selected';
+
+    const container = document.getElementById('conversationView');
+    const loading = document.getElementById('conversationLoading');
+    const empty = document.getElementById('conversationEmpty');
+
+    if (!log) {
+        container.innerHTML = '';
+        empty.classList.remove('d-none');
+        loading.classList.add('d-none');
+        return;
+    }
+
+    empty.classList.add('d-none');
+    loading.classList.remove('d-none');
+
+    // Simulate loading
+    setTimeout(() => {
+        loading.classList.add('d-none');
+        container.innerHTML = '';
+        for (const msg of log.messages) {
+            const row = document.createElement('div');
+            row.className = 'message-row ' + (msg.sender === 'user' ? 'incoming' : 'outgoing');
+
+            const bubble = document.createElement('div');
+            bubble.className = 'message-bubble';
+            bubble.innerHTML = `
+            <div class="message-text">${msg.text}</div>
+            <div class="message-metadata small mt-1"><i class="far fa-clock me-1"></i>${formatDate(msg.timestamp)}</div>
+          `;
+
+            if (msg.sender === 'user' && msg.emotion) {
+                const chip = document.createElement('span');
+                chip.className = `badge-soft ${emotionClass(msg.emotion)} me-2`;
+                chip.textContent = msg.emotion;
+                row.appendChild(chip);
+            }
+
+            row.appendChild(bubble);
+            container.appendChild(row);
+        }
+    }, 300);
+}
+
+// Filtering, Sorting, KPI, Chart
+function applyFilters() {
+    const kw = filters.keyword?.trim().toLowerCase();
+    filteredLogs = mockLogs.filter(log => {
+        let ok = true;
+        if (filters.startDate) {
+            ok = ok && dayjs(log.timestamp).isAfter(dayjs(filters.startDate).subtract(1, 'day'));
+        }
+        if (filters.endDate) {
+            ok = ok && dayjs(log.timestamp).isBefore(dayjs(filters.endDate).add(1, 'day'));
+        }
+        if (filters.emotions.size > 0) {
+            ok = ok && log.emotions.some(e => filters.emotions.has(e));
+        }
+        if (kw) {
+            const inMessages = log.messages.some(m => (m.text || '').toLowerCase().includes(kw));
+            ok = ok && (log.id.toLowerCase().includes(kw) || inMessages);
+        }
+        return ok;
+    });
+
+    // Sorting
+    filteredLogs.sort((a, b) => {
+        switch (sortBy) {
+            case 'date_asc':
+                return new Date(a.timestamp) - new Date(b.timestamp);
+            case 'date_desc':
+                return new Date(b.timestamp) - new Date(a.timestamp);
+            case 'messages_asc':
+                return a.messageCount - b.messageCount;
+            case 'messages_desc':
+                return b.messageCount - a.messageCount;
+            default:
+                return 0;
+        }
+    });
+
+    currentPage = 1;
+    renderTable();
+    updateChart();
+}
+
+function updateKpis() {
+    const total = filteredLogs.length;
+    document.getElementById('totalResultsMetric').textContent = total.toLocaleString();
+    const avg = total ? Math.round(filteredLogs.reduce((s, l) => s + l.messageCount, 0) / total) : 0;
+    document.getElementById('avgMessagesMetric').textContent = total ? avg.toString() : '–';
+    const counts = {};
+    filteredLogs.forEach(l => l.emotions.forEach(e => counts[e] = (counts[e] || 0) + 1));
+    let common = '–',
+        max = 0;
+    for (const [k, v] of Object.entries(counts)) {
+        if (v > max) {
+            max = v;
+            common = k;
+        }
+    }
+    document.getElementById('commonEmotionMetric').textContent = common;
+}
+
+function buildChartData() {
+    const byDate = {};
+    filteredLogs.forEach(l => {
+        const d = dayjs(l.timestamp).format('YYYY-MM-DD');
+        byDate[d] = (byDate[d] || 0) + 1;
+    });
+    const labels = Object.keys(byDate).sort();
+    const values = labels.map(k => byDate[k]);
+    return {
+        labels,
+        values
+    };
+}
+
+function updateChart() {
+    const ctx = document.getElementById('logsByDateChart');
+    const data = buildChartData();
+    if (chartInstance) {
+        chartInstance.destroy();
+    }
+    chartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: data.labels,
+            datasets: [{
+                label: 'Logs',
+                data: data.values,
+                borderColor: 'rgba(0,123,255,0.9)',
+                backgroundColor: 'rgba(0,123,255,0.15)',
+                tension: 0.25,
+                fill: true,
+                pointRadius: 3
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    mode: 'index',
+                    intersect: false
+                }
+            },
+            scales: {
+                x: {
+                    grid: {
+                        display: false
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        precision: 0
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Conversation control
+function loadConversation(sessionId) {
+    const log = mockLogs.find(l => l.id === sessionId);
+    selectedLog = log || null;
+    renderConversation(selectedLog);
+}
+
+// Export
+function exportJSON() {
+    if (!selectedLog) {
+        Swal.fire('Select a log', 'Please select a log to export.', 'info');
+        return;
+    }
+    const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(selectedLog, null, 2));
+    const dl = document.createElement('a');
+    dl.setAttribute('href', dataStr);
+    dl.setAttribute('download', `${selectedLog.id}.json`);
+    document.body.appendChild(dl);
+    dl.click();
+    dl.remove();
+    showToast('JSON exported');
+}
+
+function exportTXT() {
+    if (!selectedLog) {
+        Swal.fire('Select a log', 'Please select a log to export.', 'info');
+        return;
+    }
+    const lines = selectedLog.messages.map(m => `[${formatDate(m.timestamp)}] ${m.sender.toUpperCase()}: ${m.text}`);
+    const content = `Session: ${selectedLog.id}\nDate: ${formatDate(selectedLog.timestamp)}\nMessages: ${selectedLog.messageCount}\nEmotions: ${selectedLog.emotions.join(', ')}\n\n` + lines.join('\n');
+    const dataStr = 'data:text/plain;charset=utf-8,' + encodeURIComponent(content);
+    const dl = document.createElement('a');
+    dl.setAttribute('href', dataStr);
+    dl.setAttribute('download', `${selectedLog.id}.txt`);
+    document.body.appendChild(dl);
+    dl.click();
+    dl.remove();
+    showToast('Text exported');
+}
+
+// Init Date Pickers
+function initDates() {
+    const startPicker = flatpickr('#startDate', {
+        dateFormat: 'Y-m-d',
+        onChange: function(selectedDates) {
+            const d = selectedDates[0] ? dayjs(selectedDates[0]).format('YYYY-MM-DD') : null;
+            filters.startDate = d;
+            endPicker.set('minDate', d);
+        }
+    });
+    var endPicker = flatpickr('#endDate', {
+        dateFormat: 'Y-m-d',
+        onChange: function(selectedDates) {
+            const d = selectedDates[0] ? dayjs(selectedDates[0]).format('YYYY-MM-DD') : null;
+            filters.endDate = d;
+            startPicker.set('maxDate', d);
+        }
+    });
+}
+
+// Clone filters into offcanvas for mobile
+function cloneFiltersToOffcanvas() {
+    const filterCardBody = document.querySelector('.filter-card .card-body');
+    const cloneTarget = document.getElementById('filterFormClone');
+    const clone = filterCardBody.cloneNode(true);
+    cloneTarget.innerHTML = '';
+    cloneTarget.appendChild(clone);
+}
+
+// Events
+function bindEvents() {
+    document.getElementById('applyFiltersBtn').addEventListener('click', () => {
+        showToast('Applying filters...');
+        setTimeout(applyFilters, 200);
+    });
+    document.getElementById('clearFiltersBtn').addEventListener('click', () => {
+        clearFilters();
+        applyFilters();
+    });
+    document.getElementById('refreshBtn').addEventListener('click', () => {
+        applyFilters();
+    });
+    document.getElementById('refreshChartBtn').addEventListener('click', () => updateChart());
+    document.getElementById('sortSelect').addEventListener('change', (e) => {
+        sortBy = e.target.value;
+        applyFilters();
+    });
+    document.getElementById('pageSizeSelect').addEventListener('change', (e) => {
+        pageSize = parseInt(e.target.value, 10);
+        currentPage = 1;
+        renderTable();
+    });
+
+    document.getElementById('keywordInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            filters.keyword = e.target.value;
+            applyFilters();
+        }
+    });
+    document.getElementById('keywordInput').addEventListener('change', (e) => {
+        filters.keyword = e.target.value;
+    });
+    document.querySelectorAll('.emotion-filter').forEach(cb => cb.addEventListener('change', (e) => {
+        if (e.target.checked) {
+            filters.emotions.add(e.target.value);
+        } else {
+            filters.emotions.delete(e.target.value);
+        }
+    }));
+
+    // Global search funnels to keyword filter
+    document.getElementById('globalSearchInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            document.getElementById('keywordInput').value = e.target.value;
+            filters.keyword = e.target.value;
+            applyFilters();
+        }
+    });
+
+    // Offcanvas filter buttons
+    document.getElementById('applyFiltersBtnMobile').addEventListener('click', () => {
+        syncOffcanvasToMain();
+        applyFilters();
+    });
+    document.getElementById('clearFiltersBtnMobile').addEventListener('click', () => {
+        clearFilters();
+        cloneFiltersToOffcanvas();
+        initDates();
+    });
+
+    document.getElementById('exportJSONBtn').addEventListener('click', exportJSON);
+    document.getElementById('exportTXTBtn').addEventListener('click', exportTXT);
+
+    // View switcher (simple cosmetic)
+    document.getElementById('viewListOption').addEventListener('click', () => {
+        viewMode = 'list';
+        setActiveViewOption('viewListOption');
+    });
+    document.getElementById('viewTableOption').addEventListener('click', () => {
+        viewMode = 'table';
+        setActiveViewOption('viewTableOption');
+    });
+}
+
+function setActiveViewOption(id) {
+    document.querySelectorAll('.view-switcher .option').forEach(el => el.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+}
+
+function clearFilters() {
+    filters = {
+        startDate: null,
+        endDate: null,
+        emotions: new Set(),
+        keyword: ''
+    };
+    document.getElementById('startDate').value = '';
+    document.getElementById('endDate').value = '';
+    document.getElementById('keywordInput').value = '';
+    document.querySelectorAll('.emotion-filter').forEach(cb => cb.checked = false);
+}
+
+function syncOffcanvasToMain() {
+    // Pull values from offcanvas clone to main if needed (simplified by re-reading main inputs)
+    // In this implementation, we reused the same IDs; Flatpickr will re-init after clone
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+    initDates();
+    bindEvents();
+    cloneFiltersToOffcanvas();
+    // Initial render
+    applyFilters();
+    // Preselect first log
+    if (filteredLogs.length) {
+        loadConversation(filteredLogs[0].id);
+    }
+});
+  </script>
+ </body>
+</html>

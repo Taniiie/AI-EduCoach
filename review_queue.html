@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Content Review Queue | AI EduCoach
+  </title>
+  <!-- Google Fonts: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+   <!-- Font Awesome 6 -->
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+   <!-- Theme CSS (provided) -->
+   <link href="style.css" rel="stylesheet"/>
+   <!-- Page-specific CSS -->
+   <link href="review_queue.css" rel="stylesheet"/>
+  </link>
+ </head>
+ <body>
+  <!-- Content Team Header (as provided) -->
+  <style>
+   .content-header .navbar-brand img { height:28px; }
+    .btn-accent { background: var(--secondary); border-color: var(--secondary); color:#fff; }
+    .btn-accent:hover { filter: brightness(0.95); }
+  </style>
+  <nav class="content-header navbar navbar-expand bg-white border-bottom px-3">
+   <button aria-controls="sidebarOffcanvas" class="btn btn-outline-primary d-lg-none me-2" data-bs-target="#sidebarOffcanvas" data-bs-toggle="offcanvas" type="button">
+    <i class="fas fa-bars">
+    </i>
+   </button>
+   <a class="navbar-brand d-flex align-items-center" href="./content_editor.html">
+    <img alt="Logo" class="me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/edulogo/40/40';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a9ff223010074de481ab95/logos/logo_19036e58-01c8-4935-a1be-e31305353e97.png"/>
+    <span class="fw-bold">
+     Content Management
+    </span>
+   </a>
+   <form class="ms-3 flex-grow-1 d-none d-md-flex" role="search">
+    <div class="input-group">
+     <span class="input-group-text bg-white">
+      <i class="fas fa-search text-muted">
+      </i>
+     </span>
+     <input class="form-control" id="globalSearch" placeholder="Search content items, titles, IDs..." type="search"/>
+    </div>
+   </form>
+   <div class="ms-auto d-flex align-items-center gap-2">
+    <a class="btn btn-primary" href="./content_editor.html">
+     <i class="fas fa-plus me-1">
+     </i>
+     New Content
+    </a>
+    <a class="btn btn-accent" href="./review_queue.html">
+     <i class="fas fa-clipboard-check me-1">
+     </i>
+     My Reviews
+    </a>
+    <a class="btn btn-link text-secondary" href="./analytics_dashboard.html" title="Notifications">
+     <i class="fas fa-bell">
+     </i>
+    </a>
+    <a class="btn btn-link text-secondary" href="./chat_interface.html" title="Messages">
+     <i class="fas fa-envelope">
+     </i>
+    </a>
+    <div class="dropdown">
+     <a aria-expanded="false" class="btn btn-light dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" href="#" role="button">
+      <i class="fas fa-user-graduate me-2">
+      </i>
+      Emily Carter
+     </a>
+     <ul class="dropdown-menu dropdown-menu-end">
+      <li>
+       <a class="dropdown-item" href="./admin_dashboard.html">
+        <i class="fas fa-id-badge me-2">
+        </i>
+        Profile
+       </a>
+      </li>
+      <li>
+       <a class="dropdown-item" href="./settings.html">
+        <i class="fas fa-sliders-h me-2">
+        </i>
+        Settings
+       </a>
+      </li>
+      <li>
+       <hr class="dropdown-divider"/>
+      </li>
+      <li>
+       <a class="dropdown-item text-danger" href="./login_page.html">
+        <i class="fas fa-sign-out-alt me-2">
+        </i>
+        Logout
+       </a>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </nav>
+  <!-- Mobile Offcanvas Sidebar (for small screens) -->
+  <div aria-labelledby="sidebarOffcanvasLabel" class="offcanvas offcanvas-start" id="sidebarOffcanvas" tabindex="-1">
+   <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="sidebarOffcanvasLabel">
+     Navigation
+    </h5>
+    <button aria-label="Close" class="btn-close" data-bs-dismiss="offcanvas" type="button">
+    </button>
+   </div>
+   <div class="offcanvas-body p-0">
+    <!-- Mirror of the sidebar nav for mobile -->
+    <div class="sidebar-content d-flex flex-column p-3" style="min-height:auto;width:auto;">
+     <div class="brand d-flex align-items-center mb-3">
+      <img alt="logo" class="me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/brand/36/36';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a9ff223010074de481ab95/logos/logo_19036e58-01c8-4935-a1be-e31305353e97.png"/>
+      <span class="fw-bold">
+       AI EduCoach
+      </span>
+     </div>
+     <nav class="nav nav-pills flex-column gap-1">
+      <a class="nav-link" href="./content_editor.html">
+       <i class="fas fa-pen-to-square me-2">
+       </i>
+       Create Content
+      </a>
+      <a class="nav-link active" href="./review_queue.html">
+       <i class="fas fa-inbox me-2">
+       </i>
+       Review Queue
+      </a>
+      <a class="nav-link" href="./content_library.html">
+       <i class="fas fa-folder-open me-2">
+       </i>
+       Content Library
+      </a>
+      <a class="nav-link" href="./guidelines.html">
+       <i class="fas fa-book me-2">
+       </i>
+       Guidelines
+      </a>
+      <hr class="border-light"/>
+      <a class="nav-link" href="./help.html">
+       <i class="fas fa-circle-question me-2">
+       </i>
+       Help
+      </a>
+      <a class="nav-link" href="./settings.html">
+       <i class="fas fa-cog me-2">
+       </i>
+       Settings
+      </a>
+     </nav>
+    </div>
+   </div>
+  </div>
+  <div class="d-flex">
+   <!-- Left Sidebar (Desktop only, as provided) -->
+   <style>
+    .sidebar-content { background: var(--primary); color:#fff; min-height:100vh; width:280px; }
+      .sidebar-content .brand img { height:36px; }
+      .sidebar-content .nav-link { color:#fff; border-radius:.375rem; }
+      .sidebar-content .nav-link:hover { background: rgba(255,255,255,0.12); }
+      .sidebar-content .nav-link.active { background: var(--secondary); color:#fff; }
+      .sidebar-content .profile { background: rgba(255,255,255,0.1); border-radius:.5rem; }
+   </style>
+   <aside class="sidebar-content d-none d-lg-flex flex-column p-3">
+    <div class="brand d-flex align-items-center mb-3">
+     <img alt="logo" class="me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/brand/36/36';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a9ff223010074de481ab95/logos/logo_19036e58-01c8-4935-a1be-e31305353e97.png"/>
+     <span class="fw-bold">
+      AI EduCoach
+     </span>
+    </div>
+    <div class="profile d-flex align-items-center p-2 mb-3">
+     <i class="fas fa-user-graduate fa-2x me-2">
+     </i>
+     <div>
+      <div class="fw-semibold">
+       Dr. Emily Carter
+      </div>
+      <small class="text-white-50">
+       Subject Matter Expert
+      </small>
+     </div>
+    </div>
+    <nav class="nav nav-pills flex-column gap-1">
+     <a class="nav-link" href="./content_editor.html">
+      <i class="fas fa-pen-to-square me-2">
+      </i>
+      Create Content
+     </a>
+     <a class="nav-link active" href="./review_queue.html">
+      <i class="fas fa-inbox me-2">
+      </i>
+      Review Queue
+     </a>
+     <a class="nav-link" href="./content_library.html">
+      <i class="fas fa-folder-open me-2">
+      </i>
+      Content Library
+     </a>
+     <a class="nav-link" href="./guidelines.html">
+      <i class="fas fa-book me-2">
+      </i>
+      Guidelines
+     </a>
+     <hr class="border-light"/>
+     <a class="nav-link" href="./help.html">
+      <i class="fas fa-circle-question me-2">
+      </i>
+      Help
+     </a>
+     <a class="nav-link" href="./settings.html">
+      <i class="fas fa-cog me-2">
+      </i>
+      Settings
+     </a>
+    </nav>
+   </aside>
+   <!-- Main Content -->
+   <main class="flex-grow-1">
+    <div class="container-fluid py-3">
+     <!-- Breadcrumb and Page Header -->
+     <nav aria-label="breadcrumb" class="breadcrumb">
+      <ol class="breadcrumb mb-2">
+       <li class="breadcrumb-item">
+        <a href="./admin_dashboard.html">
+         Dashboard
+        </a>
+       </li>
+       <li aria-current="page" class="breadcrumb-item active">
+        Content Review Queue
+       </li>
+      </ol>
+     </nav>
+     <div class="page-header mb-3">
+      <div>
+       <h1 class="page-title mb-1">
+        Content Review Queue
+       </h1>
+       <div class="text-muted">
+        Review, approve, or request revisions for submitted content.
+       </div>
+      </div>
+      <div class="d-flex gap-2">
+       <button class="btn btn-light" id="refreshBtn">
+        <i class="fas fa-rotate">
+        </i>
+        Refresh
+       </button>
+       <button class="btn btn-success" disabled="" id="bulkApproveBtn">
+        <i class="fas fa-check-double">
+        </i>
+        Bulk Approve
+       </button>
+      </div>
+     </div>
+     <!-- System Feedback / Status Summary -->
+     <div class="row g-3 mb-3">
+      <div class="col-12 col-md-4">
+       <div class="metric-card">
+        <div class="metric-title">
+         Pending Items
+        </div>
+        <div class="d-flex align-items-end justify-content-between">
+         <div class="metric-value" id="pendingCount">
+          0
+         </div>
+         <span class="badge-soft warning">
+          <i class="fa-solid fa-hourglass-half">
+          </i>
+          SLA:
+          <span id="slaWarn">
+           —
+          </span>
+         </span>
+        </div>
+       </div>
+      </div>
+      <div class="col-12 col-md-4">
+       <div class="metric-card">
+        <div class="metric-title">
+         Revision Requests
+        </div>
+        <div class="d-flex align-items-end justify-content-between">
+         <div class="metric-value" id="revisionCount">
+          0
+         </div>
+         <span class="badge-soft info">
+          <i class="fa-solid fa-arrow-rotate-left">
+          </i>
+          In rework
+         </span>
+        </div>
+       </div>
+      </div>
+      <div class="col-12 col-md-4">
+       <div class="metric-card">
+        <div class="metric-title">
+         Today
+        </div>
+        <div class="d-flex align-items-end justify-content-between">
+         <div class="metric-value" id="todayCount">
+          0
+         </div>
+         <span class="badge-soft success">
+          <i class="fa-solid fa-circle-check">
+          </i>
+          Processed
+         </span>
+        </div>
+       </div>
+      </div>
+     </div>
+     <!-- Queue Overview Chart -->
+     <div class="card mb-3">
+      <div class="card-header">
+       <div class="widget-title">
+        Queue Overview
+       </div>
+      </div>
+      <div class="card-body">
+       <div class="row g-3 align-items-center">
+        <div class="col-12 col-md-6">
+         <canvas aria-label="Status distribution" height="160" id="statusDonut" role="img">
+         </canvas>
+        </div>
+        <div class="col-12 col-md-6">
+         <canvas aria-label="Submissions over time" height="160" id="submissionsLine" role="img">
+         </canvas>
+        </div>
+       </div>
+      </div>
+     </div>
+     <!-- Filter Bar -->
+     <div class="card mb-3" id="filterBarCard">
+      <div class="card-header">
+       <div class="d-flex align-items-center justify-content-between w-100">
+        <div class="widget-title d-flex align-items-center gap-2">
+         <i class="fa-solid fa-filter">
+         </i>
+         Filters
+        </div>
+        <div class="text-muted small">
+         Tip: press Enter in search to apply
+        </div>
+       </div>
+      </div>
+      <div class="card-body">
+       <form class="row g-3 align-items-end" id="filterForm">
+        <div class="col-12 col-md-3">
+         <label class="form-label" for="subjectSelect">
+          Subject
+         </label>
+         <select aria-label="Subject filter" class="form-select" id="subjectSelect">
+          <option value="">
+           All Subjects
+          </option>
+         </select>
+        </div>
+        <div class="col-12 col-md-3">
+         <label class="form-label" for="topicSelect">
+          Topic
+         </label>
+         <select aria-label="Topic filter" class="form-select" disabled="" id="topicSelect">
+          <option value="">
+           All Topics
+          </option>
+         </select>
+        </div>
+        <div class="col-12 col-md-4">
+         <label class="form-label" for="searchInput">
+          Search
+         </label>
+         <div class="input-group">
+          <span class="input-group-text">
+           <i class="fas fa-search">
+           </i>
+          </span>
+          <input class="form-control" id="searchInput" placeholder="Search by title or submitter name..." type="text">
+          </input>
+         </div>
+        </div>
+        <div class="col-12 col-md-2 d-flex gap-2">
+         <button class="btn btn-primary flex-fill" id="applyFiltersBtn" type="submit">
+          <i class="fa-solid fa-filter-circle-dollar me-1">
+          </i>
+          Apply
+         </button>
+         <button class="btn btn-light flex-fill" id="resetFiltersBtn" type="button">
+          <i class="fa-solid fa-rotate-left me-1">
+          </i>
+          Reset
+         </button>
+        </div>
+       </form>
+      </div>
+     </div>
+     <!-- Review Items Table -->
+     <div class="card" id="tableCard">
+      <div class="card-header">
+       <div class="d-flex align-items-center justify-content-between w-100">
+        <div class="widget-title d-flex align-items-center gap-2">
+         <i class="fa-solid fa-list-check">
+         </i>
+         Pending Review Items
+        </div>
+        <div class="text-muted small" id="tableInfo">
+         Loading…
+        </div>
+       </div>
+      </div>
+      <div class="position-relative">
+       <div class="loading-overlay d-none" id="tableLoading">
+        <div class="spinner-border text-primary" role="status">
+        </div>
+       </div>
+       <div class="table-responsive">
+        <table class="table table-hover table-theme align-middle mb-0" id="itemsTable">
+         <thead>
+          <tr>
+           <th style="width:40px">
+            <input class="form-check-input" id="selectAll" type="checkbox"/>
+           </th>
+           <th class="sortable" data-sort="title">
+            Title
+            <i class="fa-solid fa-sort ms-1">
+            </i>
+           </th>
+           <th class="sortable" data-sort="subject">
+            Subject
+            <i class="fa-solid fa-sort ms-1">
+            </i>
+           </th>
+           <th class="sortable" data-sort="topic">
+            Topic
+            <i class="fa-solid fa-sort ms-1">
+            </i>
+           </th>
+           <th class="sortable" data-sort="submitter">
+            Submitter
+            <i class="fa-solid fa-sort ms-1">
+            </i>
+           </th>
+           <th class="sortable" data-sort="date">
+            Submitted
+            <i class="fa-solid fa-sort ms-1">
+            </i>
+           </th>
+           <th class="sortable" data-sort="status">
+            Status
+            <i class="fa-solid fa-sort ms-1">
+            </i>
+           </th>
+           <th style="width:110px">
+            Actions
+           </th>
+          </tr>
+         </thead>
+         <tbody id="tableBody">
+          <!-- Rows injected by JS -->
+         </tbody>
+        </table>
+       </div>
+      </div>
+      <div class="card-footer d-flex flex-wrap align-items-center justify-content-between gap-2">
+       <div class="small text-muted" id="paginationInfo">
+        Page 1 of 1
+       </div>
+       <nav>
+        <ul class="pagination mb-0" id="pagination">
+         <!-- Pagination items injected by JS -->
+        </ul>
+       </nav>
+      </div>
+     </div>
+    </div>
+   </main>
+  </div>
+  <!-- Content Detail View Modal -->
+  <div aria-hidden="true" aria-labelledby="contentDetailModalLabel" class="modal fade" id="contentDetailModal" tabindex="-1">
+   <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+     <div class="modal-header">
+      <h5 class="modal-title" id="contentDetailModalLabel">
+       Content Detail
+      </h5>
+      <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button">
+      </button>
+     </div>
+     <div class="modal-body">
+      <div class="row g-4">
+       <div class="col-12">
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+         <div>
+          <div class="h5 mb-0" id="detailTitle">
+           —
+          </div>
+          <div class="text-muted small">
+           ID:
+           <span id="detailId">
+            —
+           </span>
+           ·
+           <span id="detailMeta">
+            —
+           </span>
+          </div>
+         </div>
+         <div class="d-flex gap-2 align-items-center">
+          <span class="badge-soft info" id="detailSubject">
+           —
+          </span>
+          <span class="badge-soft primary" id="detailTopic">
+           —
+          </span>
+         </div>
+        </div>
+       </div>
+       <div class="col-12">
+        <div class="detail-section">
+         <div class="section-title mb-2">
+          <i class="fa-solid fa-circle-question me-2">
+          </i>
+          Question
+         </div>
+         <div class="formatted-content" id="detailQuestion">
+          —
+         </div>
+        </div>
+       </div>
+       <div class="col-12">
+        <div class="detail-section">
+         <div class="section-title mb-2">
+          <i class="fa-solid fa-lightbulb me-2">
+          </i>
+          Step-by-step Solution
+         </div>
+         <div class="formatted-content" id="detailSolution">
+          —
+         </div>
+        </div>
+       </div>
+       <div class="col-12 col-lg-6">
+        <div class="detail-section">
+         <div class="section-title mb-2">
+          <i class="fa-solid fa-seedling me-2">
+          </i>
+          Simpler Explanation
+         </div>
+         <div class="formatted-content" id="detailSimple">
+          —
+         </div>
+        </div>
+       </div>
+       <div class="col-12 col-lg-6">
+        <div class="detail-section">
+         <div class="section-title mb-2">
+          <i class="fa-solid fa-flask me-2">
+          </i>
+          Challenge Problem
+         </div>
+         <div class="formatted-content" id="detailChallenge">
+          —
+         </div>
+        </div>
+       </div>
+       <div class="col-12">
+        <div class="d-none" id="rejectionBlock">
+         <label class="form-label" for="rejectionReason">
+          Rejection / Revision Reason
+         </label>
+         <textarea class="form-control" id="rejectionReason" placeholder="Provide detailed feedback for the author (min 20 characters)" rows="4"></textarea>
+         <div class="form-text">
+          This feedback will be sent to the content creator.
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="modal-footer d-flex justify-content-between">
+      <div class="text-muted small" id="submitHint">
+       Use Approve or Request Revisions to proceed.
+      </div>
+      <div class="d-flex gap-2">
+       <button class="btn btn-success" id="approveBtn" type="button">
+        <i class="fa-solid fa-circle-check me-1">
+        </i>
+        Approve
+       </button>
+       <button class="btn btn-danger" id="requestRevisionsBtn" type="button">
+        <i class="fa-solid fa-pen-to-square me-1">
+        </i>
+        Request Revisions
+       </button>
+       <button class="btn btn-light" data-bs-dismiss="modal" type="button">
+        Close
+       </button>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+  <!-- Toast container -->
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: var(--z-toast, 1060);">
+   <div aria-atomic="true" aria-live="assertive" class="toast align-items-center text-bg-primary border-0" id="actionToast" role="alert">
+    <div class="d-flex">
+     <div class="toast-body" id="toastMsg">
+      Action completed
+     </div>
+     <button aria-label="Close" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" type="button">
+     </button>
+    </div>
+   </div>
+  </div>
+  <!-- Footer (as provided) -->
+  <footer class="bg-light border-top py-2 px-3 d-flex align-items-center justify-content-between small">
+   <div class="d-flex align-items-center">
+    <img alt="logo" class="me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/footer/18/18';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a9ff223010074de481ab95/logos/logo_19036e58-01c8-4935-a1be-e31305353e97.png" style="height:18px"/>
+    <span class="text-muted">
+     © 2025 AI EduCoach
+    </span>
+   </div>
+   <div class="d-flex gap-3">
+    <a class="link-secondary text-decoration-none" href="./content_editor.html">
+     <i class="fas fa-pen-to-square me-1">
+     </i>
+     New
+    </a>
+    <a class="link-secondary text-decoration-none" href="./review_queue.html">
+     <i class="fas fa-inbox me-1">
+     </i>
+     Review Queue
+    </a>
+    <span class="text-muted">
+     |
+    </span>
+    <a class="link-secondary text-decoration-none" href="./terms.html">
+     Terms
+    </a>
+    <a class="link-secondary text-decoration-none" href="./privacy.html">
+     Privacy
+    </a>
+   </div>
+  </footer>
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+  </script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js">
+  </script>
+  <!-- MathJax for LaTeX rendering -->
+  <script>
+   window.MathJax = {
+    tex: {
+        inlineMath: [
+            ['$', '$'],
+            ['\\(', '\\)']
+        ]
+    },
+    svg: {
+        fontCache: 'global'
+    }
+};
+  </script>
+  <script async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+  </script>
+  <script>
+   // Mock Subjects/Topics and Items
+const SUBJECTS = {
+    'Math': ['Algebra', 'Geometry', 'Calculus', 'Statistics'],
+    'Science': ['Physics', 'Chemistry', 'Biology'],
+    'Computer Science': ['Algorithms', 'Data Structures', 'Databases']
+};
+
+const MOCK_ITEMS = [{
+    id: 1001,
+    title: 'Quadratic Roots via Formula',
+    subject: 'Math',
+    topic: 'Algebra',
+    submitter: 'Ava Johnson',
+    date: '2025-08-20',
+    status: 'Pending Review'
+}, {
+    id: 1002,
+    title: 'Projectile Motion Basics',
+    subject: 'Science',
+    topic: 'Physics',
+    submitter: 'Noah Chen',
+    date: '2025-08-21',
+    status: 'Pending Review'
+}, {
+    id: 1003,
+    title: 'Derivatives: Product Rule',
+    subject: 'Math',
+    topic: 'Calculus',
+    submitter: 'Liam Patel',
+    date: '2025-08-18',
+    status: 'Pending Review'
+}, {
+    id: 1004,
+    title: 'Balancing Redox Reactions',
+    subject: 'Science',
+    topic: 'Chemistry',
+    submitter: 'Sophia Kim',
+    date: '2025-08-17',
+    status: 'Revision Submitted'
+}, {
+    id: 1005,
+    title: 'Binary Search Trees',
+    subject: 'Computer Science',
+    topic: 'Data Structures',
+    submitter: 'Mason Rivera',
+    date: '2025-08-22',
+    status: 'Pending Review'
+}, {
+    id: 1006,
+    title: 'Mean, Median, Mode',
+    subject: 'Math',
+    topic: 'Statistics',
+    submitter: 'Emma Williams',
+    date: '2025-08-15',
+    status: 'Pending Review'
+}, {
+    id: 1007,
+    title: 'Relational Algebra Intro',
+    subject: 'Computer Science',
+    topic: 'Databases',
+    submitter: 'Olivia Brown',
+    date: '2025-08-16',
+    status: 'Pending Review'
+}, {
+    id: 1008,
+    title: 'Triangles: Similarity',
+    subject: 'Math',
+    topic: 'Geometry',
+    submitter: 'Ethan Davis',
+    date: '2025-08-19',
+    status: 'Pending Review'
+}, {
+    id: 1009,
+    title: 'Sorting Complexity',
+    subject: 'Computer Science',
+    topic: 'Algorithms',
+    submitter: 'Charlotte Garcia',
+    date: '2025-08-12',
+    status: 'Pending Review'
+}, {
+    id: 1010,
+    title: 'Stoichiometry Practice',
+    subject: 'Science',
+    topic: 'Chemistry',
+    submitter: 'James Wilson',
+    date: '2025-08-10',
+    status: 'Pending Review'
+}, {
+    id: 1011,
+    title: 'Work-Energy Theorem',
+    subject: 'Science',
+    topic: 'Physics',
+    submitter: 'Mia Thompson',
+    date: '2025-08-23',
+    status: 'Pending Review'
+}, {
+    id: 1012,
+    title: 'Limits and Continuity',
+    subject: 'Math',
+    topic: 'Calculus',
+    submitter: 'Lucas Martinez',
+    date: '2025-08-14',
+    status: 'Pending Review'
+}];
+
+// Detail content mock map
+const ITEM_DETAILS = {
+    1001: {
+        question: 'Solve the quadratic equation $ax^2 + bx + c = 0$ using the quadratic formula.',
+        solution: 'The solutions are given by $x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}$. Substitute the values of $a$, $b$, and $c$ to compute the discriminant and then the roots.',
+        simpler: 'Think of the quadratic formula as a recipe: compute the discriminant $b^2 - 4ac$, take its square root, then add/subtract from $-b$ and divide by $2a$.',
+        challenge: 'Given $x^2 - 6x + 5 = 0$, use the formula to find roots and verify by factoring.'
+    },
+    1002: {
+        question: 'A ball is launched with initial velocity $v_0$ at angle $\\theta$. What is its range (neglecting air resistance)?',
+        solution: 'The range is $R = \\frac{v_0^2 \\sin 2\\theta}{g}$. Derivation uses $x(t)=v_0 \\cos\\theta\\, t$ and $y(t)=v_0 \\sin\\theta\\, t - \\tfrac{1}{2}gt^2$.',
+        simpler: 'Split velocity into horizontal and vertical parts. Time in air depends on vertical motion; range is horizontal speed times that time.',
+        challenge: 'For $v_0=20\\,m/s$ and $\\theta=30^\\circ$, compute $R$.'
+    },
+    1003: {
+        question: 'Compute $\\frac{d}{dx}[u(x)v(x)]$.',
+        solution: 'Use product rule: $(uv)\' = u\'v + uv\'$.',
+        simpler: 'Differentiate one factor at a time and add.',
+        challenge: 'Find the derivative of $x^2 e^x$.'
+    },
+    1004: {
+        question: 'Balance: $Fe^{2+} + Cr_2O_7^{2-} \\to Fe^{3+} + Cr^{3+}$ in acidic solution.',
+        solution: 'Use half-reactions method, balancing atoms and charge with $H^+$ and $e^-$.',
+        simpler: 'Balance atoms, then charges, by adding $H_2O$, $H^+$, and electrons.',
+        challenge: 'Balance $MnO_4^- + HSO_3^- \\to Mn^{2+} + SO_4^{2-}$.'
+    },
+    1005: {
+        question: 'Define a Binary Search Tree (BST).',
+        solution: 'BST: left subtree contains values < node, right subtree contains values > node; both subtrees are BSTs.',
+        simpler: 'Each node organizes smaller numbers to the left and larger to the right.',
+        challenge: 'Insert [7,3,9,1,5] and show inorder traversal.'
+    },
+    1006: {
+        question: 'Compute mean of data $[2,4,4,4,5,5,7,9]$.',
+        solution: 'Mean = $\\frac{\\sum x_i}{n} = 5$.',
+        simpler: 'Add all numbers and divide by how many there are.',
+        challenge: 'Find median and mode as well.'
+    },
+    1007: {
+        question: 'Define relational algebra selection $\\sigma$ and projection $\\pi$.',
+        solution: 'Selection filters rows by a predicate; projection keeps specified columns.',
+        simpler: 'Pick rows vs pick columns.',
+        challenge: 'Given R(A,B,C), show $\\pi_{A,B}(\\sigma_{C>10}(R))$.'
+    },
+    1008: {
+        question: 'State AA similarity criterion for triangles.',
+        solution: 'If two angles of one triangle are congruent to two angles of another, triangles are similar.',
+        simpler: 'Two equal angles guarantee same shape.',
+        challenge: 'Prove sides are proportional.'
+    },
+    1009: {
+        question: 'What is the average-case of quicksort?',
+        solution: '$O(n \\log n)$ with random pivots.',
+        simpler: 'On average, splits are balanced; depth is $\\log n$.',
+        challenge: 'Analyze worst-case scenario.'
+    },
+    1010: {
+        question: 'Define stoichiometric coefficient.',
+        solution: 'Numbers that balance molecules in a reaction.',
+        simpler: 'How many of each molecule participate.',
+        challenge: 'Balance $C_3H_8 + O_2 \\to CO_2 + H_2O$.'
+    },
+    1011: {
+        question: 'State Work–Energy Theorem.',
+        solution: 'Net work equals change in kinetic energy: $W=\\Delta K$.',
+        simpler: 'Doing work changes motion (energy).',
+        challenge: 'Apply to block on incline with friction.'
+    },
+    1012: {
+        question: 'Compute $\\lim_{x\\to 0} \\frac{\\sin x}{x}$.',
+        solution: 'Limit is 1. Use squeeze theorem or series.',
+        simpler: 'For small $x$, $\\sin x \\approx x$.',
+        challenge: 'Generalize to $\\lim_{x\\to 0} \\frac{\\sin(ax)}{x}$.'
+    }
+};
+
+// State
+let reviewItems = [...MOCK_ITEMS];
+let filteredItems = [...MOCK_ITEMS];
+let selectedIds = new Set();
+let currentPage = 1;
+const pageSize = 6;
+let sortColumn = 'date';
+let sortDirection = 'desc';
+let isLoading = false;
+
+// Elements
+const subjectSelect = document.getElementById('subjectSelect');
+const topicSelect = document.getElementById('topicSelect');
+const searchInput = document.getElementById('searchInput');
+const globalSearch = document.getElementById('globalSearch');
+const tableBody = document.getElementById('tableBody');
+const tableInfo = document.getElementById('tableInfo');
+const paginationEl = document.getElementById('pagination');
+const paginationInfo = document.getElementById('paginationInfo');
+const tableLoading = document.getElementById('tableLoading');
+const selectAll = document.getElementById('selectAll');
+const bulkApproveBtn = document.getElementById('bulkApproveBtn');
+
+const pendingCountEl = document.getElementById('pendingCount');
+const revisionCountEl = document.getElementById('revisionCount');
+const todayCountEl = document.getElementById('todayCount');
+const slaWarnEl = document.getElementById('slaWarn');
+
+const toastEl = document.getElementById('actionToast');
+const toastMsg = document.getElementById('toastMsg');
+const toast = new bootstrap.Toast(toastEl);
+
+// Charts
+let donutChart, lineChart;
+
+// Utils
+function formatDate(iso) {
+    const d = new Date(iso);
+    return d.toLocaleDateString(undefined, {
+        year: 'numeric',
+        month: 'short',
+        day: '2-digit'
+    });
+}
+
+function compare(a, b, col) {
+    if (col === 'date') return new Date(a.date) - new Date(b.date);
+    return ('' + a[col]).localeCompare(('' + b[col]));
+}
+
+function debounce(fn, delay) {
+    let t;
+    return (...args) => {
+        clearTimeout(t);
+        t = setTimeout(() => fn(...args), delay);
+    };
+}
+
+// Initialize filters
+function initFilters() {
+    // Populate subjects
+    Object.keys(SUBJECTS).forEach(s => {
+        const opt = document.createElement('option');
+        opt.value = s;
+        opt.textContent = s;
+        subjectSelect.appendChild(opt);
+    });
+    subjectSelect.addEventListener('change', () => {
+        const subj = subjectSelect.value;
+        topicSelect.innerHTML = '<option value="">All Topics</option>';
+        if (!subj) {
+            topicSelect.disabled = true;
+            return;
+        }
+        SUBJECTS[subj].forEach(t => {
+            const opt = document.createElement('option');
+            opt.value = t;
+            opt.textContent = t;
+            topicSelect.appendChild(opt);
+        });
+        topicSelect.disabled = false;
+        applyFilters();
+    });
+    topicSelect.addEventListener('change', applyFilters);
+
+    const debouncedSearch = debounce(() => applyFilters(), 300);
+    searchInput.addEventListener('input', debouncedSearch);
+    searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            applyFilters();
+        }
+    });
+    globalSearch.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            searchInput.value = globalSearch.value;
+            applyFilters();
+        }
+    });
+
+    document.getElementById('filterForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        applyFilters();
+    });
+    document.getElementById('resetFiltersBtn').addEventListener('click', resetFilters);
+    document.getElementById('refreshBtn').addEventListener('click', () => {
+        isLoading = true;
+        setLoading(true);
+        setTimeout(() => {
+            isLoading = false;
+            setLoading(false);
+            renderAll();
+        }, 600);
+    });
+}
+
+function resetFilters() {
+    subjectSelect.value = '';
+    topicSelect.innerHTML = '<option value="">All Topics</option>';
+    topicSelect.disabled = true;
+    searchInput.value = '';
+    applyFilters();
+}
+
+function applyFilters() {
+    const subj = subjectSelect.value.toLowerCase();
+    const topic = topicSelect.value.toLowerCase();
+    const q = searchInput.value.toLowerCase().trim();
+    filteredItems = reviewItems.filter(it => {
+        const subjOk = !subj || it.subject.toLowerCase() === subj;
+        const topicOk = !topic || it.topic.toLowerCase() === topic;
+        const qOk = !q || it.title.toLowerCase().includes(q) || it.submitter.toLowerCase().includes(q);
+        return subjOk && topicOk && qOk;
+    });
+    currentPage = 1;
+    renderTable();
+    renderCharts();
+    renderSummary();
+}
+
+function setLoading(show) {
+    tableLoading.classList.toggle('d-none', !show);
+}
+
+function getPagedItems() {
+    const sorted = [...filteredItems].sort((a, b) => {
+        const dir = sortDirection === 'asc' ? 1 : -1;
+        return compare(a, b, sortColumn) * dir;
+    });
+    const total = sorted.length;
+    const start = (currentPage - 1) * pageSize;
+    const end = start + pageSize;
+    return {
+        total,
+        pageItems: sorted.slice(start, end)
+    };
+}
+
+function renderTable() {
+    setLoading(isLoading);
+    const {
+        total,
+        pageItems
+    } = getPagedItems();
+    tableBody.innerHTML = '';
+    if (total === 0) {
+        tableBody.innerHTML = `<tr><td colspan="8"><div class="empty-state"><div class="h6 mb-1">No items match your filters</div><div class="empty-state-text">Try adjusting filters or search terms.</div></div></td></tr>`;
+    } else {
+        pageItems.forEach(item => {
+            const tr = document.createElement('tr');
+            tr.className = 'table-row clickable';
+            tr.innerHTML = `
+            <td><input class="form-check-input row-select" type="checkbox" data-id="${item.id}"></td>
+            <td>
+              <div class="fw-semibold">${item.title}</div>
+              <div class="small text-muted">#${item.id}</div>
+            </td>
+            <td>${item.subject}</td>
+            <td>${item.topic}</td>
+            <td>
+              <div class="d-flex align-items-center gap-2">
+                <img src="https://picsum.photos/seed/${encodeURIComponent(item.submitter)}/28/28" class="rounded-circle" width="28" height="28" alt="${item.submitter}">
+                <span>${item.submitter}</span>
+              </div>
+            </td>
+            <td>${formatDate(item.date)}</td>
+            <td>
+              ${item.status === 'Pending Review' ? '<span class="badge-soft warning">Pending</span>' : '<span class="badge-soft info">Revision Submitted</span>'}
+            </td>
+            <td>
+              <button class="btn btn-sm btn-light viewBtn" data-id="${item.id}"><i class="fa-regular fa-eye"></i> Open</button>
+            </td>`;
+            // Row click opens modal (except when clicking controls)
+            tr.addEventListener('click', (e) => {
+                if (e.target.closest('input') || e.target.closest('button')) return;
+                openDetail(item.id);
+            });
+            tr.querySelector('.viewBtn').addEventListener('click', () => openDetail(item.id));
+            tableBody.appendChild(tr);
+        });
+    }
+
+    // Sorting indicators
+    document.querySelectorAll('th.sortable').forEach(th => {
+        const icon = th.querySelector('i');
+        const key = th.getAttribute('data-sort');
+        icon.className = 'fa-solid fa-sort ms-1';
+        if (key === sortColumn) {
+            icon.className = sortDirection === 'asc' ? 'fa-solid fa-sort-up ms-1' : 'fa-solid fa-sort-down ms-1';
+        }
+    });
+
+    // Update info
+    const startItem = total ? (currentPage - 1) * pageSize + 1 : 0;
+    const endItem = Math.min(currentPage * pageSize, total);
+    tableInfo.textContent = total ? `Showing ${startItem}-${endItem} of ${total}` : 'No results';
+    renderPagination(total);
+    updateSelectAllState();
+}
+
+function renderPagination(total) {
+    const totalPages = Math.max(1, Math.ceil(total / pageSize));
+    paginationInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+    paginationEl.innerHTML = '';
+    const mkItem = (label, page, disabled = false, active = false) => {
+        const li = document.createElement('li');
+        li.className = `page-item ${disabled?'disabled':''} ${active?'active':''}`;
+        const a = document.createElement('a');
+        a.className = 'page-link';
+        a.href = '#';
+        a.textContent = label;
+        a.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (!disabled && currentPage !== page) {
+                currentPage = page;
+                renderTable();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        });
+        li.appendChild(a);
+        return li;
+    };
+    const prevDisabled = currentPage === 1;
+    paginationEl.appendChild(mkItem('«', currentPage - 1, prevDisabled));
+    for (let p = 1; p <= totalPages; p++) {
+        if (p === 1 || p === totalPages || Math.abs(p - currentPage) <= 1) {
+            paginationEl.appendChild(mkItem(String(p), p, false, p === currentPage));
+        } else if (p === 2 && currentPage > 3 || p === totalPages - 1 && currentPage < totalPages - 2) {
+            const li = document.createElement('li');
+            li.className = 'page-item disabled';
+            li.innerHTML = '<span class="page-link">…</span>';
+            paginationEl.appendChild(li);
+        }
+    }
+    const nextDisabled = currentPage === totalPages;
+    paginationEl.appendChild(mkItem('»', currentPage + 1, nextDisabled));
+}
+
+function renderSummary() {
+    const pending = reviewItems.filter(x => x.status === 'Pending Review').length;
+    const revision = reviewItems.filter(x => x.status !== 'Pending Review').length;
+    const todayStr = new Date().toISOString().slice(0, 10);
+    const today = reviewItems.filter(x => x.date === todayStr).length;
+    pendingCountEl.textContent = pending;
+    revisionCountEl.textContent = revision;
+    todayCountEl.textContent = today;
+    // SLA mock: oldest pending age
+    const pendDates = reviewItems.filter(x => x.status === 'Pending Review').map(x => new Date(x.date));
+    if (pendDates.length) {
+        const oldest = pendDates.sort((a, b) => a - b)[0];
+        const days = Math.max(0, Math.floor((Date.now() - oldest.getTime()) / 86400000));
+        slaWarnEl.textContent = days + 'd';
+    } else slaWarnEl.textContent = '—';
+}
+
+function renderCharts() {
+    const ctxDonut = document.getElementById('statusDonut');
+    const ctxLine = document.getElementById('submissionsLine');
+    const pending = filteredItems.filter(x => x.status === 'Pending Review').length;
+    const revision = filteredItems.length - pending;
+    const donutData = {
+        labels: ['Pending', 'Revision Submitted'],
+        datasets: [{
+            data: [pending, revision],
+            backgroundColor: ['rgba(255,165,0,0.7)', 'rgba(0,153,210,0.7)'],
+            borderColor: ['#FFA500', '#0099D2'],
+            borderWidth: 1
+        }]
+    };
+    if (donutChart) donutChart.destroy();
+    donutChart = new Chart(ctxDonut, {
+        type: 'doughnut',
+        data: donutData,
+        options: {
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+
+    // Submissions per day for last 7 days (based on filtered items)
+    const days = [...Array(7)].map((_, i) => {
+        const d = new Date();
+        d.setDate(d.getDate() - (6 - i));
+        return d;
+    });
+    const labels = days.map(d => d.toLocaleDateString(undefined, {
+        month: 'short',
+        day: '2-digit'
+    }));
+    const counts = days.map(d => filteredItems.filter(x => (new Date(x.date)).toDateString() === d.toDateString()).length);
+    const lineData = {
+        labels,
+        datasets: [{
+            label: 'Submissions',
+            data: counts,
+            borderColor: '#007BFF',
+            backgroundColor: 'rgba(0,123,255,0.15)',
+            tension: 0.3,
+            fill: true,
+            pointRadius: 3
+        }]
+    };
+    if (lineChart) lineChart.destroy();
+    lineChart = new Chart(ctxLine, {
+        type: 'line',
+        data: lineData,
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        precision: 0
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Sorting
+document.addEventListener('click', (e) => {
+    const th = e.target.closest('th.sortable');
+    if (!th) return;
+    const col = th.getAttribute('data-sort');
+    if (sortColumn === col) {
+        sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+        sortColumn = col;
+        sortDirection = 'asc';
+    }
+    renderTable();
+});
+
+// Selection
+function updateSelectAllState() {
+    const visibleChecks = [...document.querySelectorAll('.row-select')];
+    const visibleIds = visibleChecks.map(c => Number(c.dataset.id));
+    const allVisibleSelected = visibleIds.every(id => selectedIds.has(id)) && visibleIds.length > 0;
+    selectAll.checked = allVisibleSelected;
+    visibleChecks.forEach(c => {
+        c.checked = selectedIds.has(Number(c.dataset.id));
+        c.addEventListener('change', (ev) => {
+            const id = Number(ev.target.dataset.id);
+            ev.target.checked ? selectedIds.add(id) : selectedIds.delete(id);
+            updateBulkButton();
+        });
+    });
+    updateBulkButton();
+}
+selectAll.addEventListener('change', (e) => {
+    const visibleChecks = document.querySelectorAll('.row-select');
+    visibleChecks.forEach(c => {
+        c.checked = e.target.checked;
+        const id = Number(c.dataset.id);
+        e.target.checked ? selectedIds.add(id) : selectedIds.delete(id);
+    });
+    updateBulkButton();
+});
+
+function updateBulkButton() {
+    bulkApproveBtn.disabled = selectedIds.size === 0;
+}
+
+// Detail modal logic
+const detailModal = new bootstrap.Modal(document.getElementById('contentDetailModal'));
+const approveBtn = document.getElementById('approveBtn');
+const requestBtn = document.getElementById('requestRevisionsBtn');
+const rejectionBlock = document.getElementById('rejectionBlock');
+const rejectionReason = document.getElementById('rejectionReason');
+
+let currentDetailId = null;
+
+function openDetail(id) {
+    const item = reviewItems.find(x => x.id === id);
+    if (!item) return;
+    currentDetailId = id;
+    document.getElementById('contentDetailModalLabel').textContent = 'Content Detail · #' + item.id;
+    document.getElementById('detailTitle').textContent = item.title;
+    document.getElementById('detailId').textContent = item.id;
+    document.getElementById('detailMeta').textContent = `${item.subject} · ${item.topic} · Submitted ${formatDate(item.date)}`;
+    document.getElementById('detailSubject').textContent = item.subject;
+    document.getElementById('detailTopic').textContent = item.topic;
+
+    const d = ITEM_DETAILS[id] || {
+        question: '—',
+        solution: '—',
+        simpler: '—',
+        challenge: '—'
+    };
+    document.getElementById('detailQuestion').innerHTML = d.question;
+    document.getElementById('detailSolution').innerHTML = d.solution;
+    document.getElementById('detailSimple').innerHTML = d.simpler;
+    document.getElementById('detailChallenge').innerHTML = d.challenge;
+    rejectionBlock.classList.add('d-none');
+    rejectionReason.value = '';
+    setTimeout(() => {
+        if (window.MathJax) {
+            MathJax.typesetPromise && MathJax.typesetPromise();
+        }
+    }, 50);
+    detailModal.show();
+}
+
+approveBtn.addEventListener('click', async () => {
+    if (!currentDetailId) return;
+    const item = reviewItems.find(x => x.id === currentDetailId);
+    const result = await Swal.fire({
+        title: 'Approve content?',
+        text: item.title,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, approve',
+        confirmButtonColor: '#198754'
+    });
+    if (result.isConfirmed) {
+        // simulate API
+        await new Promise(r => setTimeout(r, 700));
+        // remove from queue
+        reviewItems = reviewItems.filter(x => x.id !== currentDetailId);
+        applyFilters();
+        detailModal.hide();
+        toastMsg.textContent = 'Content approved and removed from queue.';
+        toast.show();
+    }
+});
+
+requestBtn.addEventListener('click', async () => {
+    if (rejectionBlock.classList.contains('d-none')) {
+        rejectionBlock.classList.remove('d-none');
+        rejectionReason.focus();
+        return;
+    }
+    const reason = rejectionReason.value.trim();
+    if (reason.length < 20) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Reason too short',
+            text: 'Please provide at least 20 characters explaining the revisions needed.'
+        });
+        return;
+    }
+    const item = reviewItems.find(x => x.id === currentDetailId);
+    const result = await Swal.fire({
+        title: 'Request revisions?',
+        text: item.title,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Send Request',
+        confirmButtonColor: '#dc3545'
+    });
+    if (result.isConfirmed) {
+        await new Promise(r => setTimeout(r, 700));
+        // Update status
+        reviewItems = reviewItems.map(x => x.id === currentDetailId ? {
+            ...x,
+            status: 'Revision Submitted'
+        } : x);
+        applyFilters();
+        detailModal.hide();
+        toastMsg.textContent = 'Revision request sent to author.';
+        toast.show();
+    }
+});
+
+// Bulk approve mock
+document.getElementById('bulkApproveBtn').addEventListener('click', async () => {
+    const ids = [...selectedIds];
+    if (ids.length === 0) return;
+    const result = await Swal.fire({
+        title: `Approve ${ids.length} items?`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Approve All',
+        confirmButtonColor: '#198754'
+    });
+    if (result.isConfirmed) {
+        await new Promise(r => setTimeout(r, 900));
+        reviewItems = reviewItems.filter(x => !selectedIds.has(x.id));
+        selectedIds.clear();
+        applyFilters();
+        toastMsg.textContent = 'Selected items approved.';
+        toast.show();
+    }
+});
+
+// Init
+document.addEventListener('DOMContentLoaded', () => {
+    initFilters();
+    // Default sorting by date desc
+    sortColumn = 'date';
+    sortDirection = 'desc';
+    applyFilters();
+    renderSummary();
+
+    // Attach header global search sync
+    if (globalSearch) globalSearch.addEventListener('input', debounce(() => {
+        searchInput.value = globalSearch.value;
+        applyFilters();
+    }, 400));
+});
+  </script>
+ </body>
+</html>

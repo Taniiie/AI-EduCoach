@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Analytics Dashboard - AI EduCoach
+  </title>
+  <!-- Google Font: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <!-- Bootstrap 5 CSS -->
+  <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" rel="stylesheet"/>
+  <!-- Font Awesome 6 -->
+  <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-bx2R6Eo0xkQv3YdYc2pJ2SxR0+YCOEzX2v/7b2iWmY0m9K0qE4Y02KpvlpFjBqPLhLQv7l5jS4lI5p9Xj2G6vA==" referrerpolicy="no-referrer" rel="stylesheet">
+   <!-- Flatpickr CSS (Date Range Picker) -->
+   <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet"/>
+   <!-- SweetAlert2 CSS -->
+   <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.3/dist/sweetalert2.min.css" rel="stylesheet"/>
+   <!-- Site Theme -->
+   <link href="style.css" rel="stylesheet"/>
+   <!-- Page-specific CSS -->
+   <link href="analytics_dashboard.css" rel="stylesheet"/>
+  </link>
+ </head>
+ <body class="view-grid">
+  <!-- Page Layout Wrapper: Sidebar (left), Main (right) -->
+  <div class="d-flex min-vh-100">
+   <!-- Sidebar: include for dashboard/analytics pages (not for login) -->
+   <!-- Management & Analysis Sidebar (Admin, PM, Sponsor) -->
+   <style>
+    :root { --primary:#007BFF; --secondary:#FF9800; }
+      .sidebar-mgmt { background: var(--primary); color:#fff; min-height:100vh; width:280px; }
+      .sidebar-mgmt .brand img { height:36px; }
+      .sidebar-mgmt .nav-link { color:#fff; border-radius:.375rem; }
+      .sidebar-mgmt .nav-link:hover { background: rgba(255,255,255,0.12); }
+      .sidebar-mgmt .nav-link.active { background: var(--secondary); color:#fff; }
+      .sidebar-mgmt .profile { background: rgba(255,255,255,0.1); border-radius:.5rem; }
+   </style>
+   <aside class="sidebar-mgmt d-none d-lg-flex flex-column p-3">
+    <div class="brand d-flex align-items-center mb-3">
+     <img alt="logo" class="me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/brand/72/36';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a9ff223010074de481ab95/logos/logo_19036e58-01c8-4935-a1be-e31305353e97.png"/>
+     <span class="fw-bold">
+      AI EduCoach
+     </span>
+    </div>
+    <div class="profile d-flex align-items-center p-2 mb-3">
+     <i class="fas fa-user-tie fa-2x me-2">
+     </i>
+     <div>
+      <div class="fw-semibold">
+       Alex Morgan
+      </div>
+      <small class="text-white-50">
+       Product Manager
+      </small>
+     </div>
+    </div>
+    <nav class="nav nav-pills flex-column gap-1">
+     <a class="nav-link" href="./admin_dashboard.html">
+      <i class="fas fa-tachometer-alt me-2">
+      </i>
+      Dashboard
+     </a>
+     <a class="nav-link active" href="./analytics_dashboard.html">
+      <i class="fas fa-chart-line me-2">
+      </i>
+      Analytics
+     </a>
+     <a class="nav-link" href="./log_viewer.html">
+      <i class="fas fa-file-alt me-2">
+      </i>
+      Log Viewer
+     </a>
+     <a aria-controls="reportsMenu" aria-expanded="false" class="nav-link" data-bs-toggle="collapse" href="#reportsMenu" role="button">
+      <i class="fas fa-file-export me-2">
+      </i>
+      Reports
+      <i class="fas fa-chevron-down float-end mt-1">
+      </i>
+     </a>
+     <div class="collapse" id="reportsMenu">
+      <div class="nav flex-column ms-2">
+       <a class="nav-link" href="./analytics_dashboard.html?report=kpi">
+        <i class="fas fa-chart-pie me-2">
+        </i>
+        KPI Summary
+       </a>
+       <a class="nav-link" href="./analytics_dashboard.html?report=engagement">
+        <i class="fas fa-users me-2">
+        </i>
+        Engagement
+       </a>
+      </div>
+     </div>
+     <hr class="border-light"/>
+     <a class="nav-link" href="#">
+      <i class="fas fa-cog me-2">
+      </i>
+      Settings
+     </a>
+     <a class="nav-link" href="#">
+      <i class="fas fa-circle-question me-2">
+      </i>
+      Help
+     </a>
+    </nav>
+    <!-- Icons used: fa-tachometer-alt, fa-chart-line, fa-file-alt, fa-file-export, fa-chevron-down, fa-chart-pie, fa-users, fa-cog, fa-circle-question -->
+   </aside>
+   <!-- Main Content Column -->
+   <div class="flex-grow-1 d-flex flex-column min-vh-100">
+    <!-- Management & Analysis Header -->
+    <style>
+     .mgmt-header .navbar-brand img { height:28px; }
+        .btn-secondary-accent { background: var(--secondary); border-color: var(--secondary); color:#fff; }
+        .btn-secondary-accent:hover { filter: brightness(0.95); }
+    </style>
+    <nav class="mgmt-header navbar navbar-expand bg-white border-bottom px-3">
+     <button aria-controls="sidebarOffcanvas" class="btn btn-outline-primary d-lg-none me-2" data-bs-target="#sidebarOffcanvas" data-bs-toggle="offcanvas" type="button">
+      <i class="fas fa-bars">
+      </i>
+     </button>
+     <a class="navbar-brand d-flex align-items-center" href="./admin_dashboard.html">
+      <img alt="Logo" class="me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/brandbar/56/28';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a9ff223010074de481ab95/logos/logo_19036e58-01c8-4935-a1be-e31305353e97.png"/>
+      <span class="fw-bold">
+       Admin &amp; Analytics
+      </span>
+     </a>
+     <form class="ms-3 flex-grow-1 d-none d-md-flex" onsubmit="event.preventDefault();" role="search">
+      <div class="input-group">
+       <span class="input-group-text bg-white">
+        <i class="fas fa-search text-muted">
+        </i>
+       </span>
+       <input class="form-control" id="globalSearch" placeholder="Search sessions, logs, metrics..." type="search"/>
+      </div>
+     </form>
+     <div class="ms-auto d-flex align-items-center gap-2">
+      <a class="btn btn-outline-secondary" href="./analytics_dashboard.html?export=csv" id="exportCsvBtn">
+       <i class="fas fa-download me-1">
+       </i>
+       Export
+      </a>
+      <a class="btn btn-secondary-accent" href="./analytics_dashboard.html?create=report" id="createReportBtn">
+       <i class="fas fa-plus me-1">
+       </i>
+       Create Report
+      </a>
+      <a class="btn btn-link text-secondary" href="./analytics_dashboard.html#notifications" title="Notifications">
+       <i class="fas fa-bell">
+       </i>
+      </a>
+      <a class="btn btn-link text-secondary" href="./chat_interface.html" title="Messages">
+       <i class="fas fa-envelope">
+       </i>
+      </a>
+      <div class="dropdown">
+       <a aria-expanded="false" class="btn btn-light dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" href="#" role="button">
+        <i class="fas fa-user-tie me-2">
+        </i>
+        Alex Morgan
+       </a>
+       <ul class="dropdown-menu dropdown-menu-end">
+        <li>
+         <a class="dropdown-item" href="./admin_dashboard.html#profile">
+          <i class="fas fa-id-badge me-2">
+          </i>
+          Profile
+         </a>
+        </li>
+        <li>
+         <a class="dropdown-item" href="./admin_dashboard.html#settings">
+          <i class="fas fa-sliders-h me-2">
+          </i>
+          Settings
+         </a>
+        </li>
+        <li>
+         <hr class="dropdown-divider"/>
+        </li>
+        <li>
+         <a class="dropdown-item text-danger" href="./login_page.html">
+          <i class="fas fa-sign-out-alt me-2">
+          </i>
+          Logout
+         </a>
+        </li>
+       </ul>
+      </div>
+     </div>
+    </nav>
+    <!-- Offcanvas Sidebar for mobile -->
+    <div aria-labelledby="sidebarOffcanvasLabel" class="offcanvas offcanvas-start" id="sidebarOffcanvas" tabindex="-1">
+     <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="sidebarOffcanvasLabel">
+       AI EduCoach
+      </h5>
+      <button aria-label="Close" class="btn-close" data-bs-dismiss="offcanvas" type="button">
+      </button>
+     </div>
+     <div class="offcanvas-body p-0">
+      <div class="d-flex align-items-center px-3 pb-2">
+       <i class="fas fa-user-tie fa-lg me-2 text-primary">
+       </i>
+       <div>
+        <div class="fw-semibold">
+         Alex Morgan
+        </div>
+        <small class="text-muted">
+         Product Manager
+        </small>
+       </div>
+      </div>
+      <nav class="nav nav-pills flex-column gap-1 px-2">
+       <a class="nav-link" href="./admin_dashboard.html">
+        <i class="fas fa-tachometer-alt me-2">
+        </i>
+        Dashboard
+       </a>
+       <a class="nav-link active" href="./analytics_dashboard.html">
+        <i class="fas fa-chart-line me-2">
+        </i>
+        Analytics
+       </a>
+       <a class="nav-link" href="./log_viewer.html">
+        <i class="fas fa-file-alt me-2">
+        </i>
+        Log Viewer
+       </a>
+       <a aria-controls="reportsMenuMobile" aria-expanded="false" class="nav-link" data-bs-toggle="collapse" href="#reportsMenuMobile" role="button">
+        <i class="fas fa-file-export me-2">
+        </i>
+        Reports
+        <i class="fas fa-chevron-down float-end mt-1">
+        </i>
+       </a>
+       <div class="collapse px-3" id="reportsMenuMobile">
+        <a class="nav-link" href="./analytics_dashboard.html?report=kpi">
+         <i class="fas fa-chart-pie me-2">
+         </i>
+         KPI Summary
+        </a>
+        <a class="nav-link" href="./analytics_dashboard.html?report=engagement">
+         <i class="fas fa-users me-2">
+         </i>
+         Engagement
+        </a>
+       </div>
+       <hr/>
+       <a class="nav-link" href="#">
+        <i class="fas fa-cog me-2">
+        </i>
+        Settings
+       </a>
+       <a class="nav-link" href="#">
+        <i class="fas fa-circle-question me-2">
+        </i>
+        Help
+       </a>
+      </nav>
+     </div>
+    </div>
+    <!-- Main Panel Content -->
+    <main class="main-panel container-fluid py-3 py-lg-4 flex-grow-1">
+     <!-- Page Header Title and View Controls -->
+     <div class="page-header">
+      <div class="d-flex align-items-center gap-2">
+       <h1 class="page-title mb-0">
+        <i class="fa-solid fa-chart-line me-2 text-primary">
+        </i>
+        Analytics Dashboard
+       </h1>
+       <span class="badge-soft info">
+        Interaction Analysis
+       </span>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+       <div class="view-switcher d-none d-md-inline-flex">
+        <div class="option active" id="viewDefault">
+         Default
+        </div>
+        <div class="option" id="viewCompact">
+         Compact
+        </div>
+       </div>
+       <button class="btn btn-light" id="btnSimulateError">
+        <i class="fa-solid fa-triangle-exclamation me-1 text-warning">
+        </i>
+        Simulate Error
+       </button>
+      </div>
+     </div>
+     <!-- Global Dashboard Filters -->
+     <section class="card mb-3">
+      <div class="card-header">
+       <div class="d-flex align-items-center justify-content-between w-100">
+        <div class="d-flex align-items-center gap-2">
+         <i class="fa-solid fa-filter text-primary">
+         </i>
+         <span class="widget-title">
+          Dashboard Filters
+         </span>
+        </div>
+        <small class="text-muted">
+         Applies to all visualizations
+        </small>
+       </div>
+      </div>
+      <div class="card-body">
+       <form class="row gy-2 gx-2 align-items-center" onsubmit="event.preventDefault();">
+        <div class="col-12 col-md-auto">
+         <label class="form-label mb-1" for="dateRange">
+          Date Range
+         </label>
+         <div class="input-group">
+          <span class="input-group-text bg-white">
+           <i class="fa-regular fa-calendar">
+           </i>
+          </span>
+          <input aria-label="Date range" class="form-control" id="dateRange" placeholder="Select date range" type="text">
+          </input>
+         </div>
+        </div>
+        <div class="col-12 col-md-auto mt-2 mt-md-4">
+         <div aria-label="Quick ranges" class="btn-group" role="group">
+          <button class="btn btn-light" data-range="7" type="button">
+           Last 7d
+          </button>
+          <button class="btn btn-light" data-range="30" type="button">
+           Last 30d
+          </button>
+          <button class="btn btn-light" data-range="90" type="button">
+           Last 90d
+          </button>
+         </div>
+        </div>
+        <div class="col-12 col-md-auto ms-auto mt-2 mt-md-4">
+         <button class="btn btn-primary" id="applyDateRange" type="button">
+          <i class="fa-solid fa-check me-1">
+          </i>
+          Apply
+         </button>
+        </div>
+       </form>
+       <div class="alert alert-info mt-3 d-none" id="filtersAlert" role="alert">
+        <i class="fa-regular fa-circle-question me-1">
+        </i>
+        Tip: Use quick ranges for faster analysis.
+       </div>
+      </div>
+     </section>
+     <!-- KPI Summary -->
+     <section class="mb-3">
+      <div class="row g-3" id="kpiRow">
+       <div class="col-12 col-sm-6 col-xl-3">
+        <div class="metric-card h-100" id="kpiTotalSessions">
+         <div class="metric-title">
+          Total Sessions
+         </div>
+         <div class="metric-value" data-field="value">
+          --
+         </div>
+         <div>
+          <span class="badge rounded-pill bg-success-soft text-success" data-field="trend">
+           <i class="fa-solid fa-arrow-trend-up me-1">
+           </i>
+           <span>
+            +0.0%
+           </span>
+          </span>
+         </div>
+        </div>
+       </div>
+       <div class="col-12 col-sm-6 col-xl-3">
+        <div class="metric-card h-100" id="kpiAvgSession">
+         <div class="metric-title">
+          Avg. Session Length
+         </div>
+         <div class="metric-value" data-field="value">
+          --
+         </div>
+         <div>
+          <span class="badge rounded-pill bg-success-soft text-success" data-field="trend">
+           <i class="fa-solid fa-arrow-trend-up me-1">
+           </i>
+           <span>
+            +0.0%
+           </span>
+          </span>
+         </div>
+        </div>
+       </div>
+       <div class="col-12 col-sm-6 col-xl-3">
+        <div class="metric-card h-100" id="kpiAccuracy">
+         <div class="metric-title">
+          Overall Model Accuracy
+         </div>
+         <div class="metric-value" data-field="value">
+          --
+         </div>
+         <div>
+          <span class="badge rounded-pill bg-success-soft text-success" data-field="trend">
+           <i class="fa-solid fa-arrow-trend-up me-1">
+           </i>
+           <span>
+            +0.0%
+           </span>
+          </span>
+         </div>
+        </div>
+       </div>
+       <div class="col-12 col-sm-6 col-xl-3">
+        <div class="metric-card h-100" id="kpiSatisfaction">
+         <div class="metric-title">
+          Avg. User Satisfaction
+         </div>
+         <div class="metric-value" data-field="value">
+          --
+         </div>
+         <div>
+          <span class="badge rounded-pill bg-success-soft text-success" data-field="trend">
+           <i class="fa-solid fa-arrow-trend-up me-1">
+           </i>
+           <span>
+            +0.0%
+           </span>
+          </span>
+         </div>
+        </div>
+       </div>
+      </div>
+     </section>
+     <!-- Engagement Trends (Line Chart) -->
+     <section class="card mb-3">
+      <div class="card-header">
+       <div class="d-flex align-items-center gap-2">
+        <i class="fa-solid fa-chart-area text-primary">
+        </i>
+        <span class="widget-title">
+         Engagement Trends
+        </span>
+        <span class="text-muted small">
+         Sessions per day
+        </span>
+       </div>
+      </div>
+      <div class="card-body">
+       <div class="position-relative">
+        <canvas height="120" id="sessionsChart">
+        </canvas>
+        <div class="chart-loader d-none" id="sessionsChartLoader">
+         <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">
+           Loading...
+          </span>
+         </div>
+        </div>
+       </div>
+      </div>
+     </section>
+     <!-- Two-column Row: AI Performance Breakdown and User Satisfaction -->
+     <section class="row g-3 mb-3">
+      <div class="col-12 col-lg-6">
+       <div class="card h-100">
+        <div class="card-header">
+         <div class="d-flex align-items-center gap-2">
+          <i class="fa-solid fa-face-smile-beam text-primary">
+          </i>
+          <span class="widget-title">
+           AI Performance Breakdown
+          </span>
+          <span class="text-muted small">
+           Emotion Detection Distribution
+          </span>
+         </div>
+        </div>
+        <div class="card-body">
+         <div class="position-relative">
+          <canvas height="140" id="emotionDonut">
+          </canvas>
+          <div class="chart-loader d-none" id="emotionLoader">
+           <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">
+             Loading...
+            </span>
+           </div>
+          </div>
+         </div>
+         <div class="row row-cols-2 g-2 mt-3" id="emotionLegend">
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="col-12 col-lg-6">
+       <div class="card h-100">
+        <div class="card-header">
+         <div class="d-flex align-items-center gap-2">
+          <i class="fa-solid fa-star text-warning">
+          </i>
+          <span class="widget-title">
+           User Satisfaction
+          </span>
+          <span class="text-muted small">
+           Score Distribution
+          </span>
+         </div>
+        </div>
+        <div class="card-body">
+         <div class="position-relative">
+          <canvas height="140" id="satisfactionBar">
+          </canvas>
+          <div class="chart-loader d-none" id="satisfactionLoader">
+           <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">
+             Loading...
+            </span>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </section>
+     <!-- Recent Sessions Table -->
+     <section class="card mb-3">
+      <div class="card-header">
+       <div class="d-flex align-items-center justify-content-between w-100">
+        <div class="d-flex align-items-center gap-2">
+         <i class="fa-solid fa-table text-primary">
+         </i>
+         <span class="widget-title">
+          Recent Sessions
+         </span>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+         <div class="input-group input-group-sm" style="max-width: 220px;">
+          <span class="input-group-text bg-white">
+           <i class="fa-solid fa-filter">
+           </i>
+          </span>
+          <input class="form-control" id="tableFilter" placeholder="Filter by user or status" type="text"/>
+         </div>
+         <div class="btn-group btn-group-sm" role="group">
+          <button class="btn btn-light" id="btnTableReset">
+           <i class="fa-solid fa-rotate-left">
+           </i>
+          </button>
+          <button class="btn btn-light" id="btnTableDownload">
+           <i class="fa-solid fa-file-csv">
+           </i>
+          </button>
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="card-body p-0">
+       <div class="table-responsive">
+        <table class="table table-theme mb-0" id="recentSessionsTable">
+         <thead>
+          <tr>
+           <th class="sortable" data-key="date">
+            Date
+            <i class="fa-solid fa-sort ms-1">
+            </i>
+           </th>
+           <th class="sortable" data-key="user">
+            User
+            <i class="fa-solid fa-sort ms-1">
+            </i>
+           </th>
+           <th class="sortable" data-key="sessions">
+            Sessions
+            <i class="fa-solid fa-sort ms-1">
+            </i>
+           </th>
+           <th class="sortable" data-key="avgLength">
+            Avg Length (min)
+            <i class="fa-solid fa-sort ms-1">
+            </i>
+           </th>
+           <th class="sortable" data-key="satisfaction">
+            Satisfaction
+            <i class="fa-solid fa-sort ms-1">
+            </i>
+           </th>
+           <th>
+            Status
+           </th>
+           <th>
+            Actions
+           </th>
+          </tr>
+         </thead>
+         <tbody id="recentSessionsBody">
+          <!-- Rows inserted dynamically -->
+         </tbody>
+        </table>
+       </div>
+      </div>
+      <div class="card-footer d-flex justify-content-between align-items-center">
+       <small class="text-muted" id="paginationInfo">
+        Showing 1-6 of 42
+       </small>
+       <nav aria-label="Table pagination">
+        <ul class="pagination pagination-sm mb-0">
+         <li class="page-item disabled">
+          <a class="page-link" href="#">
+           Prev
+          </a>
+         </li>
+         <li class="page-item active">
+          <a class="page-link" href="#">
+           1
+          </a>
+         </li>
+         <li class="page-item">
+          <a class="page-link" href="#">
+           2
+          </a>
+         </li>
+         <li class="page-item">
+          <a class="page-link" href="#">
+           3
+          </a>
+         </li>
+         <li class="page-item">
+          <a class="page-link" href="#">
+           Next
+          </a>
+         </li>
+        </ul>
+       </nav>
+      </div>
+     </section>
+    </main>
+    <!-- Management & Analysis Footer -->
+    <footer class="bg-light border-top py-2 px-3 d-flex align-items-center justify-content-between small">
+     <div class="d-flex align-items-center">
+      <img alt="logo" class="me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/footer/36/18';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a9ff223010074de481ab95/logos/logo_19036e58-01c8-4935-a1be-e31305353e97.png" style="height:18px"/>
+      <span class="text-muted">
+       © 2025 AI EduCoach
+      </span>
+     </div>
+     <div class="d-flex gap-3">
+      <a class="link-secondary text-decoration-none" href="./admin_dashboard.html">
+       <i class="fas fa-tachometer-alt me-1">
+       </i>
+       Dashboard
+      </a>
+      <a class="link-secondary text-decoration-none" href="./analytics_dashboard.html">
+       <i class="fas fa-chart-line me-1">
+       </i>
+       Analytics
+      </a>
+      <a class="link-secondary text-decoration-none" href="./log_viewer.html">
+       <i class="fas fa-file-alt me-1">
+       </i>
+       Logs
+      </a>
+      <span class="text-muted">
+       |
+      </span>
+      <a class="link-secondary text-decoration-none" href="./admin_dashboard.html#terms">
+       Terms
+      </a>
+      <a class="link-secondary text-decoration-none" href="./admin_dashboard.html#privacy">
+       Privacy
+      </a>
+     </div>
+    </footer>
+   </div>
+  </div>
+  <!-- Toast Container (System Feedback) -->
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1080;">
+   <div aria-atomic="true" aria-live="assertive" class="toast align-items-center text-bg-primary border-0" id="liveToast" role="alert">
+    <div class="d-flex">
+     <div class="toast-body">
+      Action completed successfully.
+     </div>
+     <button aria-label="Close" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" type="button">
+     </button>
+    </div>
+   </div>
+  </div>
+  <!-- Dependencies -->
+  <script crossorigin="anonymous" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.3/dist/sweetalert2.all.min.js">
+  </script>
+  <script>
+   // Typography: prefer Poppins for this page
+document.documentElement.style.setProperty('--font-sans', "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'");
+
+// Utility: random data generator
+const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+const randFloat = (min, max, d = 1) => (Math.random() * (max - min) + min).toFixed(d);
+
+// Date Helpers
+function formatDate(d) {
+    const dd = new Date(d);
+    return dd.toLocaleDateString(undefined, {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+    });
+}
+
+function getDateRange(daysBack = 30) {
+    const end = new Date();
+    const start = new Date();
+    start.setDate(end.getDate() - (daysBack - 1));
+    return {
+        start,
+        end
+    };
+}
+
+function enumerateDays(start, end) {
+    const dates = [];
+    const cur = new Date(start);
+    while (cur <= end) {
+        dates.push(new Date(cur));
+        cur.setDate(cur.getDate() + 1);
+    }
+    return dates;
+}
+
+// Charts
+let sessionsChart, emotionDonut, satisfactionBar;
+
+function initCharts() {
+    const ctxLine = document.getElementById('sessionsChart');
+    sessionsChart = new Chart(ctxLine, {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Sessions',
+                data: [],
+                borderColor: '#007BFF',
+                backgroundColor: 'rgba(0,123,255,0.15)',
+                tension: 0.3,
+                fill: true,
+                pointRadius: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            interaction: {
+                mode: 'index',
+                intersect: false
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    enabled: true
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        autoSkip: true,
+                        maxTicksLimit: 10
+                    },
+                    grid: {
+                        display: false
+                    }
+                },
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    const ctxDonut = document.getElementById('emotionDonut');
+    emotionDonut = new Chart(ctxDonut, {
+        type: 'doughnut',
+        data: {
+            labels: ['Confusion', 'Frustration/Stress', 'Boredom', 'Engagement/Excitement', 'Anxiety'],
+            datasets: [{
+                data: [0, 0, 0, 0, 0],
+                backgroundColor: ['#9C27B0', '#E53935', '#FFB300', '#43A047', '#00897B']
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: (ctx) => `${ctx.label}: ${ctx.formattedValue}`
+                    }
+                }
+            }
+        }
+    });
+
+    const ctxBar = document.getElementById('satisfactionBar');
+    satisfactionBar = new Chart(ctxBar, {
+        type: 'bar',
+        data: {
+            labels: ['1★', '2★', '3★', '4★', '5★'],
+            datasets: [{
+                label: 'Ratings',
+                data: [0, 0, 0, 0, 0],
+                backgroundColor: '#0099D2'
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    enabled: true
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
+// Update charts and KPIs with mock data for selected range
+async function refreshDashboard(startDate, endDate) {
+    // Show loaders
+    document.getElementById('sessionsChartLoader').classList.remove('d-none');
+    document.getElementById('emotionLoader').classList.remove('d-none');
+    document.getElementById('satisfactionLoader').classList.remove('d-none');
+    setKpiLoading(true);
+
+    // Simulate network latency
+    await new Promise(r => setTimeout(r, 800));
+
+    // Generate line series
+    const days = enumerateDays(startDate, endDate);
+    const labels = days.map(d => formatDate(d));
+    const sess = days.map(() => rand(80, 320));
+    sessionsChart.data.labels = labels;
+    sessionsChart.data.datasets[0].data = sess;
+    sessionsChart.update();
+
+    // Donut data
+    const emotions = [rand(140, 260), rand(120, 240), rand(80, 180), rand(240, 400), rand(90, 210)];
+    emotionDonut.data.datasets[0].data = emotions;
+    emotionDonut.update();
+    renderEmotionLegend(emotions);
+
+    // Satisfaction data
+    const ratings = [rand(20, 60), rand(40, 90), rand(80, 140), rand(120, 220), rand(180, 320)];
+    satisfactionBar.data.datasets[0].data = ratings;
+    satisfactionBar.update();
+
+    // Update KPIs
+    const totalSessions = sess.reduce((a, b) => a + b, 0);
+    const avgLength = randFloat(10, 18, 1);
+    const accuracy = randFloat(88, 96, 1) + '%';
+    const avgSatis = randFloat(3.8, 4.6, 1) + ' / 5';
+    applyKpi('#kpiTotalSessions', totalSessions.toLocaleString(), rand(-6, 14));
+    applyKpi('#kpiAvgSession', avgLength + ' min', rand(-4, 8));
+    applyKpi('#kpiAccuracy', accuracy, rand(-2, 5));
+    applyKpi('#kpiSatisfaction', avgSatis, rand(-3, 6));
+
+    // Populate table
+    populateRecentSessions(days);
+
+    // Hide loaders
+    document.getElementById('sessionsChartLoader').classList.add('d-none');
+    document.getElementById('emotionLoader').classList.add('d-none');
+    document.getElementById('satisfactionLoader').classList.add('d-none');
+    setKpiLoading(false);
+}
+
+function setKpiLoading(loading) {
+    const cards = document.querySelectorAll('#kpiRow .metric-card');
+    cards.forEach(card => {
+        const valueEl = card.querySelector('[data-field="value"]');
+        if (loading) {
+            valueEl.dataset.prev = valueEl.textContent;
+            valueEl.innerHTML = '<span class="skeleton" style="height: 28px; width: 70%; display:inline-block;"></span>';
+        } else {
+            if (valueEl.textContent.trim() === '') valueEl.textContent = valueEl.dataset.prev || '--';
+        }
+    });
+}
+
+function applyKpi(selector, value, trendPercent) {
+    const card = document.querySelector(selector);
+    if (!card) return;
+    const val = card.querySelector('[data-field="value"]');
+    const badge = card.querySelector('[data-field="trend"]');
+    val.textContent = value;
+    const isUp = trendPercent >= 0;
+    badge.classList.toggle('text-success', isUp);
+    badge.classList.toggle('text-danger', !isUp);
+    badge.classList.toggle('bg-success-soft', isUp);
+    badge.classList.toggle('bg-error-soft', !isUp);
+    badge.innerHTML = `${isUp ? '<i class="fa-solid fa-arrow-trend-up me-1"></i>' : '<i class="fa-solid fa-arrow-trend-down me-1"></i>'}<span>${isUp ? '+' : ''}${trendPercent}%</span>`;
+}
+
+function renderEmotionLegend(values) {
+    const labels = emotionDonut.data.labels;
+    const colors = emotionDonut.data.datasets[0].backgroundColor;
+    const wrap = document.getElementById('emotionLegend');
+    wrap.innerHTML = '';
+    labels.forEach((label, idx) => {
+        const col = document.createElement('div');
+        col.className = 'col';
+        col.innerHTML = `<div class="d-flex align-items-center gap-2"><span class="status-dot" style="background:${colors[idx]}"></span><span>${label}</span><span class="ms-auto text-muted">${values[idx]}</span></div>`;
+        wrap.appendChild(col);
+    });
+}
+
+// Table data
+let tableData = [];
+
+function populateRecentSessions(days) {
+    // create mock rows for last 6 entries
+    const last = days.slice(-6);
+    tableData = last.map((d, i) => ({
+        date: d,
+        user: ['J. Patel', 'M. Garcia', 'R. Chen', 'A. Johnson', 'F. Silva', 'S. Nguyen'][i],
+        sessions: rand(1, 4),
+        avgLength: parseFloat(randFloat(8, 20, 1)),
+        satisfaction: parseFloat(randFloat(2.5, 5.0, 1)),
+        status: ['Completed', 'Completed', 'Flagged', 'Completed', 'Completed', 'Review'][rand(0, 5) % 6]
+    }));
+    renderTable(tableData);
+}
+
+function renderTable(rows) {
+    const tbody = document.getElementById('recentSessionsBody');
+    tbody.innerHTML = '';
+    rows.forEach(row => {
+        const tr = document.createElement('tr');
+        const dateStr = formatDate(row.date);
+        const statusBadge = row.status === 'Completed' ? '<span class="badge-soft success">Completed</span>' : (row.status === 'Review' ? '<span class="badge-soft warning">Review</span>' : '<span class="badge-soft error">Flagged</span>');
+        tr.innerHTML = `
+          <td>${dateStr}</td>
+          <td><i class="fa-regular fa-user me-1 text-muted"></i> ${row.user}</td>
+          <td>${row.sessions}</td>
+          <td>${row.avgLength.toFixed(1)}</td>
+          <td>${row.satisfaction.toFixed(1)} / 5</td>
+          <td>${statusBadge}</td>
+          <td>
+            <div class="btn-group btn-group-sm" role="group">
+              <button class="btn btn-light" title="Open"><i class="fa-solid fa-up-right-from-square"></i></button>
+              <button class="btn btn-light" title="Details"><i class="fa-regular fa-file-lines"></i></button>
+              <button class="btn btn-light text-danger" title="Flag"><i class="fa-solid fa-flag"></i></button>
+            </div>
+          </td>`;
+        tbody.appendChild(tr);
+    });
+    document.getElementById('paginationInfo').textContent = `Showing 1-${rows.length} of 42`;
+}
+
+function sortTableBy(key) {
+    const sorted = [...tableData].sort((a, b) => {
+        if (key === 'date') return a.date - b.date; // ascending
+        if (typeof a[key] === 'number') return a[key] - b[key];
+        return String(a[key]).localeCompare(String(b[key]));
+    });
+    renderTable(sorted);
+}
+
+// Date Range Picker Setup
+let fp;
+
+function initDatePicker() {
+    const {
+        start,
+        end
+    } = getDateRange(30);
+    fp = flatpickr('#dateRange', {
+        mode: 'range',
+        dateFormat: 'M d, Y',
+        defaultDate: [start, end],
+        maxDate: new Date(),
+        onOpen: () => document.getElementById('filtersAlert').classList.remove('d-none')
+    });
+
+    // Quick range buttons
+    document.querySelectorAll('[data-range]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const n = parseInt(btn.dataset.range, 10);
+            const {
+                start,
+                end
+            } = getDateRange(n);
+            fp.setDate([start, end], true);
+        });
+    });
+}
+
+function getSelectedRange() {
+    const dates = fp.selectedDates;
+    if (!dates || dates.length < 2) {
+        const {
+            start,
+            end
+        } = getDateRange(30);
+        return {
+            start,
+            end
+        };
+    }
+    const [start, end] = dates;
+    return {
+        start,
+        end
+    };
+}
+
+function showToast(message) {
+    const toastEl = document.getElementById('liveToast');
+    toastEl.querySelector('.toast-body').textContent = message;
+    const toast = new bootstrap.Toast(toastEl);
+    toast.show();
+}
+
+// Event bindings
+document.addEventListener('DOMContentLoaded', () => {
+    initDatePicker();
+    initCharts();
+
+    // Initial load
+    const {
+        start,
+        end
+    } = getSelectedRange();
+    refreshDashboard(start, end);
+
+    // Apply button
+    document.getElementById('applyDateRange').addEventListener('click', async () => {
+        const {
+            start,
+            end
+        } = getSelectedRange();
+        await refreshDashboard(start, end);
+        Swal.fire({
+            icon: 'success',
+            title: 'Filters applied',
+            text: `${formatDate(start)} to ${formatDate(end)}`,
+            timer: 1500,
+            showConfirmButton: false
+        });
+    });
+
+    // Export and Create Report handlers
+    document.getElementById('exportCsvBtn').addEventListener('click', (e) => {
+        e.preventDefault();
+        Swal.fire({
+            icon: 'info',
+            title: 'Export started',
+            text: 'We are generating your CSV. You will be notified when it is ready.'
+        });
+    });
+    document.getElementById('createReportBtn').addEventListener('click', (e) => {
+        e.preventDefault();
+        Swal.fire({
+            title: 'Create Report',
+            input: 'text',
+            inputLabel: 'Report name',
+            inputPlaceholder: 'e.g., Q1 Interaction Overview',
+            showCancelButton: true
+        }).then(res => {
+            if (res.isConfirmed) showToast('Report "' + (res.value || 'Untitled') + '" created');
+        });
+    });
+
+    // Table sorting
+    document.querySelectorAll('#recentSessionsTable th.sortable').forEach(th => {
+        th.style.cursor = 'pointer';
+        th.addEventListener('click', () => sortTableBy(th.dataset.key));
+    });
+
+    // Table filter
+    document.getElementById('tableFilter').addEventListener('input', (e) => {
+        const q = e.target.value.toLowerCase();
+        const filtered = tableData.filter(r => r.user.toLowerCase().includes(q) || r.status.toLowerCase().includes(q));
+        renderTable(filtered);
+    });
+    document.getElementById('btnTableReset').addEventListener('click', () => {
+        document.getElementById('tableFilter').value = '';
+        renderTable(tableData);
+    });
+    document.getElementById('btnTableDownload').addEventListener('click', () => {
+        Swal.fire({
+            icon: 'success',
+            title: 'Downloaded',
+            text: 'Recent sessions exported as CSV.'
+        });
+    });
+
+    // Error simulation
+    document.getElementById('btnSimulateError').addEventListener('click', () => {
+        Swal.fire({
+            icon: 'error',
+            title: 'Data fetch failed',
+            text: 'The analytics service is temporarily unavailable. Please try again shortly.'
+        });
+    });
+
+    // View switcher (compact spacing)
+    document.getElementById('viewDefault').addEventListener('click', () => document.body.classList.remove('compact-view'));
+    document.getElementById('viewCompact').addEventListener('click', () => document.body.classList.add('compact-view'));
+});
+  </script>
+ </body>
+</html>

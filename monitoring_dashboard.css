@@ -1,0 +1,90 @@
+/* monitoring_dashboard.css - Page specific styles for Monitoring Dashboard */
+/* Map sidebar variables to theme */
+:root {
+    --primary: var(--color-primary);
+    --secondary: var(--color-secondary)
+    }
+/* Apply Poppins as brand body font for this page */
+body {
+    font-family: "Poppins", var(--font-sans)
+    }
+/* Sidebar from common components */
+.sidebar-eng {
+    background: var(--primary);
+    color: #fff;
+    min-height: 100vh;
+    width: 280px
+    }
+.sidebar-eng .brand img {
+    height: 36px
+    }
+.sidebar-eng .nav-link {
+    color: #fff;
+    border-radius: 0.375rem
+    }
+.sidebar-eng .nav-link:hover {
+    background: rgba(255, 255, 255, 0.12)
+    }
+.sidebar-eng .nav-link.active {
+    background: var(--secondary);
+    color: #fff
+    }
+.sidebar-eng .profile {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 0.5rem
+    }
+/* Ensure sidebar does not shrink and layout flows correctly */
+.sidebar-eng {
+    flex: 0 0 280px;
+    position: sticky;
+    top: 56px;
+    align-self: flex-start
+    }
+@media (max-width: 991.98px) {
+    .sidebar-eng {
+        position: static;
+        top: auto
+        }
+    }
+/* Card/metric enhancements */
+.metric-card .metric-title {
+    letter-spacing: 0.06em;
+    text-transform: uppercase
+    }
+.metric-card .metric-value {
+    font-size: 1.75rem
+    }
+/* Charts responsive height (let canvas manage height) */
+#accuracyChart, #emotionChart, #modelLatencyChart, #predictionVolumeChart {
+    width: 100%;
+    height: auto
+    }
+/* Alerts list styling */
+#alertsList .list-group-item {
+    transition: background-color 0.15s ease
+    }
+#alertsList .list-group-item:hover {
+    background: rgba(0, 0, 0, 0.02)
+    }
+/* Bottom bar spacing alignment */
+.bottom-bar {
+    gap: 0.75rem
+    }
+.bottom-bar .badge-soft {
+    padding: 2px 8px
+    }
+/* Table responsiveness tweaks */
+#requestsTable code {
+    background: var(--neutral-soft);
+    padding: 2px 6px;
+    border-radius: 9999px
+    }
+/* Offcanvas width to match sidebar */
+#sidebarOffcanvas .offcanvas-body {
+    padding: 0
+    }
+#sidebarOffcanvas {
+    --bs-offcanvas-width: 280px
+    }
+/* Small skeleton visibility: hide once Chart.js renders (no hook; keep minimal) */
+/* Optional: could be hidden in JS after render if needed */

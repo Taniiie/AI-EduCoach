@@ -1,0 +1,43 @@
+/* login_page.css - Page-specific styles for Login Page */
+/* Use brand typography on this page */
+body {
+    font-family: "Poppins", var(--font-sans)
+    }
+/* Centering helper for the auth shell */
+.auth-shell {
+    animation: fadeInUp 0.25s ease
+    }
+/* Fine-tune the login container spacing for this page */
+.login-form-container {
+    padding: var(--space-6)
+    }
+.login-form-container .form-label {
+    font-weight: 600
+    }
+/* Better target hit area for the password toggle */
+#togglePassword {
+    border-left: 0
+    }
+#togglePassword:focus-visible {
+    box-shadow: var(--focus-ring)
+    }
+/* Error alert spacing */
+#errorAlert {
+    margin-top: var(--space-2)
+    }
+/* Table responsiveness inside the credentials card */
+@media (max-width: 575.98px) {
+    .table-theme th:nth-child(3), .table-theme td:nth-child(3) {
+        white-space: nowrap
+        }
+    }
+/* Subtle entrance animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+        } to {
+        opacity: 1;
+        transform: translateY(0);
+        }
+    }

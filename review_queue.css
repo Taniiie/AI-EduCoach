@@ -1,0 +1,71 @@
+/* review_queue.css - Page-specific styles for Content Review Queue */
+/* Typography override to Poppins for this page */
+body {
+    font-family: "Poppins", var(--font-sans)
+    }
+/* Keep main layout clean alongside provided sidebar/header */
+main {
+    background: transparent
+    }
+/* Loading overlay over table */
+.loading-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(2px);
+    z-index: 2
+    }
+/* Sortable headers visual cue */
+th.sortable {
+    cursor: pointer;
+    user-select: none
+    }
+th.sortable:hover {
+    background-color: var(--neutral-soft)
+    }
+/* Clickable rows */
+.table-row.clickable {
+    cursor: pointer
+    }
+/* Detail modal section headings */
+.detail-section {
+    background: var(--surface-0);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-1);
+    padding: 12px
+    }
+.section-title {
+    font-weight: 600;
+    color: var(--text-strong)
+    }
+.formatted-content {
+    color: var(--text)
+    }
+/* Buttons min-width for better UX */
+#approveBtn, #requestRevisionsBtn {
+    min-width: 160px
+    }
+/* Card header alignment on small screens */
+@media (max-width: 575.98px) {
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px
+        }
+    }
+/* Chart spacing */
+#statusDonut, #submissionsLine {
+    max-width: 100%
+    }
+/* Toast style alignment with theme */
+.toast .toast-body {
+    font-weight: 500
+    }
+/* Ensure offcanvas nav content inherits sidebar styles but fits mobile */
+.offcanvas .sidebar-content {
+    width: 100%;
+    min-height: auto
+    }

@@ -1,0 +1,50 @@
+/* admin_dashboard.css — Page-specific styles for Admin Dashboard */
+/* Layout helpers */
+.ad-shell {
+    min-height: 100vh
+    }
+/* Ensure charts are responsive within cards */
+.ad-chart-wrap {
+    position: relative;
+    width: 100%;
+    min-height: 220px
+    }
+/* KPI cards tweaks */
+.metric-card .metric-title {
+    letter-spacing: 0.04em
+    }
+.metric-card .metric-value {
+    line-height: 1.1
+    }
+/* Sorting icons hover feedback */
+#admn th[role="button"], #eventsTable thead th[role="button"] {
+    cursor: pointer;
+    user-select: none
+    }
+#eventsTable thead th[role="button"]:hover {
+    color: var(--color-primary)
+    }
+/* Offcanvas sizing to match sidebar width */
+#sidebarOffcanvas {
+    width: 300px
+    }
+/* Make footer sticky below content when content is short */
+footer {
+    backdrop-filter: saturate(160%) blur(6px)
+    }
+/* Small tweaks for mobile spacing */
+@media (max-width: 575.98px) {
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px
+        }
+    }
+/* High-contrast status dots inside badges */
+.badge-soft .status-dot {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.6)
+    }
+/* Adjust doughnut chart legend spacing */
+#emotionChart + .chartjs-legend {
+    margin-top: 8px
+    }

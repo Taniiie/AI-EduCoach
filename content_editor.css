@@ -1,0 +1,105 @@
+/* content_editor.css - Page-specific styles for Content Editor */
+/* Use brand typography */
+body {
+    font-family: "Poppins", var(--font-sans)
+    }
+/* Common Components styling - preserved from provided context */
+.sidebar-content {
+    background: var(--bs-primary, var(--color-primary));
+    color: #fff;
+    min-height: 100vh;
+    width: 280px
+    }
+.sidebar-content .brand img {
+    height: 36px
+    }
+.sidebar-content .nav-link {
+    color: #fff;
+    border-radius: 0.375rem
+    }
+.sidebar-content .nav-link:hover {
+    background: rgba(255, 255, 255, 0.12)
+    }
+.sidebar-content .nav-link.active {
+    background: var(--bs-secondary, var(--color-secondary));
+    color: #fff
+    }
+.sidebar-content .profile {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 0.5rem
+    }
+.content-header .navbar-brand img {
+    height: 28px
+    }
+.btn-accent {
+    background: var(--bs-secondary, var(--color-secondary));
+    border-color: var(--bs-secondary, var(--color-secondary));
+    color: #fff
+    }
+.btn-accent:hover {
+    filter: brightness(0.95)
+    }
+/* Layout adjustments */
+.app-shell {
+    min-height: calc(100vh - 56px - 40px);
+    /* header & footer approx */
+    }
+@media (min-width: 992px) {
+    .app-shell > main {
+        margin-left: 0
+        }
+    }
+/* Sticky Actions Toolbar */
+.sticky-actions {
+    position: sticky;
+    top: 72px;
+    z-index: 100;
+    box-shadow: var(--shadow-1)
+    }
+/* Quill editor sizing */
+.quill-editor {
+    background: var(--surface-0, #fff);
+    border: 1px solid var(--border-color, #d3d3d4);
+    border-radius: var(--radius-1, 6px)
+    }
+.quill-editor .ql-container {
+    min-height: 180px
+    }
+.quill-editor.quill-sm .ql-container {
+    min-height: 120px
+    }
+.quill-editor.quill-step .ql-container {
+    min-height: 140px
+    }
+/* Steps list styling */
+.sortable-steps .list-group-item {
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-1);
+    margin-bottom: 12px
+    }
+.drag-handle {
+    cursor: grab
+    }
+.drag-handle:active {
+    cursor: grabbing
+    }
+/* Preview card sticky */
+.preview-card {
+    top: 88px
+    }
+/* Modal table tweaks */
+#contentTable th[role="button"] {
+    user-select: none
+    }
+#contentTable tbody tr:hover {
+    background: rgba(0, 0, 0, 0.02)
+    }
+/* Breadcrumb spacing on small */
+@media (max-width: 575.98px) {
+    .sticky-actions {
+        top: 60px
+        }
+    .preview-card {
+        top: 100px
+        }
+    }

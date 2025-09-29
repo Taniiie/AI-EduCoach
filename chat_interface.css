@@ -1,0 +1,136 @@
+/* chat_interface.css - Page specific styles for Chat Interface */
+/* Use Poppins for this page for brand typography */
+body {
+    font-family: "Poppins", var(--font-sans)
+    }
+/* Sidebar (as provided in common components) */
+:root {
+    --primary: #007BFF;
+    --secondary: #FF9800
+    }
+.sidebar-student {
+    background: var(--primary);
+    color: #fff;
+    min-height: 100%;
+    width: 260px
+    }
+.sidebar-student .brand img {
+    height: 36px
+    }
+.sidebar-student .nav-link {
+    color: #fff;
+    border-radius: 0.375rem
+    }
+.sidebar-student .nav-link:hover {
+    background: rgba(255, 255, 255, 0.12)
+    }
+.sidebar-student .nav-link.active {
+    background: var(--secondary);
+    color: #fff
+    }
+.sidebar-student .submenu .nav-link {
+    padding-left: 2rem;
+    font-size: 0.95rem
+    }
+.sidebar-student .profile {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 0.5rem
+    }
+/* Header (as provided) */
+.student-header .navbar-brand img {
+    height: 28px
+    }
+.student-header .badge-dot {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 10px;
+    height: 10px;
+    background: var(--secondary);
+    border-radius: 50%
+    }
+/* Chat layout */
+.chat-shell {
+    min-height: calc(100vh - 56px - 42px);
+    /* viewport minus header(~56) and footer(~42) */
+    background: var(--surface-bg)
+    }
+.message-area {
+    background: linear-gradient(180deg, #fff, #f9fafb)
+    }
+.message-area .message-bubble {
+    max-width: 72%
+    }
+@media (max-width: 575.98px) {
+    .message-area .message-bubble {
+        max-width: 86%
+        }
+    }
+/* Typing indicator */
+.typing-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px
+    }
+.typing-indicator span {
+    width: 8px;
+    height: 8px;
+    background: #c6ccd5;
+    border-radius: 50%;
+    display: inline-block;
+    animation: blink 1.2s infinite ease-in-out
+    }
+.typing-indicator span:nth-child(2) {
+    animation-delay: 0.2s
+    }
+.typing-indicator span:nth-child(3) {
+    animation-delay: 0.4s
+    }
+@keyframes blink {
+    0%, 80%, 100% {
+        transform: scale(0.8);
+        opacity: .5
+        } 40% {
+        transform: scale(1);
+        opacity: 1
+        }
+    }
+/* Sticky input bar inside main column, stays above footer */
+.message-input-bar {
+    position: sticky;
+    bottom: 0;
+    z-index: 5
+    }
+.message-text-input {
+    resize: none
+    }
+/* Feedback prompt */
+.feedback-prompt {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px
+    }
+.feedback-prompt .btn {
+    padding: 2px 8px
+    }
+/* Sessions table enhancements */
+#sessionsTable thead th.sortable:hover {
+    background: var(--neutral-soft)
+    }
+#sessionsTable tbody tr:hover {
+    background: rgba(0, 0, 0, 0.02)
+    }
+/* Offcanvas adjustments on mobile */
+@media (max-width: 991.98px) {
+    .sidebar-student {
+        width: 100%
+        }
+    }
+/* Buttons visual tweaks */
+#clearChat .fa-broom {
+    color: var(--color-primary)
+    }
+/* Utilities for icons spacing where Bootstrap not applied */
+.mr-1 {
+    margin-right: 0.25rem
+    }

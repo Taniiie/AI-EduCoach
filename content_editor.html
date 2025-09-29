@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   AI EduCoach — Content Editor
+  </title>
+  <!-- Google Font: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Font Awesome 6 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
+  <!-- Quill Editor CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.snow.css" rel="stylesheet"/>
+  <!-- KaTeX CSS (for math rendering) -->
+  <link href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" rel="stylesheet"/>
+  <!-- SweetAlert2 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.2/dist/sweetalert2.min.css" rel="stylesheet"/>
+  <!-- Site Theme CSS -->
+  <link href="style.css" rel="stylesheet"/>
+  <!-- Page-specific CSS -->
+  <link href="content_editor.css" rel="stylesheet"/>
+ </head>
+ <body class="bg-light">
+  <!-- Header (Content Team Header) -->
+  <nav class="content-header navbar navbar-expand bg-white border-bottom px-3 sticky-top">
+   <button aria-controls="sidebarOffcanvas" class="btn btn-outline-primary d-lg-none me-2" data-bs-target="#sidebarOffcanvas" data-bs-toggle="offcanvas" type="button">
+    <i class="fas fa-bars">
+    </i>
+   </button>
+   <a class="navbar-brand d-flex align-items-center" href="./content_editor.html">
+    <img alt="Logo" class="me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/edcoach/56/28';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a9ff223010074de481ab95/logos/logo_19036e58-01c8-4935-a1be-e31305353e97.png"/>
+    <span class="fw-bold">
+     Content Management
+    </span>
+   </a>
+   <form class="ms-3 flex-grow-1 d-none d-md-flex" role="search">
+    <div class="input-group">
+     <span class="input-group-text bg-white">
+      <i class="fas fa-search text-muted">
+      </i>
+     </span>
+     <input class="form-control" placeholder="Search content items, titles, IDs..." type="search"/>
+    </div>
+   </form>
+   <div class="ms-auto d-flex align-items-center gap-2">
+    <a class="btn btn-primary" href="./content_editor.html">
+     <i class="fas fa-plus me-1">
+     </i>
+     New Content
+    </a>
+    <a class="btn btn-accent" href="./review_queue.html">
+     <i class="fas fa-clipboard-check me-1">
+     </i>
+     My Reviews
+    </a>
+    <a class="btn btn-link text-secondary" href="./analytics_dashboard.html" title="Analytics">
+     <i class="fas fa-chart-line">
+     </i>
+    </a>
+    <a class="btn btn-link text-secondary" href="./log_viewer.html" title="Logs">
+     <i class="fas fa-file-alt">
+     </i>
+    </a>
+    <div class="dropdown">
+     <a aria-expanded="false" class="btn btn-light dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" href="#" role="button">
+      <i class="fas fa-user-graduate me-2">
+      </i>
+      Emily Carter
+     </a>
+     <ul class="dropdown-menu dropdown-menu-end">
+      <li>
+       <a class="dropdown-item" href="./admin_dashboard.html">
+        <i class="fas fa-id-badge me-2">
+        </i>
+        Profile
+       </a>
+      </li>
+      <li>
+       <a class="dropdown-item" href="./content_editor.html">
+        <i class="fas fa-sliders-h me-2">
+        </i>
+        Settings
+       </a>
+      </li>
+      <li>
+       <hr class="dropdown-divider"/>
+      </li>
+      <li>
+       <a class="dropdown-item text-danger" href="./login_page.html">
+        <i class="fas fa-sign-out-alt me-2">
+        </i>
+        Logout
+       </a>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </nav>
+  <div class="app-shell d-flex">
+   <!-- Sidebar (Desktop) -->
+   <aside class="sidebar-content d-none d-lg-flex flex-column p-3">
+    <div class="brand d-flex align-items-center mb-3">
+     <img alt="logo" class="me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/brand/72/36';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a9ff223010074de481ab95/logos/logo_19036e58-01c8-4935-a1be-e31305353e97.png"/>
+     <span class="fw-bold">
+      AI EduCoach
+     </span>
+    </div>
+    <div class="profile d-flex align-items-center p-2 mb-3">
+     <i class="fas fa-user-graduate fa-2x me-2">
+     </i>
+     <div>
+      <div class="fw-semibold">
+       Dr. Emily Carter
+      </div>
+      <small class="text-white-50">
+       Subject Matter Expert
+      </small>
+     </div>
+    </div>
+    <nav class="nav nav-pills flex-column gap-1">
+     <a class="nav-link active" href="./content_editor.html">
+      <i class="fas fa-pen-to-square me-2">
+      </i>
+      Create Content
+     </a>
+     <a class="nav-link" href="./review_queue.html">
+      <i class="fas fa-inbox me-2">
+      </i>
+      Review Queue
+     </a>
+     <a class="nav-link" href="./content_editor.html#library">
+      <i class="fas fa-folder-open me-2">
+      </i>
+      Content Library
+     </a>
+     <a class="nav-link" href="./content_editor.html#guidelines">
+      <i class="fas fa-book me-2">
+      </i>
+      Guidelines
+     </a>
+     <hr class="border-light"/>
+     <a class="nav-link" href="./content_editor.html#help">
+      <i class="fas fa-circle-question me-2">
+      </i>
+      Help
+     </a>
+     <a class="nav-link" href="./admin_dashboard.html">
+      <i class="fas fa-cog me-2">
+      </i>
+      Settings
+     </a>
+    </nav>
+   </aside>
+   <!-- Main Content Area -->
+   <main class="flex-grow-1">
+    <div class="container-fluid py-3">
+     <!-- Breadcrumb & Page Header -->
+     <div class="d-flex align-items-center justify-content-between mb-3">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item">
+         <a href="./admin_dashboard.html">
+          Dashboard
+         </a>
+        </li>
+        <li aria-current="page" class="breadcrumb-item active">
+         Content Editor
+        </li>
+       </ol>
+      </nav>
+      <div class="view-switcher d-none d-md-inline-flex">
+       <div class="option active">
+        <i class="fa-solid fa-pen">
+        </i>
+       </div>
+       <div class="option" id="openGuidelines">
+        <i class="fa-solid fa-book">
+        </i>
+       </div>
+       <div class="option" id="openHelp">
+        <i class="fa-solid fa-circle-question">
+        </i>
+       </div>
+      </div>
+     </div>
+     <div class="page-header">
+      <div class="d-flex align-items-center gap-2">
+       <h1 class="page-title mb-0">
+        Create Educational Content
+       </h1>
+       <span class="badge-soft info">
+        <i class="fa-solid fa-hashtag">
+        </i>
+        <span id="contentIdDisplay">
+         New
+        </span>
+       </span>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+       <span class="text-muted small">
+        Last autosave:
+        <span id="lastAutosave">
+         —
+        </span>
+       </span>
+      </div>
+     </div>
+     <!-- Action Toolbar -->
+     <div class="card sticky-actions mb-3">
+      <div class="card-body d-flex flex-wrap gap-2 align-items-center justify-content-between">
+       <div class="d-flex gap-2">
+        <button class="btn btn-light" disabled="" id="btnSaveDraft">
+         <i class="fa-regular fa-floppy-disk me-1">
+         </i>
+         Save Draft
+        </button>
+        <button class="btn btn-success" disabled="" id="btnSubmitReview">
+         <i class="fa-solid fa-paper-plane me-1">
+         </i>
+         Submit for Review
+        </button>
+        <button class="btn btn-danger" id="btnCancel">
+         <i class="fa-solid fa-xmark me-1">
+         </i>
+         Cancel
+        </button>
+       </div>
+       <div class="d-flex align-items-center gap-2">
+        <span class="badge-soft warning" id="dirtyBadge" style="display:none">
+         <i class="fa-solid fa-pen">
+         </i>
+         Unsaved changes
+        </span>
+        <div class="form-check form-switch m-0">
+         <input checked="" class="form-check-input" id="autosaveToggle" type="checkbox"/>
+         <label class="form-check-label" for="autosaveToggle">
+          Autosave
+         </label>
+        </div>
+       </div>
+      </div>
+     </div>
+     <!-- Alerts / Feedback -->
+     <div class="mb-3" id="feedbackArea" style="display:none">
+      <div class="alert alert-warning d-flex align-items-center" role="alert">
+       <i class="fa-solid fa-triangle-exclamation me-2">
+       </i>
+       <div id="feedbackText">
+        Please fill all required fields.
+       </div>
+      </div>
+     </div>
+     <div class="row g-3">
+      <!-- Main Form Column -->
+      <div class="col-12 col-xl-7">
+       <div class="card">
+        <div class="card-header">
+         <div class="title d-flex align-items-center gap-2">
+          <i class="fa-solid fa-layer-group text-primary">
+          </i>
+          <span class="widget-title">
+           Content Authoring
+          </span>
+         </div>
+        </div>
+        <div class="card-body">
+         <!-- Tabs for Sections -->
+         <ul class="nav nav-tabs mb-3" id="editorTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+           <button aria-controls="meta" aria-selected="true" class="nav-link active" data-bs-target="#meta" data-bs-toggle="tab" id="meta-tab" role="tab" type="button">
+            Metadata
+           </button>
+          </li>
+          <li class="nav-item" role="presentation">
+           <button aria-controls="question" aria-selected="false" class="nav-link" data-bs-target="#question" data-bs-toggle="tab" id="question-tab" role="tab" type="button">
+            Question
+           </button>
+          </li>
+          <li class="nav-item" role="presentation">
+           <button aria-controls="solution" aria-selected="false" class="nav-link" data-bs-target="#solution" data-bs-toggle="tab" id="solution-tab" role="tab" type="button">
+            Solution
+           </button>
+          </li>
+          <li class="nav-item" role="presentation">
+           <button aria-controls="adaptive" aria-selected="false" class="nav-link" data-bs-target="#adaptive" data-bs-toggle="tab" id="adaptive-tab" role="tab" type="button">
+            Adaptive Responses
+           </button>
+          </li>
+         </ul>
+         <div class="tab-content" id="editorTabsContent">
+          <!-- Metadata Tab -->
+          <div aria-labelledby="meta-tab" class="tab-pane fade show active" id="meta" role="tabpanel">
+           <div class="row g-3">
+            <div class="col-12">
+             <label class="form-label" for="internalTitle">
+              Internal Title
+              <span class="text-danger">
+               *
+              </span>
+             </label>
+             <input class="form-control" id="internalTitle" placeholder="e.g., Algebra: Solving Linear Equations — Intro" required="" type="text"/>
+             <div class="form-text">
+              Must be unique within the CMS.
+             </div>
+            </div>
+            <div class="col-md-6">
+             <label class="form-label" for="subjectSelect">
+              Subject
+              <span class="text-danger">
+               *
+              </span>
+             </label>
+             <select class="form-select" id="subjectSelect" required="">
+              <option disabled="" selected="" value="">
+               Choose subject
+              </option>
+             </select>
+            </div>
+            <div class="col-md-6">
+             <label class="form-label" for="topicSelect">
+              Topic
+              <span class="text-danger">
+               *
+              </span>
+             </label>
+             <select class="form-select" id="topicSelect" required="">
+              <option disabled="" selected="" value="">
+               Choose topic
+              </option>
+             </select>
+            </div>
+            <div class="col-12">
+             <label class="form-label d-block">
+              Difficulty
+              <span class="text-danger">
+               *
+              </span>
+             </label>
+             <div class="d-flex gap-3">
+              <div class="form-check">
+               <input class="form-check-input" id="diffEasy" name="difficulty" type="radio" value="Easy"/>
+               <label class="form-check-label" for="diffEasy">
+                Easy
+               </label>
+              </div>
+              <div class="form-check">
+               <input class="form-check-input" id="diffMedium" name="difficulty" type="radio" value="Medium"/>
+               <label class="form-check-label" for="diffMedium">
+                Medium
+               </label>
+              </div>
+              <div class="form-check">
+               <input class="form-check-input" id="diffHard" name="difficulty" type="radio" value="Hard"/>
+               <label class="form-check-label" for="diffHard">
+                Hard
+               </label>
+              </div>
+             </div>
+            </div>
+           </div>
+          </div>
+          <!-- Question Tab -->
+          <div aria-labelledby="question-tab" class="tab-pane fade" id="question" role="tabpanel">
+           <label class="form-label">
+            Question Text
+            <span class="text-danger">
+             *
+            </span>
+           </label>
+           <div class="quill-editor" id="questionEditor">
+           </div>
+           <div class="form-text">
+            Use the formula tool (fx) for LaTeX math. Content is sanitized on save.
+           </div>
+          </div>
+          <!-- Solution Tab -->
+          <div aria-labelledby="solution-tab" class="tab-pane fade" id="solution" role="tabpanel">
+           <div class="d-flex align-items-center justify-content-between mb-2">
+            <label class="form-label mb-0">
+             Solution Steps
+            </label>
+            <button class="btn btn-outline-primary btn-sm" id="btnAddStep">
+             <i class="fa-solid fa-plus">
+             </i>
+             Add Step
+            </button>
+           </div>
+           <div class="list-group sortable-steps" id="stepsContainer">
+            <!-- Steps injected dynamically -->
+           </div>
+           <div class="form-text mt-2">
+            Drag the handle to reorder steps. At least one step required if question is present.
+           </div>
+          </div>
+          <!-- Adaptive Responses Tab -->
+          <div aria-labelledby="adaptive-tab" class="tab-pane fade" id="adaptive" role="tabpanel">
+           <ul class="nav nav-pills mb-3" id="adaptivePills" role="tablist">
+            <li class="nav-item" role="presentation">
+             <button aria-controls="confusion" aria-selected="true" class="nav-link active" data-bs-target="#confusion" data-bs-toggle="pill" id="confusion-pill" role="tab" type="button">
+              <i class="fa-regular fa-face-confused me-1">
+              </i>
+              Confusion
+             </button>
+            </li>
+            <li class="nav-item" role="presentation">
+             <button aria-controls="frustration" aria-selected="false" class="nav-link" data-bs-target="#frustration" data-bs-toggle="pill" id="frustration-pill" role="tab" type="button">
+              <i class="fa-regular fa-face-frown-open me-1">
+              </i>
+              Frustration
+             </button>
+            </li>
+            <li class="nav-item" role="presentation">
+             <button aria-controls="boredom" aria-selected="false" class="nav-link" data-bs-target="#boredom" data-bs-toggle="pill" id="boredom-pill" role="tab" type="button">
+              <i class="fa-regular fa-face-meh me-1">
+              </i>
+              Boredom
+             </button>
+            </li>
+            <li class="nav-item" role="presentation">
+             <button aria-controls="anxiety" aria-selected="false" class="nav-link" data-bs-target="#anxiety" data-bs-toggle="pill" id="anxiety-pill" role="tab" type="button">
+              <i class="fa-regular fa-face-tired me-1">
+              </i>
+              Anxiety
+             </button>
+            </li>
+            <li class="nav-item" role="presentation">
+             <button aria-controls="engagement" aria-selected="false" class="nav-link" data-bs-target="#engagement" data-bs-toggle="pill" id="engagement-pill" role="tab" type="button">
+              <i class="fa-regular fa-face-smile-beam me-1">
+              </i>
+              Engagement
+             </button>
+            </li>
+           </ul>
+           <div class="tab-content" id="adaptivePillsContent">
+            <div aria-labelledby="confusion-pill" class="tab-pane fade show active" id="confusion" role="tabpanel">
+             <label class="form-label">
+              Simpler Explanation
+             </label>
+             <div class="quill-editor quill-sm" id="confusionEditor">
+             </div>
+            </div>
+            <div aria-labelledby="frustration-pill" class="tab-pane fade" id="frustration" role="tabpanel">
+             <div class="mb-3">
+              <label class="form-label">
+               Encouragement Message
+              </label>
+              <div class="quill-editor quill-sm" id="frustrationEditor">
+              </div>
+             </div>
+             <div class="mb-3">
+              <label class="form-label">
+               Link Easier Problem
+              </label>
+              <div class="input-group">
+               <input class="form-control" id="frustrationLinkedId" placeholder="Search by title or ID" readonly="" type="text"/>
+               <button class="btn btn-outline-secondary" data-bs-target="#linkContentModal" data-bs-toggle="modal" data-link-type="easier" type="button">
+                <i class="fa-solid fa-magnifying-glass">
+                </i>
+                Search
+               </button>
+              </div>
+              <div class="form-text">
+               Choose a simpler, related problem to help reduce stress.
+              </div>
+             </div>
+            </div>
+            <div aria-labelledby="boredom-pill" class="tab-pane fade" id="boredom" role="tabpanel">
+             <label class="form-label">
+              Link a Gamified Quiz or Challenge
+             </label>
+             <div class="input-group">
+              <input class="form-control" id="boredomLinkedId" placeholder="Search by title or ID" readonly="" type="text"/>
+              <button class="btn btn-outline-secondary" data-bs-target="#linkContentModal" data-bs-toggle="modal" data-link-type="challenge" type="button">
+               <i class="fa-solid fa-magnifying-glass">
+               </i>
+               Search
+              </button>
+             </div>
+             <div class="form-text">
+              Choose a higher difficulty item to re-engage the student.
+             </div>
+            </div>
+            <div aria-labelledby="anxiety-pill" class="tab-pane fade" id="anxiety" role="tabpanel">
+             <label class="form-label">
+              Break Suggestion &amp; Reassurance
+             </label>
+             <div class="quill-editor quill-sm" id="anxietyEditor">
+             </div>
+            </div>
+            <div aria-labelledby="engagement-pill" class="tab-pane fade" id="engagement" role="tabpanel">
+             <label class="form-label">
+              Link an Advanced Task
+             </label>
+             <div class="input-group">
+              <input class="form-control" id="engagementLinkedId" placeholder="Search by title or ID" readonly="" type="text"/>
+              <button class="btn btn-outline-secondary" data-bs-target="#linkContentModal" data-bs-toggle="modal" data-link-type="advanced" type="button">
+               <i class="fa-solid fa-magnifying-glass">
+               </i>
+               Search
+              </button>
+             </div>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+      <!-- Preview Panel Column -->
+      <div class="col-12 col-xl-5">
+       <div class="card position-sticky top-0 preview-card">
+        <div class="card-header">
+         <div class="d-flex align-items-center gap-2">
+          <i class="fa-solid fa-eye text-primary">
+          </i>
+          <span class="widget-title">
+           Live Preview
+          </span>
+         </div>
+         <div class="d-flex align-items-center gap-2">
+          <select class="form-select form-select-sm" id="previewSelect">
+           <option selected="" value="question">
+            Main Question
+           </option>
+           <option value="solution">
+            Solution (combined)
+           </option>
+           <option value="confusion">
+            Confusion Response
+           </option>
+           <option value="frustration">
+            Frustration Response
+           </option>
+           <option value="boredom">
+            Boredom Response
+           </option>
+           <option value="anxiety">
+            Anxiety Response
+           </option>
+           <option value="engagement">
+            Engagement Response
+           </option>
+          </select>
+         </div>
+        </div>
+        <div class="card-body">
+         <div class="chat-preview">
+          <div class="message-list">
+           <div class="message-row incoming">
+            <div class="message-bubble">
+             <div class="message-text small text-muted">
+              Tutor
+             </div>
+             <div class="message-text" id="previewRender">
+              Start writing to see the preview...
+             </div>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </main>
+  </div>
+  <!-- Footer -->
+  <footer class="bg-light border-top py-2 px-3 d-flex align-items-center justify-content-between small">
+   <div class="d-flex align-items-center">
+    <img alt="logo" class="me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/footer/36/18';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a9ff223010074de481ab95/logos/logo_19036e58-01c8-4935-a1be-e31305353e97.png" style="height:18px"/>
+    <span class="text-muted">
+     © 2025 AI EduCoach
+    </span>
+   </div>
+   <div class="d-flex gap-3">
+    <a class="link-secondary text-decoration-none" href="./content_editor.html">
+     <i class="fas fa-pen-to-square me-1">
+     </i>
+     New
+    </a>
+    <a class="link-secondary text-decoration-none" href="./review_queue.html">
+     <i class="fas fa-inbox me-1">
+     </i>
+     Review Queue
+    </a>
+    <span class="text-muted">
+     |
+    </span>
+    <a class="link-secondary text-decoration-none" href="#">
+     Terms
+    </a>
+    <a class="link-secondary text-decoration-none" href="#">
+     Privacy
+    </a>
+   </div>
+  </footer>
+  <!-- Offcanvas Sidebar (Mobile) -->
+  <div aria-labelledby="sidebarOffcanvasLabel" class="offcanvas offcanvas-start" id="sidebarOffcanvas" tabindex="-1">
+   <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="sidebarOffcanvasLabel">
+     AI EduCoach
+    </h5>
+    <button aria-label="Close" class="btn-close" data-bs-dismiss="offcanvas" type="button">
+    </button>
+   </div>
+   <div class="offcanvas-body">
+    <div class="profile d-flex align-items-center p-2 mb-3 bg-primary text-white rounded">
+     <i class="fas fa-user-graduate fa-2x me-2">
+     </i>
+     <div>
+      <div class="fw-semibold">
+       Dr. Emily Carter
+      </div>
+      <small class="text-white-50">
+       Subject Matter Expert
+      </small>
+     </div>
+    </div>
+    <nav class="nav nav-pills flex-column gap-1">
+     <a class="nav-link active" href="./content_editor.html">
+      <i class="fas fa-pen-to-square me-2">
+      </i>
+      Create Content
+     </a>
+     <a class="nav-link" href="./review_queue.html">
+      <i class="fas fa-inbox me-2">
+      </i>
+      Review Queue
+     </a>
+     <a class="nav-link" href="./content_editor.html#library">
+      <i class="fas fa-folder-open me-2">
+      </i>
+      Content Library
+     </a>
+     <a class="nav-link" href="./content_editor.html#guidelines">
+      <i class="fas fa-book me-2">
+      </i>
+      Guidelines
+     </a>
+     <hr/>
+     <a class="nav-link" href="./content_editor.html#help">
+      <i class="fas fa-circle-question me-2">
+      </i>
+      Help
+     </a>
+     <a class="nav-link" href="./admin_dashboard.html">
+      <i class="fas fa-cog me-2">
+      </i>
+      Settings
+     </a>
+    </nav>
+   </div>
+  </div>
+  <!-- Link Content Modal -->
+  <div aria-hidden="true" aria-labelledby="linkContentModalLabel" class="modal fade" id="linkContentModal" tabindex="-1">
+   <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+     <div class="modal-header">
+      <h5 class="modal-title" id="linkContentModalLabel">
+       <i class="fa-solid fa-link me-2">
+       </i>
+       Link Content
+      </h5>
+      <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button">
+      </button>
+     </div>
+     <div class="modal-body">
+      <div class="row g-3 align-items-end mb-2">
+       <div class="col-md-4">
+        <label class="form-label">
+         Search
+        </label>
+        <input class="form-control" id="contentSearch" placeholder="Type title or ID..." type="text"/>
+       </div>
+       <div class="col-md-4">
+        <label class="form-label">
+         Subject
+        </label>
+        <select class="form-select" id="filterSubject">
+         <option value="">
+          All
+         </option>
+         <option>
+          Math
+         </option>
+         <option>
+          Science
+         </option>
+         <option>
+          History
+         </option>
+         <option>
+          Computer Science
+         </option>
+        </select>
+       </div>
+       <div class="col-md-4">
+        <label class="form-label">
+         Difficulty
+        </label>
+        <select class="form-select" id="filterDifficulty">
+         <option value="">
+          All
+         </option>
+         <option>
+          Easy
+         </option>
+         <option>
+          Medium
+         </option>
+         <option>
+          Hard
+         </option>
+        </select>
+       </div>
+      </div>
+      <div class="table-responsive">
+       <table class="table table-hover align-middle" id="contentTable">
+        <thead>
+         <tr>
+          <th data-sort="id" role="button">
+           ID
+           <i class="fa-solid fa-sort">
+           </i>
+          </th>
+          <th data-sort="title" role="button">
+           Title
+           <i class="fa-solid fa-sort">
+           </i>
+          </th>
+          <th>
+           Subject
+          </th>
+          <th data-sort="difficulty" role="button">
+           Difficulty
+           <i class="fa-solid fa-sort">
+           </i>
+          </th>
+          <th data-sort="updated" role="button">
+           Updated
+           <i class="fa-solid fa-sort">
+           </i>
+          </th>
+          <th>
+           Action
+          </th>
+         </tr>
+        </thead>
+        <tbody id="contentTbody">
+         <!-- Rows injected -->
+        </tbody>
+       </table>
+      </div>
+      <div class="d-flex justify-content-between align-items-center small">
+       <div id="tableInfo">
+        Showing 1–6 of 6
+       </div>
+       <div class="d-flex align-items-center gap-2">
+        <button class="btn btn-sm btn-light" disabled="" id="prevPage">
+         <i class="fa-solid fa-chevron-left">
+         </i>
+        </button>
+        <span id="pageStatus">
+         1 / 1
+        </span>
+        <button class="btn btn-sm btn-light" disabled="" id="nextPage">
+         <i class="fa-solid fa-chevron-right">
+         </i>
+        </button>
+       </div>
+      </div>
+     </div>
+     <div class="modal-footer">
+      <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">
+       Close
+      </button>
+     </div>
+    </div>
+   </div>
+  </div>
+  <!-- Toast Container -->
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1060">
+   <div aria-atomic="true" aria-live="assertive" class="toast align-items-center text-bg-primary border-0" id="saveToast" role="alert">
+    <div class="d-flex">
+     <div class="toast-body">
+      <i class="fa-regular fa-floppy-disk me-2">
+      </i>
+      Draft saved successfully.
+     </div>
+     <button aria-label="Close" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" type="button">
+     </button>
+    </div>
+   </div>
+  </div>
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.2/dist/sweetalert2.all.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.3/Sortable.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js">
+  </script>
+  <script>
+   // ---- Page State ----
+const state = {
+    contentId: null,
+    isDirty: false,
+    isLoading: false,
+    formData: {
+        internalTitle: '',
+        subject: '',
+        topic: '',
+        difficulty: '',
+        question: '',
+        solutionSteps: [],
+        adaptiveContent: {
+            confusion: {
+                explanation: ''
+            },
+            frustration: {
+                encouragementMessage: '',
+                linkedEasierProblemId: ''
+            },
+            boredom: {
+                challengeProblemId: ''
+            },
+            anxiety: {
+                reassuranceMessage: ''
+            },
+            engagement: {
+                advancedTaskId: ''
+            }
+        }
+    },
+    subjects: {
+        'Math': ['Algebra', 'Geometry', 'Calculus', 'Statistics'],
+        'Science': ['Physics', 'Chemistry', 'Biology'],
+        'History': ['World History', 'US History', 'European History'],
+        'Computer Science': ['Programming Basics', 'Data Structures', 'Algorithms']
+    },
+    existingTitles: ['Algebra: Linear Equations Basics', 'Physics: Newton\'s Laws Intro', 'Programming Basics: Variables']
+};
+
+// ---- DOM Elements ----
+const internalTitleEl = document.getElementById('internalTitle');
+const subjectSelect = document.getElementById('subjectSelect');
+const topicSelect = document.getElementById('topicSelect');
+const dirtyBadge = document.getElementById('dirtyBadge');
+const btnSaveDraft = document.getElementById('btnSaveDraft');
+const btnSubmitReview = document.getElementById('btnSubmitReview');
+const btnCancel = document.getElementById('btnCancel');
+const feedbackArea = document.getElementById('feedbackArea');
+const feedbackText = document.getElementById('feedbackText');
+const lastAutosave = document.getElementById('lastAutosave');
+const contentIdDisplay = document.getElementById('contentIdDisplay');
+
+// ---- Initialize Selects ----
+function initSubjects() {
+    Object.keys(state.subjects).forEach(sub => {
+        const opt = document.createElement('option');
+        opt.value = sub;
+        opt.textContent = sub;
+        subjectSelect.appendChild(opt);
+    });
+}
+initSubjects();
+
+subjectSelect.addEventListener('change', () => {
+    state.formData.subject = subjectSelect.value;
+    markDirty();
+    topicSelect.innerHTML = '<option value="" selected disabled>Choose topic</option>';
+    (state.subjects[subjectSelect.value] || []).forEach(t => {
+        const opt = document.createElement('option');
+        opt.value = t;
+        opt.textContent = t;
+        topicSelect.appendChild(opt);
+    });
+});
+topicSelect.addEventListener('change', () => {
+    state.formData.topic = topicSelect.value;
+    markDirty();
+});
+
+// Difficulty radios
+document.querySelectorAll('input[name="difficulty"]').forEach(r => {
+    r.addEventListener('change', () => {
+        state.formData.difficulty = r.value;
+        markDirty();
+        updateSubmitEnabled();
+    });
+});
+
+internalTitleEl.addEventListener('input', () => {
+    state.formData.internalTitle = internalTitleEl.value.trim();
+    markDirty();
+    updateSubmitEnabled();
+});
+
+// ---- Quill Editors ----
+const quillOptions = {
+    theme: 'snow',
+    modules: {
+        toolbar: [
+            [{
+                header: [1, 2, 3, false]
+            }],
+            ['bold', 'italic', 'underline'],
+            [{
+                list: 'ordered'
+            }, {
+                list: 'bullet'
+            }],
+            ['formula', 'link', 'code-block']
+        ]
+    }
+};
+const questionQuill = new Quill('#questionEditor', quillOptions);
+questionQuill.on('text-change', () => {
+    state.formData.question = questionQuill.root.innerHTML;
+    markDirty();
+    updateSubmitEnabled();
+    renderPreview();
+});
+
+const frustrationQuill = new Quill('#frustrationEditor', quillOptions);
+frustrationQuill.on('text-change', () => {
+    state.formData.adaptiveContent.frustration.encouragementMessage = frustrationQuill.root.innerHTML;
+    markDirty();
+});
+
+const confusionQuill = new Quill('#confusionEditor', quillOptions);
+confusionQuill.on('text-change', () => {
+    state.formData.adaptiveContent.confusion.explanation = confusionQuill.root.innerHTML;
+    markDirty();
+});
+
+const anxietyQuill = new Quill('#anxietyEditor', quillOptions);
+anxietyQuill.on('text-change', () => {
+    state.formData.adaptiveContent.anxiety.reassuranceMessage = anxietyQuill.root.innerHTML;
+    markDirty();
+});
+
+// Solution Steps management
+const stepsContainer = document.getElementById('stepsContainer');
+let stepCounter = 0;
+
+function addStep(initialHTML = '') {
+    const stepId = ++stepCounter;
+    const item = document.createElement('div');
+    item.className = 'list-group-item step-item';
+    item.setAttribute('data-step-id', stepId);
+    item.innerHTML = `
+        <div class="d-flex align-items-center justify-content-between mb-2">
+          <div class="d-flex align-items-center gap-2">
+            <span class="drag-handle text-muted" title="Drag to reorder"><i class="fa-solid fa-grip-lines"></i></span>
+            <strong>Step <span class="step-number"></span></strong>
+          </div>
+          <button class="btn btn-sm btn-outline-danger btnDeleteStep"><i class="fa-solid fa-trash-can"></i></button>
+        </div>
+        <div class="quill-editor quill-step" id="stepEditor_${stepId}"></div>
+      `;
+    stepsContainer.appendChild(item);
+    updateStepNumbers();
+    // init quill for step
+    const q = new Quill(`#stepEditor_${stepId}`, quillOptions);
+    q.root.innerHTML = initialHTML;
+    q.on('text-change', () => {
+        const idx = Array.from(document.querySelectorAll('.step-item')).indexOf(item);
+        state.formData.solutionSteps[idx] = q.root.innerHTML;
+        markDirty();
+        renderPreview();
+        updateSubmitEnabled();
+    });
+    // delete handler
+    item.querySelector('.btnDeleteStep').addEventListener('click', () => {
+        item.remove();
+        state.formData.solutionSteps.splice(Array.from(document.querySelectorAll('.step-item')).indexOf(item), 1);
+        updateStepNumbers();
+        markDirty();
+        renderPreview();
+        updateSubmitEnabled();
+    });
+    // push into state
+    state.formData.solutionSteps.push(initialHTML);
+}
+
+function updateStepNumbers() {
+    document.querySelectorAll('.step-item .step-number').forEach((el, idx) => {
+        el.textContent = idx + 1;
+    });
+}
+
+document.getElementById('btnAddStep').addEventListener('click', () => addStep(''));
+
+// Initialize with one empty step
+addStep('');
+
+// Sortable for steps
+Sortable.create(stepsContainer, {
+    handle: '.drag-handle',
+    animation: 150,
+    onEnd: () => {
+        // rebuild solutionSteps according to current order
+        const newSteps = [];
+        document.querySelectorAll('.step-item .ql-editor').forEach(ed => newSteps.push(ed.innerHTML));
+        state.formData.solutionSteps = newSteps;
+        updateStepNumbers();
+        markDirty();
+        renderPreview();
+    }
+});
+
+// Adaptive link inputs
+const linkButtons = document.querySelectorAll('[data-bs-target="#linkContentModal"]');
+let currentLinkType = null;
+linkButtons.forEach(btn => btn.addEventListener('click', (e) => {
+    currentLinkType = e.currentTarget.getAttribute('data-link-type');
+    document.getElementById('contentSearch').value = '';
+    document.getElementById('filterSubject').value = '';
+    document.getElementById('filterDifficulty').value = '';
+    renderContentTable();
+}));
+
+// ---- Preview ----
+const previewSelect = document.getElementById('previewSelect');
+const previewRender = document.getElementById('previewRender');
+previewSelect.addEventListener('change', renderPreview);
+
+function renderPreview() {
+    let html = '';
+    const sel = previewSelect.value;
+    if (sel === 'question') {
+        html = state.formData.question || '<em class="text-muted">Question preview will appear here...</em>';
+    } else if (sel === 'solution') {
+        if (state.formData.solutionSteps.length === 0) html = '<em class="text-muted">No solution steps yet.</em>';
+        else html = state.formData.solutionSteps.map((s, i) => `<div class='mb-2'><strong>Step ${i+1}:</strong> ${s}</div>`).join('');
+    } else if (sel === 'confusion') {
+        html = state.formData.adaptiveContent.confusion.explanation || '<em class="text-muted">No confusion response yet.</em>';
+    } else if (sel === 'frustration') {
+        const msg = state.formData.adaptiveContent.frustration.encouragementMessage || '';
+        const link = state.formData.adaptiveContent.frustration.linkedEasierProblemId ? `<div class='mt-2 tag'>Linked: ${state.formData.adaptiveContent.frustration.linkedEasierProblemId}</div>` : '';
+        html = (msg || '<em class="text-muted">No frustration response yet.</em>') + link;
+    } else if (sel === 'boredom') {
+        html = state.formData.adaptiveContent.boredom.challengeProblemId ? `Challenge: ${state.formData.adaptiveContent.boredom.challengeProblemId}` : '<em class="text-muted">No boredom response yet.</em>';
+    } else if (sel === 'anxiety') {
+        html = state.formData.adaptiveContent.anxiety.reassuranceMessage || '<em class="text-muted">No anxiety response yet.</em>';
+    } else if (sel === 'engagement') {
+        html = state.formData.adaptiveContent.engagement.advancedTaskId ? `Advanced Task: ${state.formData.adaptiveContent.engagement.advancedTaskId}` : '<em class="text-muted">No engagement response yet.</em>';
+    }
+    const clean = DOMPurify.sanitize(html);
+    previewRender.innerHTML = clean;
+    try {
+        renderMathInElement(previewRender, {
+            delimiters: [{
+                left: '$$',
+                right: '$$',
+                display: true
+            }, {
+                left: '$',
+                right: '$',
+                display: false
+            }]
+        });
+    } catch (e) {}
+}
+renderPreview();
+
+// ---- Validation ----
+function validateForm() {
+    const errors = [];
+    if (!state.formData.internalTitle) errors.push('Internal Title is required.');
+    if (!state.formData.subject) errors.push('Subject is required.');
+    if (!state.formData.topic) errors.push('Topic is required.');
+    if (!state.formData.difficulty) errors.push('Difficulty is required.');
+    if (!state.formData.question || questionQuill.getText().trim().length === 0) errors.push('Question text is required.');
+    if ((questionQuill.getText().trim().length > 0) && state.formData.solutionSteps.filter(s => (s || '').replace(/<[^>]*>/g, '').trim().length > 0).length === 0) {
+        errors.push('At least one solution step is required.');
+    }
+    return errors;
+}
+
+function updateSubmitEnabled() {
+    const errs = validateForm();
+    btnSubmitReview.disabled = errs.length > 0;
+}
+
+// ---- Dirty State / Autosave ----
+function markDirty() {
+    if (!state.isDirty) {
+        state.isDirty = true;
+        dirtyBadge.style.display = '';
+        btnSaveDraft.disabled = false;
+    }
+}
+
+const autosaveToggle = document.getElementById('autosaveToggle');
+let autosaveTimer = null;
+
+function scheduleAutosave() {
+    if (!autosaveToggle.checked) return;
+    clearTimeout(autosaveTimer);
+    autosaveTimer = setTimeout(() => {
+        saveDraft(true);
+    }, 2000);
+}
+
+document.addEventListener('input', scheduleAutosave);
+
+// ---- Save Draft ----
+const saveToastEl = document.getElementById('saveToast');
+const saveToast = bootstrap.Toast.getOrCreateInstance(saveToastEl);
+
+function saveDraft(isAuto = false) {
+    const errs = validateForm();
+    // Title uniqueness check (mock)
+    if (state.existingTitles.map(t => t.toLowerCase()).includes(state.formData.internalTitle.toLowerCase())) {
+        feedbackText.textContent = 'Internal Title must be unique. The entered title already exists.';
+        feedbackArea.style.display = '';
+        return;
+    } else {
+        feedbackArea.style.display = 'none';
+    }
+    // Simulate save
+    state.isDirty = false;
+    dirtyBadge.style.display = 'none';
+    btnSaveDraft.disabled = true;
+    const now = new Date();
+    lastAutosave.textContent = now.toLocaleString();
+    if (!isAuto) {
+        saveToast.show();
+    }
+    if (!state.contentId) {
+        state.contentId = Math.floor(Math.random() * 900000 + 100000);
+        contentIdDisplay.textContent = '#' + state.contentId;
+    }
+}
+btnSaveDraft.addEventListener('click', () => saveDraft(false));
+
+// ---- Submit for Review ----
+btnSubmitReview.addEventListener('click', async () => {
+    const errs = validateForm();
+    if (errs.length) {
+        feedbackText.innerHTML = errs.map(e => `<div>• ${e}</div>`).join('');
+        feedbackArea.style.display = '';
+        return;
+    }
+    const res = await Swal.fire({
+        title: 'Submit for Review?',
+        html: 'Your content will be validated by another SME. Make sure all required fields are complete.',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Submit',
+        confirmButtonColor: '#00774E'
+    });
+    if (res.isConfirmed) {
+        saveDraft(false);
+        await Swal.fire({
+            title: 'Submitted!',
+            html: 'Content has been saved and moved to the Review Queue with status <b>pending_review</b>.',
+            icon: 'success'
+        });
+        // Navigate to review queue
+        window.location.href = './review_queue.html';
+    }
+});
+
+// ---- Cancel ----
+btnCancel.addEventListener('click', async () => {
+    if (state.isDirty) {
+        const res = await Swal.fire({
+            title: 'Discard changes?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Discard',
+            confirmButtonColor: '#CD2026'
+        });
+        if (!res.isConfirmed) return;
+    }
+    window.location.href = './admin_dashboard.html';
+});
+
+// ---- Content Linker (Modal) ----
+const mockContent = [{
+    id: 'MATH-101',
+    title: 'Linear Equations Basics',
+    subject: 'Math',
+    difficulty: 'Easy',
+    updated: '2025-01-04'
+}, {
+    id: 'SCI-220',
+    title: 'Newton\'s Second Law',
+    subject: 'Science',
+    difficulty: 'Medium',
+    updated: '2025-02-18'
+}, {
+    id: 'CS-110',
+    title: 'Variables and Types',
+    subject: 'Computer Science',
+    difficulty: 'Easy',
+    updated: '2025-01-28'
+}, {
+    id: 'MATH-240',
+    title: 'Quadratic Formula Mastery',
+    subject: 'Math',
+    difficulty: 'Medium',
+    updated: '2025-03-12'
+}, {
+    id: 'MATH-330',
+    title: 'Indefinite Integrals Practice',
+    subject: 'Math',
+    difficulty: 'Hard',
+    updated: '2025-04-02'
+}, {
+    id: 'HIST-101',
+    title: 'Renaissance Overview',
+    subject: 'History',
+    difficulty: 'Easy',
+    updated: '2024-12-21'
+}];
+
+const contentTbody = document.getElementById('contentTbody');
+const contentSearch = document.getElementById('contentSearch');
+const filterSubject = document.getElementById('filterSubject');
+const filterDifficulty = document.getElementById('filterDifficulty');
+const tableInfo = document.getElementById('tableInfo');
+const pageStatus = document.getElementById('pageStatus');
+const prevPage = document.getElementById('prevPage');
+const nextPage = document.getElementById('nextPage');
+
+let sortKey = null;
+let sortAsc = true;
+let page = 1;
+const pageSize = 6;
+
+function getFilteredSorted() {
+    let rows = mockContent.filter(r => {
+        const q = contentSearch.value.toLowerCase();
+        const okQ = !q || r.title.toLowerCase().includes(q) || r.id.toLowerCase().includes(q);
+        const okS = !filterSubject.value || r.subject === filterSubject.value;
+        const okD = !filterDifficulty.value || r.difficulty === filterDifficulty.value;
+        return okQ && okS && okD;
+    });
+    if (sortKey) {
+        rows.sort((a, b) => {
+            const va = a[sortKey];
+            const vb = b[sortKey];
+            if (sortKey === 'updated') return (sortAsc ? 1 : -1) * (new Date(va) - new Date(vb));
+            return (sortAsc ? 1 : -1) * (va > vb ? 1 : va < vb ? -1 : 0);
+        });
+    }
+    return rows;
+}
+
+function renderContentTable() {
+    const rows = getFilteredSorted();
+    const total = rows.length;
+    const pages = Math.max(1, Math.ceil(total / pageSize));
+    page = Math.min(page, pages);
+    const start = (page - 1) * pageSize;
+    const end = Math.min(start + pageSize, total);
+    contentTbody.innerHTML = '';
+    rows.slice(start, end).forEach(r => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${r.id}</td>
+          <td>${r.title}</td>
+          <td>${r.subject}</td>
+          <td>${r.difficulty}</td>
+          <td>${new Date(r.updated).toLocaleDateString()}</td>
+          <td><button class="btn btn-sm btn-primary" data-id="${r.id}"><i class="fa-solid fa-link"></i> Select</button></td>
+        `;
+        tr.querySelector('button').addEventListener('click', () => {
+            if (currentLinkType === 'easier') {
+                state.formData.adaptiveContent.frustration.linkedEasierProblemId = r.id;
+                document.getElementById('frustrationLinkedId').value = r.id;
+            } else if (currentLinkType === 'challenge') {
+                state.formData.adaptiveContent.boredom.challengeProblemId = r.id;
+                document.getElementById('boredomLinkedId').value = r.id;
+            } else if (currentLinkType === 'advanced') {
+                state.formData.adaptiveContent.engagement.advancedTaskId = r.id;
+                document.getElementById('engagementLinkedId').value = r.id;
+            }
+            markDirty();
+            renderPreview();
+            const modal = bootstrap.Modal.getInstance(document.getElementById('linkContentModal'));
+            modal.hide();
+        });
+        contentTbody.appendChild(tr);
+    });
+    tableInfo.textContent = `Showing ${total?start+1:0}–${end} of ${total}`;
+    pageStatus.textContent = `${page} / ${pages}`;
+    prevPage.disabled = page <= 1;
+    nextPage.disabled = page >= pages;
+}
+
+document.getElementById('contentTable').querySelectorAll('th[data-sort]').forEach(th => {
+    th.addEventListener('click', () => {
+        const key = th.getAttribute('data-sort');
+        if (sortKey === key) sortAsc = !sortAsc;
+        else {
+            sortKey = key;
+            sortAsc = true;
+        }
+        renderContentTable();
+    });
+});
+
+[contentSearch, filterSubject, filterDifficulty].forEach(el => el.addEventListener('input', () => {
+    page = 1;
+    renderContentTable();
+}));
+prevPage.addEventListener('click', () => {
+    if (page > 1) {
+        page--;
+        renderContentTable();
+    }
+});
+nextPage.addEventListener('click', () => {
+    page++;
+    renderContentTable();
+});
+
+// Initial table render on modal open handled above
+
+// Simple Help / Guidelines actions
+document.getElementById('openGuidelines').addEventListener('click', () => {
+    Swal.fire({
+        title: 'Content Guidelines',
+        html: '<div class="text-start">\n          <ul>\n            <li>Write clear learning objectives.</li>\n            <li>Use LaTeX for math: wrap inline with $...$ and display with $$...$$.</li>\n            <li>Ensure solution steps are incremental and explanatory.</li>\n            <li>Adaptive responses should be empathetic and concise.</li>\n          </ul>\n        </div>',
+        icon: 'info',
+        confirmButtonText: 'Got it'
+    });
+});
+document.getElementById('openHelp').addEventListener('click', () => {
+    Swal.fire({
+        title: 'Need Help?',
+        text: 'Use the tabs to fill metadata, question, solution, and adaptive responses. Link related content via the Search button.',
+        icon: 'question'
+    });
+});
+  </script>
+ </body>
+</html>
